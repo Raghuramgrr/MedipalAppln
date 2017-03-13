@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/Address"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Pincode"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textPostalAddress" />
+
+    <EditText
+        android:id="@+id/height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:ems="10"
+        android:hint="Height in cms"
+        android:inputType="number"
+        android:layout_marginTop="77dp"
+        android:layout_below="@+id/Address"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/BloodType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/height"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:hint="Blood Group"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:hint="DOB"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/Pincode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:layout_marginTop="42dp"
+        android:layout_below="@+id/dob"
+        android:layout_alignParentStart="true"
+        android:hint="Pincode"/>
+
+    <Button
+        android:id="@+id/Addbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/BloodType"
+        android:layout_marginEnd="39dp"
+        android:layout_marginTop="12dp"
+        android:text="Add/Update" />
+
+</RelativeLayout>
