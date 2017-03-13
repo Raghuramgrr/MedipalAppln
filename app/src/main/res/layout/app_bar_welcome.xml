@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="iss.nus.edu.medipalappln.Welcome">
+    tools:context="iss.nus.edu.medipalappln.activity.Welcome">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +21,12 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_welcome" />
+
+    <FrameLayout
+        android:id="@+id/flContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

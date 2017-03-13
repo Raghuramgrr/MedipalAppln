@@ -11,9 +11,9 @@
         android:allowBackup="true"
         android:debuggable="true"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Base.V21.Theme.AppCompat">
         <activity
-            android:name=".HomeActivity"
+            android:name=".activity.HomeActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,16 +22,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
-            android:parentActivityName=".HomeActivity" />
+            android:name=".activity.SignUpActivity"
+            android:parentActivityName=".activity.HomeActivity" />
         <activity
-            android:name=".SignInActivity"
-            android:parentActivityName=".HomeActivity" />
+            android:name=".activity.SignInActivity"
+            android:parentActivityName=".activity.HomeActivity" />
         <activity
-            android:name=".Welcome"
+            android:name=".activity.Welcome"
             android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".HelpScreen"></activity>
+        <activity android:name=".activity.HelpScreen"></activity>
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@
 
 
     <!-- Screens background -->
-    <color name="bg_screen1">#A29ECD</color>
+    <color name="bg_screen1">#a29ecd</color>
     <color name="bg_screen2">#C58F9D</color>
     <color name="bg_screen3">#77A8AB</color>
 

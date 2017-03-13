@@ -1,4 +1,4 @@
-package iss.nus.edu.medipalappln;
+package iss.nus.edu.medipalappln.dao;
 
 import android.content.Context;
         import android.database.sqlite.SQLiteDatabase;

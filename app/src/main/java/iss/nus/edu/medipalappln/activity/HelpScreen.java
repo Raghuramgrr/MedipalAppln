@@ -1,11 +1,10 @@
-package iss.nus.edu.medipalappln;
+package iss.nus.edu.medipalappln.activity;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -18,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.Welcome;
 
 public class HelpScreen extends Activity {
 

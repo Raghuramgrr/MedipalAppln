@@ -1,4 +1,4 @@
-package iss.nus.edu.medipalappln;
+package iss.nus.edu.medipalappln.activity;
 
 /**
  * Created by root on 7/3/17.

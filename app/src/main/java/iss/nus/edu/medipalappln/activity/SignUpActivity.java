@@ -1,16 +1,17 @@
-package iss.nus.edu.medipalappln;
+package iss.nus.edu.medipalappln.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import iss.nus.edu.medipalappln.R;
+
+import iss.nus.edu.medipalappln.dao.LoginDataBaseAdapter;
 
 public class SignUpActivity extends Activity
 {

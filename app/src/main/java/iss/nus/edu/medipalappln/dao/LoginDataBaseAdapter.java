@@ -1,4 +1,4 @@
-package iss.nus.edu.medipalappln;
+package iss.nus.edu.medipalappln.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
