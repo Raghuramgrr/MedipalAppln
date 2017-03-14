@@ -21,6 +21,7 @@ public class HomeActivity extends Activity
     LoginDataBaseAdapter loginDataBaseAdapter;
     Session session;
     TextView register;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
