@@ -1,45 +1,21 @@
 package iss.nus.edu.medipalappln.medipal;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 public class Measurement {
     String decimalPattern = "#####.##";
 
-    private Integer ID;
-    private Integer systolic;
-    private Integer diastolic;
-    private Integer pulse;
-    private Integer temperature;
-    private DecimalFormat weight;
-    private SimpleDateFormat measuredOn;
-
-    private Integer Type;
+    protected Integer ID;
+    protected Integer systolic;
+    protected Integer diastolic;
+    protected Integer pulse;
+    protected Integer temperature;
+    protected Double weight;
+    protected Date measuredOn;
 
     // Constructor
-    public Measurement(Integer type, SimpleDateFormat date) {
+    public Measurement() {
 
-        switch(type) {
-
-            case 1: {
-                this.systolic = systolic;
-                this.diastolic = diastolic;
-                this.measuredOn = date;
-            }
-            case 2: {
-                this.pulse = pulse;
-                this.measuredOn = date;
-            }
-            case 3: {
-                this.temperature = temperature;
-                this.measuredOn = date;
-            }
-            case 4: {
-                this.weight = new DecimalFormat(decimalPattern);
-                //this.weight = weight.format(weight);
-                this.measuredOn = date;
-            }
-        }
     }
 
     // Methods

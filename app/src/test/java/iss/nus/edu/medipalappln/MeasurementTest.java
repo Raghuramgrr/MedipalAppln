@@ -1,31 +1,37 @@
 package iss.nus.edu.medipalappln;
 
+import junit.framework.TestCase;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import iss.nus.edu.medipalappln.medipal.Measurement;
+import iss.nus.edu.medipalappln.medipal.BloodPressure;
+import iss.nus.edu.medipalappln.medipal.Pulse;
+import iss.nus.edu.medipalappln.medipal.Temperature;
+import iss.nus.edu.medipalappln.medipal.Weight;
 
 public class MeasurementTest extends TestCase {
 
     String datePattern = "yyyy-MM-dd HH:mm";
-    SimpleDateFormat simpleDateFormat;
+    SimpleDateFormat testDate;
 
-    private Measurement measurementBloodPressure;
-    private Measurement measurementPulse;
-    private Measurement measurementTemperature;
-    private Measurement measurementWeight;
+    private BloodPressure measurementBloodPressure;
+    private Pulse measurementPulse;
+    private Temperature measurementTemperature;
+    private Weight measurementWeight;
 
     @Before public void setUp() throws Exception {
 
-        simpleDateFormat = new SimpleDateFormat(pattern);
+        testDate = new SimpleDateFormat(datePattern);
 
-        measurementBloodPressure = new Measurement(1, 100, 80, simpleDateFormat.parse("2017-01-02 10:00"));
-        measurementPulse = new Measurement(2, 90, simpleDateFormat.parse("2017-01-02 12:00"));
-        measurementTemperature = new Measurement(3, 36, simpleDateFormat.parse("2017-01-02 14:00"));
-        measurementWeight = new Measurement(4, 40, simpleDateFormat.parse("2017-01-02 18:00"));
+        measurementBloodPressure = new BloodPressure(100, 80, (Date) testDate.parse("2017-01-02 11:00"));
+        measurementPulse = new Pulse(90, (Date) testDate.parse("2017-01-02 12:00"));
+        measurementTemperature = new Temperature(36, (Date) testDate.parse("2017-01-02 15:00"));
+        measurementWeight = new Weight(41.10, (Date) testDate.parse("2017-01-02 18:00"));
 
     }
 
