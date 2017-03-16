@@ -4,29 +4,33 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import iss.nus.edu.medipalappln.R;
+import android.view.View;
 
-import iss.nus.edu.medipalappln.activity.HomeActivity;
-import iss.nus.edu.medipalappln.activity.Session;
+import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.fragment.Fragmentone;
 import iss.nus.edu.medipalappln.fragment.Fragmenttwo;
+import iss.nus.edu.medipalappln.fragment.MeasurementFragment;
 
 public class Welcome extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Fragmentone.OnFragmentInteractionListener,
-        Fragmenttwo.OnFragmentInteractionListener{
+                    implements NavigationView.OnNavigationItemSelectedListener,
+                                Fragmentone.OnFragmentInteractionListener,
+                                Fragmenttwo.OnFragmentInteractionListener,
+                                MeasurementFragment.OnFragmentInteractionListener {
+
     public Session session;
+    private static final String TAG = "Welcome";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,30 +111,41 @@ public class Welcome extends AppCompatActivity
         int id = item.getItemId();
         Fragment fragment = null;
         Class fragmentClass = null;
+
         if (id == R.id.PersonalBio) {
             fragmentClass = Fragmentone.class;
         } else if (id == R.id.nav_ice) {
             fragmentClass = Fragmenttwo.class;
-        } else if (id == R.id.nav_slideshow) {
-            //fragmentClass = FragmentOne.class;
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_health_bio) {
             //fragmentClass = FragmentTwo.class;
-        } else if (id == R.id.nav_send) {
-            //fragmentClass = FragmentOne.class;
+        } else if (id == R.id.nav_measurement) {
+            fragmentClass = MeasurementFragment.class;
+        } else if (id == R.id.nav_medicine) {
+            //fragmentClass = FragmentTwo.class;
+        } else if (id == R.id.nav_appointment) {
+            //fragmentClass = FragmentTwo.class;
         } else if (id == R.id.Logout) {
             //fragmentClass = FragmentTwo.class;
             logout();
         }
+
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if (fragment == null)
+        {
+            Log.i(TAG, "null pointer");
+        }
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 

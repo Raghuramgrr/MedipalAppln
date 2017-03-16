@@ -5,17 +5,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_ice"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="ICE" />
-        <item
             android:id="@+id/PersonalBio"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Add Personal Bio" />
+            android:title="Personal Bio" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_ice"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Emergency Contact" />
+        <item
+            android:id="@+id/nav_health_bio"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Health Bio" />
+        <item
+            android:id="@+id/nav_measurement"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Measurement" />
+        <item
+            android:id="@+id/nav_medicine"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Medicine" />
+        <item
+            android:id="@+id/nav_appointment"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Appointment" />
         <item
             android:id="@+id/Logout"
             android:icon="@drawable/ic_menu_manage"

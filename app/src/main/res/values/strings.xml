@@ -33,4 +33,46 @@
     <string name="title_activity_welcome">Welcome</string>
     <string name="Add_personal_Bio">Potential personal bio form</string>
     <string name="Add_ICE">ICE Details</string>
-    </resources>
+
+    <!-- Strings related to measurement -->
+    <string name="fragment_measurement">Measurement</string>
+    <string name="fragment_measure_blood_pressure">Blood Pressure</string>
+    <string name="fragment_measure_pulse">Pulse</string>
+    <string name="fragment_measure_temperature">Temperature</string>
+    <string name="fragment_measure_weight">Weight</string>
+    <string name="text_personal_bio">Personal Bio</string>
+    <string name="text_medicine">Medicine</string>
+    <string name="text_appointment">Appointment</string>
+    <string name="text_my_details">My Details</string>
+    <string name="text_health_bio">Health Bio</string>
+    <string name="text_ice">ICE</string>
+    <string name="text_measurement">Measurement</string>
+    <string name="text_blood_pressure">Blood Pressure</string>
+    <string name="text_pulse">Pulse</string>
+    <string name="text_weight">Weight</string>
+    <string name="text_temperature">Temperature</string>
+    <string name="text_consumption">Consumption</string>
+    <string name="text_medication">Medication</string>
+
+    <string name="button_personal_bio">Personal Bio</string>
+    <string name="button_medicine">Medicine</string>
+    <string name="button_appointment">Appointment</string>
+    <string name="button_my_details">My Details</string>
+    <string name="button_health_bio">Health Bio</string>
+    <string name="button_ICE">ICE</string>
+    <string name="button_measurement">Measurement</string>
+    <string name="button_consumption">Consumption</string>
+
+    <string name="checkbox_appt_notification">Notification</string>
+
+    <string name="button_appt_add">Add</string>
+    <string name="button_appt_update">Update</string>
+    <string name="button_appt_delete">Delete</string>
+
+    <string name="edit_text_appt_date">Date</string>
+    <string name="edit_text_appt_ID">Appointment ID</string>
+
+    <string name="fragment_medicine_list">Medication</string>
+    <string name="fragment_consumption_list">Consumption</string>
+    <string name="fragment_measurement_list">Measurement</string>
+</resources>
