@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">MedipalAppln</string>
+    <string name="title_activity_signin">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">Contacts permissions are needed for providing email
+        completions.</string>
+    <string name="title_activity_sign_in">Sign in</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="start">Start</string>
+    <string name="title_slide1">Welcome to MediPal!</string>
+    <string name="desc_slide1">Your one stop Personel Health Assistant..</string>
+    <string name="title_slide2">Track Measurements!</string>
+    <string name="desc_slide2">It records your health statistics and notify remainders on need..</string>
+    <string name="title_slide3">Manage Medicines</string>
+    <string name="desc_slide3">Helps you manage Medication and appointments..</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_welcome">Welcome</string>
+    <string name="Add_personal_Bio">Potential personal bio form</string>
+    <string name="Add_ICE">ICE Details</string>
+
+    <!-- Strings related to measurement -->
+    <string name="fragment_measurement">Measurement</string>
+    <string name="fragment_measure_blood_pressure">Blood Pressure</string>
+    <string name="fragment_measure_pulse">Pulse</string>
+    <string name="fragment_measure_temperature">Temperature</string>
+    <string name="fragment_measure_weight">Weight</string>
+    <string name="text_personal_bio">Personal Bio</string>
+    <string name="text_medicine">Medicine</string>
+    <string name="text_appointment">Appointment</string>
+    <string name="text_my_details">My Details</string>
+    <string name="text_health_bio">Health Bio</string>
+    <string name="text_ice">ICE</string>
+    <string name="text_measurement">Measurement</string>
+    <string name="text_blood_pressure">Blood Pressure</string>
+    <string name="text_pulse">Pulse</string>
+    <string name="text_weight">Weight</string>
+    <string name="text_temperature">Temperature</string>
+    <string name="text_consumption">Consumption</string>
+    <string name="text_medication">Medication</string>
+
+    <string name="button_personal_bio">Personal Bio</string>
+    <string name="button_medicine">Medicine</string>
+    <string name="button_appointment">Appointment</string>
+    <string name="button_my_details">My Details</string>
+    <string name="button_health_bio">Health Bio</string>
+    <string name="button_ICE">ICE</string>
+    <string name="button_measurement">Measurement</string>
+    <string name="button_consumption">Consumption</string>
+
+    <string name="checkbox_appt_notification">Notification</string>
+
+    <string name="button_appt_add">Add</string>
+    <string name="button_appt_update">Update</string>
+    <string name="button_appt_delete">Delete</string>
+
+    <string name="edit_text_appt_date">Date</string>
+    <string name="edit_text_appt_ID">Appointment ID</string>
+
+    <string name="fragment_medicine_list">Medication</string>
+    <string name="fragment_consumption_list">Consumption</string>
+    <string name="fragment_measurement_list">Measurement</string>
+</resources>

@@ -1,0 +1,116 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="iss.nus.edu.medipalappln.fragment.IceDetails">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+
+        <EditText
+            android:id="@+id/emergencyPhone1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="EmergencyNumber1"
+            android:inputType="numberSigned" />
+
+        <Button
+            android:id="@+id/add1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/emergencyPhone1"
+            android:layout_toRightOf="@+id/emergencyPhone1"
+            android:background="@drawable/btn"
+            android:text="Add" />
+
+        <EditText
+            android:id="@+id/emergencyPhone2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/emergencyPhone1"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="130dp"
+            android:ems="10"
+            android:hint="EmergencyNumber2"
+            android:inputType="numberSigned" />
+
+        <Button
+            android:id="@+id/add2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/emergencyPhone2"
+            android:layout_toRightOf="@+id/emergencyPhone2"
+            android:background="@drawable/btn"
+            android:text="Add" />
+
+        <EditText
+            android:id="@+id/emergencyPhone3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/emergencyPhone2"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="230dp"
+            android:ems="10"
+            android:hint="EmergencyNumber3"
+            android:inputType="numberSigned" />
+
+        <Button
+            android:id="@+id/add3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/emergencyPhone3"
+            android:layout_toRightOf="@+id/emergencyPhone3"
+            android:background="@drawable/btn"
+            android:text="Add" />
+
+        <Button
+            android:id="@+id/emergency3"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn"
+            android:elevation="19dp"
+            android:gravity="bottom"
+            android:text="Emergency3"
+            android:layout_below="@+id/add3"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="41dp" />
+
+        <Button
+            android:id="@+id/emergency2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn"
+            android:text="Emergency2"
+            android:layout_alignBaseline="@+id/emergency1"
+            android:layout_alignBottom="@+id/emergency1"
+            android:layout_alignStart="@+id/add1"
+            android:layout_marginStart="14dp" />
+
+        <Button
+            android:id="@+id/emergency1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn"
+            android:text="Emergency1"
+            android:layout_alignTop="@+id/emergency3"
+            android:layout_toEndOf="@+id/emergency3"
+            android:layout_marginStart="31dp"></Button>
+
+    </RelativeLayout>
+</FrameLayout>
