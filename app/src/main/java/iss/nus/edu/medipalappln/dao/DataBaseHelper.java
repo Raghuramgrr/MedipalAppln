@@ -37,91 +37,98 @@ public class DataBaseHelper extends SQLiteOpenHelper
     //begin SQL statement
     public static final String CREATE_TABLE_PERSONALBIO = "CREATE TABLE " + TABLE_PERSONALBIO +
             "(" +
-            PERSONALBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            PERSONALBIO.Name + " VARCHAR(100) " +
-            PERSONALBIO.DOB + " DATE " +
-            PERSONALBIO.IDNo + " VARCHAR(20) " +
-            PERSONALBIO.Address + " VARCHAR(100) " +
-            PERSONALBIO.PostalCode + " VARCHAR(10) " +
-            PERSONALBIO.Height + " INTEGER " +
+            PERSONALBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            PERSONALBIO.Name + " VARCHAR(100), " +
+            PERSONALBIO.DOB + " DATE, " +
+            PERSONALBIO.IDNo + " VARCHAR(20), " +
+            PERSONALBIO.Address + " VARCHAR(100), " +
+            PERSONALBIO.PostalCode + " VARCHAR(10), " +
+            PERSONALBIO.Height + " INTEGER, " +
             PERSONALBIO.BloodType + " VARCHAR(10) " +
             ");";
 
     public static final String CREATE_TABLE_HEALTHBIO = "CREATE TABLE " + TABLE_HEALTHBIO +
             "(" +
-            HEALTHBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            HEALTHBIO.Condition + " VARCHAR(255) " +
-            HEALTHBIO.StartDate + " DATE " +
+            HEALTHBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            HEALTHBIO.Condition + " VARCHAR(255), " +
+            HEALTHBIO.StartDate + " DATE, " +
             HEALTHBIO.ConditionType + " VARCHAR(1) " +
             ");";
 
     public static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY +
             "(" +
-            CATEGORY.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            CATEGORY.Category + " VARCHAR(50) " +
-            CATEGORY.Code + " VARCHAR(5) " +
-            CATEGORY.Description + " VARCHAR(255) " +
+            CATEGORY.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            CATEGORY.Category + " VARCHAR(50), " +
+            CATEGORY.Code + " VARCHAR(5), " +
+            CATEGORY.Description + " VARCHAR(255), " +
             CATEGORY.Remind + " INTEGER DEFAULT 0" + //there is no boolean type in sqlite
             ");";
 
     public static final String CREATE_TABLE_MEDICINE = "CREATE TABLE " + TABLE_MEDICINE +
             "(" +
-            MEDICINE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            MEDICINE.Medicine + " VARCHAR(50) " +
-            MEDICINE.Description + " VARCHAR(255) " +
-            MEDICINE.CatID + " INTEGER " +
-            MEDICINE.ReminderID + " INTEGER" +
-            MEDICINE.Remind + " INTEGER DEFAULT 0" +
-            MEDICINE.Quantity + " INTEGER" +
-            MEDICINE.Dosage + " INTEGER" +
-            MEDICINE.ConsumeQualty + " INTEGER" +
-            MEDICINE.Threshold + " INTEGER" +
-            MEDICINE.DateIssued  + " DATE" +
-            MEDICINE.ExpireFactor  + " INTEGER" +
+            MEDICINE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            MEDICINE.Medicine + " VARCHAR(50), " +
+            MEDICINE.Description + " VARCHAR(255), " +
+            MEDICINE.CatID + " INTEGER, " +
+            MEDICINE.ReminderID + " INTEGER, " +
+            MEDICINE.Remind + " INTEGER DEFAULT 0, " +
+            MEDICINE.Quantity + " INTEGER, " +
+            MEDICINE.Dosage + " INTEGER, " +
+            MEDICINE.ConsumeQualty + " INTEGER, " +
+            MEDICINE.Threshold + " INTEGER, " +
+            MEDICINE.DateIssued  + " DATE, " +
+            MEDICINE.ExpireFactor  + " INTEGER " +
             ");";
 
     public static final String CREATE_TABLE_MEASUREMENT = "CREATE TABLE " + TABLE_MEASUREMENT +
             "(" +
-            MEASUREMENT.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            MEASUREMENT.Systolic + " INTEGER " +
-            MEASUREMENT.Diastolic + " INTEGER " +
-            MEASUREMENT.Pulse + " INTEGER " +
-            MEASUREMENT.Temperature + " DECIMAL(5,2)" +
-            MEASUREMENT.Weight + " INTEGER" +
+            MEASUREMENT.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            MEASUREMENT.Systolic + " INTEGER, " +
+            MEASUREMENT.Diastolic + " INTEGER, " +
+            MEASUREMENT.Pulse + " INTEGER, " +
+            MEASUREMENT.Temperature + " DECIMAL(5,2), " +
+            MEASUREMENT.Weight + " INTEGER, " +
             MEASUREMENT.MeasuredOn + " DATETIME" +
             ");";
 
+    //test data
+    public static final String INSERT_TABLE_MEASUREMENT = "INSERT INTO " + TABLE_MEASUREMENT +
+            "(" +
+            MEASUREMENT.Systolic + ", " +
+            MEASUREMENT.Diastolic + ") " +
+            "VALUES (100, 85);";
+
     public static final String CREATE_TABLE_CONSUMPTION = "CREATE TABLE " + TABLE_CONSUMPTION +
             "(" +
-            CONSUMPTION.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            CONSUMPTION.MedicineID + " INTEGER " +
-            CONSUMPTION.Quantity + " INTEGER " +
+            CONSUMPTION.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            CONSUMPTION.MedicineID + " INTEGER, " +
+            CONSUMPTION.Quantity + " INTEGER, " +
             CONSUMPTION.ConsumedOn + " DATETIME " +
             ");";
 
     public static final String CREATE_TABLE_REMINDER = "CREATE TABLE " + TABLE_REMINDER +
             "(" +
-            REMINDER.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            REMINDER.Frequency + " INTEGER " +
-            REMINDER.StartTime + " DATETIME " +
+            REMINDER.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            REMINDER.Frequency + " INTEGER, " +
+            REMINDER.StartTime + " DATETIME, " +
             REMINDER.Interval + " INTEGER " +
             ");";
 
     public static final String CREATE_TABLE_APPOINTMENT = "CREATE TABLE " + TABLE_APPOINTMENT +
             "(" +
-            APPOINTMENT.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            APPOINTMENT.Location + " VARCHAR(100) " +
-            APPOINTMENT.Appointment + " DATETIME " +
+            APPOINTMENT.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            APPOINTMENT.Location + " VARCHAR(100), " +
+            APPOINTMENT.Appointment + " DATETIME, " +
             APPOINTMENT.Description + " VARCHAR(255) " +
             ");";
 
     public static final String CREATE_TABLE_ICE = "CREATE TABLE " + TABLE_ICE +
             "(" +
-            ICE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            ICE.Name + " VARCHAR(100) " +
-            ICE.ContactNo + " VARCHAR(20) " +
-            ICE.ContactType + " INTEGER " +
-            ICE.Description + " VARCHAR(255) " +
+            ICE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            ICE.Name + " VARCHAR(100), " +
+            ICE.ContactNo + " VARCHAR(20), " +
+            ICE.ContactType + " INTEGER, " +
+            ICE.Description + " VARCHAR(255), " +
             ICE.Sequence + " INTEGER " +
             ");";
 
@@ -156,6 +163,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
         _db.execSQL(CREATE_TABLE_REMINDER);
         _db.execSQL(CREATE_TABLE_APPOINTMENT);
         _db.execSQL(CREATE_TABLE_ICE);
+
+        //_db.execSQL(INSERT_TABLE_MEASUREMENT);
     }
 
     @Override
