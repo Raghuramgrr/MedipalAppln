@@ -17,12 +17,15 @@ import android.view.MenuItem;
 import iss.nus.edu.medipalappln.R;
 
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
+import iss.nus.edu.medipalappln.fragment.MeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
 
 public class Welcome extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PersonalBioForm.OnFragmentInteractionListener,
-        IceDetails.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+                    PersonalBioForm.OnFragmentInteractionListener,
+                    IceDetails.OnFragmentInteractionListener,
+                    MeasurementFragment.OnFragmentInteractionListener {
     public Session session;
     BioDataBaseAdapter bioDataBaseAdapter;
 
@@ -102,6 +105,8 @@ public class Welcome extends AppCompatActivity
             fragmentClass = PersonalBioForm.class;
         } else if (id == R.id.nav_ice) {
             fragmentClass = IceDetails.class;
+        } else if (id == R.id.nav_measurement) {
+            fragmentClass = MeasurementFragment.class;
         } else if (id == R.id.nav_appointment) {
             //fragmentClass = FragmentOne.class;
         } else if (id == R.id.nav_health_bio) {
