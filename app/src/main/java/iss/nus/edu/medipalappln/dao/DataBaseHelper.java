@@ -12,129 +12,117 @@ public class DataBaseHelper extends SQLiteOpenHelper
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MediPal.db";
 
-    public static final String TABLE_PERSONALBIO= "PersonalBio";
-    public static final String TABLE_HEALTHBIO= "HealthBio";
-    public static final String TABLE_CATEGORIES= "Categories";
-    public static final String TABLE_MEDICINE= "Medicine";
-    public static final String TABLE_MEASUREMENTS= "Measurements";
-    public static final String TABLE_CONSUMPTION= "Consumption";
-    public static final String TABLE_REMINDERS= "Reminders";
-    public static final String TABLE_APPOINTMENT= "Appointment";
+    public static final String TABLE_PERSONALBIO = "PersonalBio";
+    public static final String TABLE_HEALTHBIO = "HealthBio";
+    public static final String TABLE_CATEGORY = "Categories";
+    public static final String TABLE_MEDICINE = "Medicine";
+    public static final String TABLE_MEASUREMENT = "Measurement";
+    public static final String TABLE_CONSUMPTION = "Consumption";
+    public static final String TABLE_REMINDER = "Reminders";
+    public static final String TABLE_APPOINTMENT = "Appointment";
     public static final String TABLE_ICE= "ICE";
 
     //table columns
-    public static final String COLUMN_PERSONALBIO[] = {"ID", "Name", "DOB", "IDNo", "Address",
-            "PostalCode", "Height", "BloodType"};
+    public enum PERSONALBIO {ID, Name, DOB, IDNo, Address, PostalCode, Height, BloodType};
+    public enum HEALTHBIO {ID, Condition, StartDate, ConditionType};
+    public enum CATEGORY {ID, Category, Code, Description, Remind};
+    public enum MEDICINE {ID, Medicine, Description, CatID, ReminderID, Remind, Quantity, Dosage,
+        ConsumeQualty, Threshold, DateIssued, ExpireFactor};
+    public enum MEASUREMENT {ID, Systolic, Diastolic, Pulse, Temperature, Weight , MeasuredOn};
+    public enum CONSUMPTION {ID, MedicineID, Quantity, ConsumedOn};
+    public enum REMINDER {ID, Frequency, StartTime, Interval};
+    public enum APPOINTMENT {ID, Location, Appointment, Description};
+    public enum ICE {ID, Name, ContactNo, ContactType, Description, Sequence};
 
-    public static final String COLUMN_HEALTHBIO[] = {"ID", "Condition", "StartDate", "ConditionType"};
-
-    public static final String COLUMN_CATEGORIES[] = {"ID", "Category", "Code", "Description",
-            "Remind"};
-
-    public static final String COLUMN_MEDICINE[] = {"ID", "Medicine", "Description", "CatID",
-            "ReminderID", "Remind", "Quantity", "Dosage", "ConsumeQualty", "Threshold", "DateIssued",
-            "ExpireFactor"};
-
-    public static final String COLUMN_MEASUREMENTS[] = {"ID", "Systolic", "Diastolic", "Pulse",
-            "Temperature", "Weight ", "MeasuredOn"};
-
-    public static final String COLUMN_CONSUMPTION[] = {"ID", "MedicineID", "Quantity", "ConsumedOn"};
-
-    public static final String COLUMN_REMINDERS[] = {"ID", "Frequency", "StartTime", "Interval"};
-
-    public static final String COLUMN_APPOINTMENT[] = {"ID", "Location", "Appointment", "Description"};
-    public static final String COLUMN_ICE[] = {"ID", "Name", "ContactNo", "ContactType", "Description",
-            "Sequence"};
-
-    //begin SQL statements
+    //begin SQL statement
     public static final String CREATE_TABLE_PERSONALBIO = "CREATE TABLE " + TABLE_PERSONALBIO +
             "(" +
-            COLUMN_PERSONALBIO[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_PERSONALBIO[1] + " VARCHAR(100) " +
-            COLUMN_PERSONALBIO[2] + " DATE " +
-            COLUMN_PERSONALBIO[3] + " VARCHAR(20) " +
-            COLUMN_PERSONALBIO[4] + " VARCHAR(100) " +
-            COLUMN_PERSONALBIO[5] + " VARCHAR(10) " +
-            COLUMN_PERSONALBIO[6] + " INTEGER " +
-            COLUMN_PERSONALBIO[7] + " VARCHAR(10) " +
+            PERSONALBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            PERSONALBIO.Name + " VARCHAR(100) " +
+            PERSONALBIO.DOB + " DATE " +
+            PERSONALBIO.IDNo + " VARCHAR(20) " +
+            PERSONALBIO.Address + " VARCHAR(100) " +
+            PERSONALBIO.PostalCode + " VARCHAR(10) " +
+            PERSONALBIO.Height + " INTEGER " +
+            PERSONALBIO.BloodType + " VARCHAR(10) " +
             ");";
 
     public static final String CREATE_TABLE_HEALTHBIO = "CREATE TABLE " + TABLE_HEALTHBIO +
             "(" +
-            COLUMN_HEALTHBIO[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_HEALTHBIO[1] + " VARCHAR(255) " +
-            COLUMN_HEALTHBIO[2] + " DATE " +
-            COLUMN_HEALTHBIO[3] + " VARCHAR(1) " +
+            HEALTHBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            HEALTHBIO.Condition + " VARCHAR(255) " +
+            HEALTHBIO.StartDate + " DATE " +
+            HEALTHBIO.ConditionType + " VARCHAR(1) " +
             ");";
 
-    public static final String CREATE_TABLE_CATEGORIES = "CREATE TABLE " + TABLE_CATEGORIES +
+    public static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY +
             "(" +
-            COLUMN_CATEGORIES[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_CATEGORIES[1] + " VARCHAR(50) " +
-            COLUMN_CATEGORIES[2] + " VARCHAR(5) " +
-            COLUMN_CATEGORIES[3] + " VARCHAR(255) " +
-            COLUMN_CATEGORIES[4] + " INTEGER DEFAULT 0" + //there is no boolean type in sqlite
+            CATEGORY.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            CATEGORY.Category + " VARCHAR(50) " +
+            CATEGORY.Code + " VARCHAR(5) " +
+            CATEGORY.Description + " VARCHAR(255) " +
+            CATEGORY.Remind + " INTEGER DEFAULT 0" + //there is no boolean type in sqlite
             ");";
 
     public static final String CREATE_TABLE_MEDICINE = "CREATE TABLE " + TABLE_MEDICINE +
             "(" +
-            COLUMN_MEDICINE[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_MEDICINE[1] + " VARCHAR(50) " +
-            COLUMN_MEDICINE[2] + " VARCHAR(255) " +
-            COLUMN_MEDICINE[3] + " INTEGER " +
-            COLUMN_MEDICINE[4] + " INTEGER" +
-            COLUMN_MEDICINE[5] + " INTEGER DEFAULT 0" +
-            COLUMN_MEDICINE[6] + " INTEGER" +
-            COLUMN_MEDICINE[7] + " INTEGER" +
-            COLUMN_MEDICINE[8] + " INTEGER" +
-            COLUMN_MEDICINE[9] + " INTEGER" +
-            COLUMN_MEDICINE[10] + " DATE" +
-            COLUMN_MEDICINE[11] + " INTEGER" +
+            MEDICINE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            MEDICINE.Medicine + " VARCHAR(50) " +
+            MEDICINE.Description + " VARCHAR(255) " +
+            MEDICINE.CatID + " INTEGER " +
+            MEDICINE.ReminderID + " INTEGER" +
+            MEDICINE.Remind + " INTEGER DEFAULT 0" +
+            MEDICINE.Quantity + " INTEGER" +
+            MEDICINE.Dosage + " INTEGER" +
+            MEDICINE.ConsumeQualty + " INTEGER" +
+            MEDICINE.Threshold + " INTEGER" +
+            MEDICINE.DateIssued  + " DATE" +
+            MEDICINE.ExpireFactor  + " INTEGER" +
             ");";
 
-    public static final String CREATE_TABLE_MEASUREMENTS = "CREATE TABLE " + TABLE_MEASUREMENTS +
+    public static final String CREATE_TABLE_MEASUREMENT = "CREATE TABLE " + TABLE_MEASUREMENT +
             "(" +
-            COLUMN_MEASUREMENTS[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_MEASUREMENTS[1] + " INTEGER " +
-            COLUMN_MEASUREMENTS[2] + " INTEGER " +
-            COLUMN_MEASUREMENTS[3] + " INTEGER " +
-            COLUMN_MEASUREMENTS[4] + " DECIMAL(5,2)" +
-            COLUMN_MEASUREMENTS[5] + " INTEGER" +
-            COLUMN_MEASUREMENTS[6] + " DATETIME" +
+            MEASUREMENT.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            MEASUREMENT.Systolic + " INTEGER " +
+            MEASUREMENT.Diastolic + " INTEGER " +
+            MEASUREMENT.Pulse + " INTEGER " +
+            MEASUREMENT.Temperature + " DECIMAL(5,2)" +
+            MEASUREMENT.Weight + " INTEGER" +
+            MEASUREMENT.MeasuredOn + " DATETIME" +
             ");";
 
     public static final String CREATE_TABLE_CONSUMPTION = "CREATE TABLE " + TABLE_CONSUMPTION +
             "(" +
-            COLUMN_CONSUMPTION[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_CONSUMPTION[1] + " INTEGER " +
-            COLUMN_CONSUMPTION[2] + " INTEGER " +
-            COLUMN_CONSUMPTION[3] + " DATETIME " +
+            CONSUMPTION.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            CONSUMPTION.MedicineID + " INTEGER " +
+            CONSUMPTION.Quantity + " INTEGER " +
+            CONSUMPTION.ConsumedOn + " DATETIME " +
             ");";
 
-    public static final String CREATE_TABLE_REMINDERS = "CREATE TABLE " + TABLE_REMINDERS +
+    public static final String CREATE_TABLE_REMINDER = "CREATE TABLE " + TABLE_REMINDER +
             "(" +
-            COLUMN_REMINDERS[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_REMINDERS[1] + " INTEGER " +
-            COLUMN_REMINDERS[2] + " DATETIME " +
-            COLUMN_REMINDERS[3] + " INTEGER " +
+            REMINDER.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            REMINDER.Frequency + " INTEGER " +
+            REMINDER.StartTime + " DATETIME " +
+            REMINDER.Interval + " INTEGER " +
             ");";
 
     public static final String CREATE_TABLE_APPOINTMENT = "CREATE TABLE " + TABLE_APPOINTMENT +
             "(" +
-            COLUMN_APPOINTMENT[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_APPOINTMENT[1] + " VARCHAR(100) " +
-            COLUMN_APPOINTMENT[2] + " DATETIME " +
-            COLUMN_APPOINTMENT[3] + " VARCHAR(255) " +
+            APPOINTMENT.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            APPOINTMENT.Location + " VARCHAR(100) " +
+            APPOINTMENT.Appointment + " DATETIME " +
+            APPOINTMENT.Description + " VARCHAR(255) " +
             ");";
 
     public static final String CREATE_TABLE_ICE = "CREATE TABLE " + TABLE_ICE +
             "(" +
-            COLUMN_ICE[0] + " INTEGER PRIMARY KEY AUTOINCREMENT " +
-            COLUMN_ICE[1] + " VARCHAR(100) " +
-            COLUMN_ICE[2] + " VARCHAR(20) " +
-            COLUMN_ICE[3] + " INTEGER " +
-            COLUMN_ICE[4] + " VARCHAR(255) " +
-            COLUMN_ICE[5] + " INTEGER " +
+            ICE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT " +
+            ICE.Name + " VARCHAR(100) " +
+            ICE.ContactNo + " VARCHAR(20) " +
+            ICE.ContactType + " INTEGER " +
+            ICE.Description + " VARCHAR(255) " +
+            ICE.Sequence + " INTEGER " +
             ");";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
@@ -161,11 +149,11 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
         _db.execSQL(CREATE_TABLE_PERSONALBIO);
         _db.execSQL(CREATE_TABLE_HEALTHBIO);
-        _db.execSQL(CREATE_TABLE_CATEGORIES);
+        _db.execSQL(CREATE_TABLE_CATEGORY);
         _db.execSQL(CREATE_TABLE_MEDICINE);
-        _db.execSQL(CREATE_TABLE_MEASUREMENTS);
+        _db.execSQL(CREATE_TABLE_MEASUREMENT);
         _db.execSQL(CREATE_TABLE_CONSUMPTION);
-        _db.execSQL(CREATE_TABLE_REMINDERS);
+        _db.execSQL(CREATE_TABLE_REMINDER);
         _db.execSQL(CREATE_TABLE_APPOINTMENT);
         _db.execSQL(CREATE_TABLE_ICE);
     }
@@ -174,15 +162,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void onUpgrade(SQLiteDatabase _db, int _oldVersion, int _newVersion)
     {
         // Log the version upgrade.
-        Log.w(TAG, "Upgrading from version " +_oldVersion + " to " +_newVersion + ", which will destroy all old data");
+        Log.w(TAG, "Upgrading from version " +_oldVersion + " to " +_newVersion + ", " +
+                "which will destroy all old data");
 
         _db.execSQL(DROP_TABLE + TABLE_PERSONALBIO);
         _db.execSQL(DROP_TABLE + TABLE_HEALTHBIO);
-        _db.execSQL(DROP_TABLE + TABLE_CATEGORIES);
+        _db.execSQL(DROP_TABLE + TABLE_CATEGORY);
         _db.execSQL(DROP_TABLE + TABLE_MEDICINE);
-        _db.execSQL(DROP_TABLE + TABLE_MEASUREMENTS);
+        _db.execSQL(DROP_TABLE + TABLE_MEASUREMENT);
         _db.execSQL(DROP_TABLE + TABLE_CONSUMPTION);
-        _db.execSQL(DROP_TABLE + TABLE_REMINDERS);
+        _db.execSQL(DROP_TABLE + TABLE_REMINDER);
         _db.execSQL(DROP_TABLE + TABLE_APPOINTMENT);
         _db.execSQL(DROP_TABLE + TABLE_ICE);
 

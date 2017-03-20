@@ -5,6 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
 public class DBDAO {
+
+    private static final String TAG = "DBDAO";
+
     protected SQLiteDatabase database;
     private DataBaseHelper dbHelper;
     private Context context;
