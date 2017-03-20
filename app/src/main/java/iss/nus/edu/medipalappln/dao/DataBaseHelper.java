@@ -1,10 +1,11 @@
 package iss.nus.edu.medipalappln.dao;
 
 import android.content.Context;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.database.sqlite.SQLiteDatabase.CursorFactory;
-        import android.database.sqlite.SQLiteOpenHelper;
-        import android.util.Log;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DataBaseHelper extends SQLiteOpenHelper
 {
@@ -18,6 +19,12 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase _db)
     {
         _db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
+        /*try {
+            _db.execSQL(EmergencyDataBaseAdapter.DATABASE_CREATE_Emergency);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }*/
 
     }
     // Called when there is a database version mismatch meaning that the version
@@ -27,14 +34,22 @@ public class DataBaseHelper extends SQLiteOpenHelper
     {
         // Log the version upgrade.
         Log.w("TaskDBAdapter", "Upgrading from version " +_oldVersion + " to " +_newVersion + ", which will destroy all old data");
+        if(_newVersion>_oldVersion) {
+            try {
+                _db.execSQL(EmergencyDataBaseAdapter.DATABASE_CREATE_Emergency);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
         // Upgrade the existing database to conform to the new version. Multiple
         // previous versions can be handled by comparing _oldVersion and _newVersion
         // values.
         // The simplest case is to drop the old table and create a new one.
-        _db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
+
+        //_db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
         // Create a new one.
-        onCreate(_db);
+
     }
 
 }

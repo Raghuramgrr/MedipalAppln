@@ -33,6 +33,7 @@ public class IceDetails extends Fragment implements View.OnClickListener {
 
     private EmergencyDataBaseAdapter emergencyDataBaseAdapter;
     private Session session;
+    public Context context;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,6 +70,10 @@ public class IceDetails extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        context=getContext().getApplicationContext();
+       // emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(context);
+        //emergencyDataBaseAdapter.close();
+        //emergencyDataBaseAdapter.open();
     }
 
     View view;
@@ -85,9 +90,7 @@ public class IceDetails extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(this.getActivity());
-        //emergencyDataBaseAdapter.close();
-        emergencyDataBaseAdapter.open();
+
         session=new Session(this.getActivity());
 
 
@@ -130,8 +133,10 @@ public class IceDetails extends Fragment implements View.OnClickListener {
 
 
 private void selectEntry(View v, String s) {
-    emergencyDataBaseAdapter.getSingleEntry(session.username(),"1");
+   String phone= emergencyDataBaseAdapter.getSingleEntry(session.username(),"1");
+    Toast.makeText(getView().getContext() , phone, Toast.LENGTH_SHORT).show();
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -142,6 +147,9 @@ private void selectEntry(View v, String s) {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(context);
+        emergencyDataBaseAdapter=emergencyDataBaseAdapter.open();
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {

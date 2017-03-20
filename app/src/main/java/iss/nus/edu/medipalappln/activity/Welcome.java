@@ -3,9 +3,9 @@ package iss.nus.edu.medipalappln.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,21 +15,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import iss.nus.edu.medipalappln.R;
-
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
-import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
+import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
-
+import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 public class Welcome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PersonalBioForm.OnFragmentInteractionListener,
         IceDetails.OnFragmentInteractionListener {
     public Session session;
     BioDataBaseAdapter bioDataBaseAdapter;
-
+    EmergencyDataBaseAdapter emergencyDataBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcomehome);
+        bioDataBaseAdapter=new BioDataBaseAdapter(this);
+        bioDataBaseAdapter=bioDataBaseAdapter.open();
+       // emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(this);
+        //emergencyDataBaseAdapter=emergencyDataBaseAdapter.open();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -138,5 +141,12 @@ public class Welcome extends AppCompatActivity
         session.setLoggedin(Boolean.FALSE,session.username());
         finish();
         startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+    }
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+
+        emergencyDataBaseAdapter.close();
     }
 }

@@ -13,12 +13,12 @@ import android.database.sqlite.SQLiteDatabase;
 public class EmergencyDataBaseAdapter
 {
     static final String DATABASE_NAME = "login.db";
-    static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 2;
     public static final int NAME_COLUMN = 1;
     // TODO: Create public field for each column in your table.
     // SQL Statement to create a new database.
-    static final String DATABASE_CREATE = "create table "+"EmergencyBio"+
-            "( " + "EMAIL text,PHONENUMBER integer,PRIORITY integer); ";
+    static final String DATABASE_CREATE_Emergency = "create table "+"EMERGENCYBIO"+
+            "( " + "EMAIL text,PHONENUMBER integer,PRIORITY text); ";
     // Variable to hold the database instance
     public SQLiteDatabase db;
     // Context of the application using the database.
@@ -53,10 +53,14 @@ public class EmergencyDataBaseAdapter
         newValues.put("PHONENUMBER",Phonenumb);
         newValues.put("PRIORITY",priority);
 
-        // Insert the row into your table
-        db.insert("EmergencyBio", null, newValues);
-        ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
-    }
+        try {
+            db.insert("EMERGENCYBIO", null, newValues);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        }
+
    /* public int deleteEntry(String UserName)
     {
         //String id=String.valueOf(ID);
@@ -67,18 +71,40 @@ public class EmergencyDataBaseAdapter
     }*/
     public String getSingleEntry(String userName,String priority)
     {
-        Cursor cursor=db.query("EmergencyBio", null, " PRIORITY=?", new String[]{priority}, null, null, null);
+        String phone = "";
+        try {
+
+            String selectQuery = "SELECT * FROM EMERGENCYBIO where EMAIL=\"" + userName + "\"";
+            Cursor mCursor = db.rawQuery(selectQuery, null);
+            if (mCursor != null) {
+                mCursor.moveToFirst();
+                phone = mCursor.getString(mCursor.getColumnIndex("PHONENUMBER"));
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return phone;
+    }
+       /* Cursor cursor=db.query("EMERGENCYBIO", null, " PRIORITY=?", new String[]{priority}, null, null, null);
         if(cursor.getCount()<1) // UserName Not Exist
         {
             cursor.close();
             return "NOT EXIST";
         }
         cursor.moveToFirst();
-        String phone= cursor.getString(cursor.getColumnIndex("PHONENUMBER"));
-        cursor.close();
-        return phone;
-    }
+        //String phone= cursor.getString(cursor.getColumnIndex("PHONENUMBER"));
+        cursor.close();*/
 
+    /*String selectTicketDetails = "SELECT ID,SUBJECT,DETAILS,PRIORITY FROM TICKET_DETAILS where SUBJECT=\""
+            + subject + "\"";
+
+    Cursor mCursor = db.rawQuery(selectTicketDetails, null);
+
+		if (mCursor != null) {
+    mCursor.moveToFirst();
+}
+		return mCursor;*/
 
    public void  updateEntry(String userName,String PhoneNumber,String priority)
     {

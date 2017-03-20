@@ -43,8 +43,6 @@ public class HomeActivity extends Activity
 
         TextView tv = (TextView)findViewById(R.id.tv);
         tv.setText(styledString);
-        loginDataBaseAdapter=new LoginDataBaseAdapter(this);
-        loginDataBaseAdapter.open();
         session=new Session(this);
         final EditText editTextUserName=(EditText)findViewById(R.id.input_email);
         final EditText editTextPassword=(EditText)findViewById(R.id.input_password);
