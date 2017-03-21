@@ -27,10 +27,27 @@ import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
+import iss.nus.edu.medipalappln.fragment.MeasurementFragment;
+import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
+import iss.nus.edu.medipalappln.medipal.User;
+
+import static iss.nus.edu.medipalappln.medipal.App.user;
+
+/*<<<<<<< HEAD
+import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
+import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 public class Welcome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PersonalBioForm.OnFragmentInteractionListener,
         IceDetails.OnFragmentInteractionListener, View.OnClickListener {
+=======*/
+
+public class Welcome extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,
+                    PersonalBioForm.OnFragmentInteractionListener,
+                    IceDetails.OnFragmentInteractionListener,
+                    MeasurementFragment.OnFragmentInteractionListener,View.OnClickListener {
+/*>>>>>>> eeec0a993cde1bf28bebd61b6f08e90393645978*/
     public Session session;
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
@@ -46,7 +63,13 @@ public class Welcome extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcomehome);
+        try {
+            setContentView(R.layout.activity_welcomehome);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         // context=this.getApplicationContext();
         //bioDataBaseAdapter=new BioDataBaseAdapter(this);
         //bioDataBaseAdapter=bioDataBaseAdapter.open();
@@ -68,6 +91,7 @@ public class Welcome extends AppCompatActivity
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+           // loadNavHeader();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -78,16 +102,28 @@ public class Welcome extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+/*<<<<<<< HEAD*/
         navHeader = navigationView.getHeaderView(0);
         txtName = (TextView) navHeader.findViewById(R.id.username);
-
+        // loadNavHeader();
         //txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         //imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.imageView);
         imgProfile.setClickable(true);
-        imgProfile.setOnClickListener((View.OnClickListener) this);
+        try {
+            imgProfile.setOnClickListener(this);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
             //imgProfile.setOnClickListener((View.OnClickListener) this.getApplicationContext());
 
+/*=======*/
+
+        //user = new User(session.username());
+        user = new User("S12345678");
+/*>>>>>>> eeec0a993cde1bf28bebd61b6f08e90393645978*/
     }
 
 
@@ -146,8 +182,6 @@ public class Welcome extends AppCompatActivity
 
 
 
-
-
     private void loadNavHeader() {
         // name, website
         txtName.setText(session.username());
@@ -176,6 +210,7 @@ public class Welcome extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.welcome, menu);
         return true;
+
     }
 
     @Override
@@ -204,6 +239,8 @@ public class Welcome extends AppCompatActivity
             fragmentClass = PersonalBioForm.class;
         } else if (id == R.id.nav_ice) {
             fragmentClass = IceDetails.class;
+        } else if (id == R.id.nav_measurement) {
+            fragmentClass = MeasurementFragment.class;
         } else if (id == R.id.nav_appointment) {
             //fragmentClass = FragmentOne.class;
         } else if (id == R.id.nav_health_bio) {

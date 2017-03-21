@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#80c8ff</color>
+
+     -->
     <color name="primary_text_material_light">#de242323</color>
-
-
+    <color name="colorPrimary">#263237</color>
+    <color name="colorPrimaryDark">#1e282d</color>
+    <color name="colorAccent">#1e282d</color>
+    <color name="textPrimary">#f5f5f5</color>
+    <color name="textPrimaryDark">#95aab4</color>
+    <color name="errorText">#ff7878</color>
     <!-- Screens background -->
     <color name="bg_screen1">#a29ecd</color>
     <color name="bg_screen2">#C58F9D</color>

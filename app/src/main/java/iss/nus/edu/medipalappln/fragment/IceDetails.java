@@ -139,7 +139,8 @@ public class IceDetails extends Fragment implements View.OnClickListener {
 
 
 private void selectEntry(View v, String priority) {
-   String phone= emergencyDataBaseAdapter.getSingleEntry(session.username(),priority);
+    String phone="raghu";
+   //String phone= emergencyDataBaseAdapter(session.username(),priority);
     Toast.makeText(getView().getContext() , "Updated succesfully", Toast.LENGTH_SHORT).show();
     if(priority=="1") {
         final Button btnAddEmergency = (Button) view.findViewById(R.id.emergency1);
@@ -166,8 +167,8 @@ private void selectEntry(View v, String priority) {
     public void onAttach(Context context) {
         super.onAttach(context);
         emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(context);
-        emergencyDataBaseAdapter=emergencyDataBaseAdapter.open();
-
+        /*emergencyDataBaseAdapter=emergencyDataBaseAdapter.open();
+*/
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -180,19 +181,20 @@ private void selectEntry(View v, String priority) {
         if(prio=="1") {
             final EditText editTextPhone = (EditText) getView().findViewById(R.id.emergencyPhone1);
             String phone1 = editTextPhone.getText().toString();
-            emergencyDataBaseAdapter.insertEntry(session.username(), phone1, prio);
+
+           // emergencyDataBaseAdapter.insertEntry(session.username(), phone1, prio);
             Toast.makeText(getView().getContext() , "Updated succesfully", Toast.LENGTH_SHORT).show();
         }
         else if(prio=="2"){
             final EditText editTextPhone = (EditText) getView().findViewById(R.id.emergencyPhone2);
             String phone1 = editTextPhone.getText().toString();
-            emergencyDataBaseAdapter.insertEntry(session.username(), phone1, prio);
+            //emergencyDataBaseAdapter.insertEntry(session.username(), phone1, prio);
             Toast.makeText(getActivity().getApplicationContext(), "Updated succesfully", Toast.LENGTH_SHORT).show();
         }
         else if(prio=="3"){
             final EditText editTextPhone = (EditText) getView().findViewById(R.id.emergencyPhone3);
             String phone1 = editTextPhone.getText().toString();
-            emergencyDataBaseAdapter.insertEntry(session.username(), phone1, prio);
+            //emergencyDataBaseAdapter.insertEntry(session.username(), phone1, prio);
             Toast.makeText(getActivity().getApplicationContext(), "Updated succesfully", Toast.LENGTH_SHORT).show();
 
         }
@@ -218,6 +220,8 @@ private void selectEntry(View v, String priority) {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
+        void onClick(View v);
     }
 
 

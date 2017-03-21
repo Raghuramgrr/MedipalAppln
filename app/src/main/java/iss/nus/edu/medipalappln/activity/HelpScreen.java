@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import iss.nus.edu.medipalappln.FingerPrint.FingerprintActivity;
 import iss.nus.edu.medipalappln.R;
 
 public class HelpScreen extends Activity {
@@ -126,7 +127,7 @@ public class HelpScreen extends Activity {
     }
 
     private void launchHomeScreen() {
-        startActivity(new Intent(getApplicationContext(), Welcome.class));
+        startActivity(new Intent(getApplicationContext(), FingerprintActivity.class));
         finish();
     }
 

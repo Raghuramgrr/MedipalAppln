@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import iss.nus.edu.medipalappln.Encryption.CeaserCipher;
+import iss.nus.edu.medipalappln.FingerPrint.FingerprintActivity;
 import iss.nus.edu.medipalappln.R;
 
 import iss.nus.edu.medipalappln.dao.LoginDataBaseAdapter;
@@ -108,8 +109,13 @@ public class HomeActivity extends Activity
 
     private boolean first_time_check() {
         if((session.loggedin())){
-            Intent i = new Intent(HomeActivity.this, Welcome.class);
-            startActivity(i);
+            try {
+                Intent i = new Intent(HomeActivity.this, FingerprintActivity.class);
+                startActivity(i);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
             finish();
         }
         return false;
