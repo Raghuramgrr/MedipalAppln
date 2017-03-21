@@ -65,9 +65,9 @@
 
     <string name="checkbox_appt_notification">Notification</string>
 
-    <string name="button_appt_add">Add</string>
-    <string name="button_appt_update">Update</string>
-    <string name="button_appt_delete">Delete</string>
+    <string name="button_add">Add</string>
+    <string name="button_update">Update</string>
+    <string name="button_delete">Delete</string>
 
     <string name="edit_text_appt_date">Date</string>
     <string name="edit_text_appt_ID">Appointment ID</string>
