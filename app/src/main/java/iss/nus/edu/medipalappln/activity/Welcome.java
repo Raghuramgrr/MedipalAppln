@@ -1,8 +1,12 @@
 package iss.nus.edu.medipalappln.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +17,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
@@ -21,17 +30,27 @@ import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 public class Welcome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PersonalBioForm.OnFragmentInteractionListener,
-        IceDetails.OnFragmentInteractionListener {
+        IceDetails.OnFragmentInteractionListener, View.OnClickListener {
     public Session session;
+    private View navHeader;
+    private ImageView imgNavHeaderBg, imgProfile;
+    private TextView txtName,txtWebsite;
+    private String path="";
+    private Context context;
+    public ArrayList<String> image_list=new ArrayList<String>();
+    public ArrayList<Drawable> image_drawable=new ArrayList<Drawable>();
+
     BioDataBaseAdapter bioDataBaseAdapter;
     EmergencyDataBaseAdapter emergencyDataBaseAdapter;
+    private static final int SELECT_PICTURE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcomehome);
-        bioDataBaseAdapter=new BioDataBaseAdapter(this);
-        bioDataBaseAdapter=bioDataBaseAdapter.open();
-       // emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(this);
+        // context=this.getApplicationContext();
+        //bioDataBaseAdapter=new BioDataBaseAdapter(this);
+        //bioDataBaseAdapter=bioDataBaseAdapter.open();
+        // emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(this);
         //emergencyDataBaseAdapter=emergencyDataBaseAdapter.open();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,7 +58,7 @@ public class Welcome extends AppCompatActivity
         if (savedInstanceState == null) {
             Fragment fragment = null;
             Class fragmentClass = null;
-            session=new Session(this);
+            session = new Session(this);
             fragmentClass = PersonalBioForm.class;
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
@@ -51,7 +70,6 @@ public class Welcome extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
         }
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,7 +78,88 @@ public class Welcome extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navHeader = navigationView.getHeaderView(0);
+        txtName = (TextView) navHeader.findViewById(R.id.username);
+
+        //txtWebsite = (TextView) navHeader.findViewById(R.id.website);
+        //imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
+        imgProfile = (ImageView) navHeader.findViewById(R.id.imageView);
+        imgProfile.setClickable(true);
+        imgProfile.setOnClickListener((View.OnClickListener) this);
+            //imgProfile.setOnClickListener((View.OnClickListener) this.getApplicationContext());
+
     }
+
+
+    void openImageChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+    }
+
+   /* public void takePhoto()
+    {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        File folder = new File(Environment.getExternalStorageDirectory() + "/LoadImg");
+
+        if(!folder.exists())
+        {
+            folder.mkdir();
+        }
+        final Calendar c = Calendar.getInstance();
+        String new_Date= c.get(Calendar.DAY_OF_MONTH)+"-"+((c.get(Calendar.MONTH))+1)   +"-"+c.get(Calendar.YEAR) +" " + c.get(Calendar.HOUR) + "-" + c.get(Calendar.MINUTE)+ "-"+ c.get(Calendar.SECOND);
+        path=String.format(Environment.getExternalStorageDirectory() +"/LoadImg/%s.png","LoadImg("+new_Date+")");
+        File photo = new File(path);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photo));
+        startActivityForResult(intent, 2);
+    }*/
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // Get the path from the Uri
+                    String path = getPathFromURI(selectedImageUri);
+                    //Log.i(TAG, "Image Path : " + path);
+                    // Set the image in ImageView
+                    imgProfile.setImageURI(selectedImageUri);
+                }
+            }
+        }
+    }
+    /* Get the real path from the URI */
+    public String getPathFromURI(Uri contentUri) {
+        String res = null;
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
+        if (cursor.moveToFirst()) {
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            res = cursor.getString(column_index);
+        }
+        cursor.close();
+        return res;
+    }
+
+
+
+
+
+    private void loadNavHeader() {
+        // name, website
+        txtName.setText(session.username());
+
+
+        // loading header background image
+
+
+        // Loading profile image
+
+        imgProfile.setImageResource(R.drawable.ic_medicine);
+         }
 
     @Override
     public void onBackPressed() {
@@ -148,5 +247,10 @@ public class Welcome extends AppCompatActivity
         super.onDestroy();
 
         emergencyDataBaseAdapter.close();
+    }
+
+    @Override
+    public void onClick(View v) {
+        openImageChooser();
     }
 }

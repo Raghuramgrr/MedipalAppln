@@ -30,9 +30,15 @@ public class HomeActivity extends Activity
         super.onCreate(savedInstanceState);
         session=new Session(this);
         first_time_check();
-        setContentView(R.layout.activity_home);
-        loginDataBaseAdapter = new LoginDataBaseAdapter(this);
-        loginDataBaseAdapter = loginDataBaseAdapter.open();
+        try {
+            setContentView(R.layout.activity_home);
+            loginDataBaseAdapter = new LoginDataBaseAdapter(this);
+            loginDataBaseAdapter = loginDataBaseAdapter.open();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         btnSignIn = (Button) findViewById(R.id.buttonSignIn);
         //btnSignUp = (Button) findViewById(R.id.buttonSignUP);
         cipher=new CeaserCipher();

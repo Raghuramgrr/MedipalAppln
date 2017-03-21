@@ -125,6 +125,12 @@ public class IceDetails extends Fragment implements View.OnClickListener {
             case R.id.emergency1:
                 selectEntry(v,"1");
                 break;
+            case R.id.emergency2:
+                selectEntry(v,"2");
+                break;
+            case R.id.emergency3:
+                selectEntry(v,"3");
+                break;
 
 
         }
@@ -132,9 +138,21 @@ public class IceDetails extends Fragment implements View.OnClickListener {
 
 
 
-private void selectEntry(View v, String s) {
-   String phone= emergencyDataBaseAdapter.getSingleEntry(session.username(),"1");
-    Toast.makeText(getView().getContext() , phone, Toast.LENGTH_SHORT).show();
+private void selectEntry(View v, String priority) {
+   String phone= emergencyDataBaseAdapter.getSingleEntry(session.username(),priority);
+    Toast.makeText(getView().getContext() , "Updated succesfully", Toast.LENGTH_SHORT).show();
+    if(priority=="1") {
+        final Button btnAddEmergency = (Button) view.findViewById(R.id.emergency1);
+        btnAddEmergency.setText(phone);
+    }
+    if(priority=="2") {
+        final Button btnAddEmergency = (Button) view.findViewById(R.id.emergency2);
+        btnAddEmergency.setText(phone);
+    }
+    if(priority=="3") {
+        final Button btnAddEmergency = (Button) view.findViewById(R.id.emergency3);
+        btnAddEmergency.setText(phone);
+    }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
