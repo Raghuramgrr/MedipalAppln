@@ -3,9 +3,9 @@ package iss.nus.edu.medipalappln.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,20 +15,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import iss.nus.edu.medipalappln.R;
-
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
-import iss.nus.edu.medipalappln.fragment.MeasurementFragment;
-import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
-import iss.nus.edu.medipalappln.medipal.User;
-
-import static iss.nus.edu.medipalappln.medipal.App.user;
+import iss.nus.edu.medipalappln.fragment.MeasurementFragment;
+import iss.nus.edu.medipalappln.fragment.MeasureBloodPressureFragment;
+import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 
 public class Welcome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                     PersonalBioForm.OnFragmentInteractionListener,
                     IceDetails.OnFragmentInteractionListener,
-                    MeasurementFragment.OnFragmentInteractionListener {
+                    MeasurementFragment.OnFragmentInteractionListener,
+                    MeasureBloodPressureFragment.OnFragmentInteractionListener {
     public Session session;
     BioDataBaseAdapter bioDataBaseAdapter;
 
@@ -64,8 +62,6 @@ public class Welcome extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //user = new User(session.username());
-        user = new User("S12345678");
     }
 
     @Override

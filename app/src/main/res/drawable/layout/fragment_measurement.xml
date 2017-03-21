@@ -2,74 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="iss.nus.edu.medipalappln.fragment.MeasurementFragment">
+    android:orientation="vertical"
+    tools:context="iss.nus.edu.medipalappln.fragment.MeasurementFragment"
+    android:scrollbars="vertical">
 
-    <TableLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollIndicators="top|bottom|left|right|start|end"
-        tools:ignore="UselessParent">
+        android:layout_height="wrap_content" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="1">
+    <FrameLayout
+        android:id="@+id/child_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:ignore="UselessParent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
 
-                <TextView
-                    android:id="@+id/text_view_summary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="1">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/text_blood_pressure"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="1">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:ignore="UselessParent">
-
-                <TextView
-                    android:id="@+id/text_pulse"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center" />
-
-            </RelativeLayout>
-        </TableRow>
-    </TableLayout>
+    </FrameLayout>
 
 </LinearLayout>

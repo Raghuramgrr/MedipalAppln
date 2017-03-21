@@ -24,15 +24,17 @@ public class MeasurementListAdapter extends ArrayAdapter {
     private Context context;
     private List<Measurement> measurements = new ArrayList<>();
 
-    public MeasurementListAdapter(Context context) {
-        super(context, R.layout.measurement_row_layout);
+    public MeasurementListAdapter(Context context,int resource, int textViewResourceId) {
+        super(context, resource, textViewResourceId);
         this.context = context;
         refreshList();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
+
+        Log.i(TAG, position + "testing");
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -41,17 +43,22 @@ public class MeasurementListAdapter extends ArrayAdapter {
             viewHolder.textViewMeasurement = (TextView) convertView.findViewById(R.id.text_view_measurement);
             viewHolder.buttonDelete = (Button) convertView.findViewById(R.id.button_delete);
             convertView.setTag(viewHolder);
-
-
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         final Measurement measurement = measurements.get(position);
+        viewHolder.textViewMeasurement.setText(measurement.toString());
         Log.i(TAG, position + " - measurement: " + measurement.toString());
-        //TODO: add delete button listener
 
-        //return super.getView(position, convertView, parent);
+        viewHolder.buttonDelete.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //App.user.deleteMeasurement(measurement.getID());
+            }
+        });
+
         return convertView;
     }
 
@@ -62,8 +69,14 @@ public class MeasurementListAdapter extends ArrayAdapter {
         else {
             measurements.clear();
             measurements.addAll(App.user.getMeasurements(context));
+            Log.i(TAG, "refreshList");
             notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public int getCount() {
+        return 1;
     }
 
     static class ViewHolder {

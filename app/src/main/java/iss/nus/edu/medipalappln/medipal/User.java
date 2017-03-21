@@ -14,7 +14,7 @@ public class User {
     //private PersonalBio personalBio;
     //private ArrayList<HealthBio> healthBio;
     //private ArrayList<Medicine> medicine;
-    private ArrayList<Measurement> measurement;
+    private ArrayList<Measurement> measurements;
     //private ArrayList<Consumption> consumption;
     //private ArrayList<Appointment> appointment;
     //private ArrayList<ICE> ice;
@@ -25,7 +25,7 @@ public class User {
         //personalBio = new personalBio();
         //healthBio = new ArrayList<HealthBio> ();
         //medicine = new ArrayList<Medicine> ();
-        measurement = new ArrayList<Measurement> ();
+        measurements = new ArrayList<Measurement> ();
         //consumption = new ArrayList<Consumption> ();
         //appointment = new ArrayList<Appointment> ();
         //ice = new ArrayList<ICE> ();
@@ -36,10 +36,14 @@ public class User {
         //personalBio = new personalBio();
         //healthBio = new ArrayList<HealthBio> ();
         //medicine = new ArrayList<Medicine> ();
-        measurement = new ArrayList<Measurement> ();
+        measurements = new ArrayList<Measurement> ();
         //consumption = new ArrayList<Consumption> ();
         //appointment = new ArrayList<Appointment> ();
         //ice = new ArrayList<ICE> ();
+    }
+
+    public String getUserIDNo() {
+        return this.IDNo;
     }
 
     public List<Measurement> getMeasurements (Context context) {
@@ -47,17 +51,17 @@ public class User {
         listMeasurement.execute((Void) null);
 
         try {
-            listMeasurement.get();
+            measurements = listMeasurement.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        if (measurement == null) {
-            measurement = new ArrayList<Measurement> ();
+        if (measurements == null) {
+            measurements = new ArrayList<Measurement> ();
         }
 
-        return new ArrayList<Measurement>(measurement);
+        return new ArrayList<Measurement>(measurements);
     }
 }
