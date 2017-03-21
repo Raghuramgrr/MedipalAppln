@@ -20,6 +20,9 @@ import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.MeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
+import iss.nus.edu.medipalappln.medipal.User;
+
+import static iss.nus.edu.medipalappln.medipal.App.user;
 
 public class Welcome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -60,6 +63,9 @@ public class Welcome extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //user = new User(session.username());
+        user = new User("S12345678");
     }
 
     @Override

@@ -18,11 +18,11 @@ public class MeasurementDataBaseAdapter extends DBDAO {
             " WHERE 1";
     //end SQL statements
 
-    MeasurementDataBaseAdapter(Context context) {
+    public MeasurementDataBaseAdapter(Context context) {
         super(context);
     }
 
-    public long saveBloodPressure(BloodPressure bloodPressure) {
+    public long addBloodPressure(BloodPressure bloodPressure) {
         ContentValues values = new ContentValues();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(bloodPressure.getMeasuredOn());
 
