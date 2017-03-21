@@ -14,9 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iss.nus.edu.medipalappln.R;
+import iss.nus.edu.medipalappln.medipal.App;
 import iss.nus.edu.medipalappln.medipal.Measurement;
-
-import static iss.nus.edu.medipalappln.medipal.App.user;
 
 public class MeasurementListAdapter extends ArrayAdapter {
 
@@ -57,9 +56,14 @@ public class MeasurementListAdapter extends ArrayAdapter {
     }
 
     public void refreshList() {
-        measurements.clear();
-        measurements.addAll(user.getMeasurements(context));
-        notifyDataSetChanged();
+        if (App.user == null) {
+            Log.i(TAG, "App.user is null");
+        }
+        else {
+            measurements.clear();
+            measurements.addAll(App.user.getMeasurements(context));
+            notifyDataSetChanged();
+        }
     }
 
     static class ViewHolder {
