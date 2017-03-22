@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import iss.nus.edu.medipalappln.asynTask.ListMeasurement;
+import iss.nus.edu.medipalappln.asynTask.ListMeasurementTask;
 
 public class User {
 
@@ -19,7 +19,7 @@ public class User {
     //private ArrayList<Appointment> appointment;
     //private ArrayList<ICE> ice;
 
-    private ListMeasurement listMeasurement;
+    private ListMeasurementTask listMeasurementTask;
 
     public User() {
         //personalBio = new personalBio();
@@ -47,11 +47,11 @@ public class User {
     }
 
     public List<Measurement> getMeasurements (Context context) {
-        listMeasurement = new ListMeasurement(context);
-        listMeasurement.execute((Void) null);
+        listMeasurementTask = new ListMeasurementTask(context);
+        listMeasurementTask.execute((Void) null);
 
         try {
-            measurements = listMeasurement.get();
+            measurements = listMeasurementTask.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
