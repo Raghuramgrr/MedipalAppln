@@ -3,6 +3,7 @@ package iss.nus.edu.medipalappln.FingerPrint;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
@@ -30,12 +31,13 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
 import iss.nus.edu.medipalappln.R;
+import iss.nus.edu.medipalappln.activity.Welcome;
 
 public class FingerprintActivity extends AppCompatActivity {
 
     private KeyStore keyStore;
     // Variable used for storing the key in the Android Keystore container
-    private static final String KEY_NAME = "androidHive";
+    private static final String KEY_NAME = "Raghu";
     private Cipher cipher;
     private TextView textView;
 
@@ -52,14 +54,10 @@ public class FingerprintActivity extends AppCompatActivity {
 
         // Check whether the device has a Fingerprint sensor.
         if(!fingerprintManager.isHardwareDetected()){
-            /**
-             * An error message will be displayed if the device does not contain the fingerprint hardware.
-             * However if you plan to implement a default authentication method,
-             * you can redirect the user to a default authentication activity from here.
-             * Example:
-             * Intent intent = new Intent(this, DefaultAuthenticationActivity.class);
-             * startActivity(intent);
-             */
+
+            Intent intent = new Intent(this, Welcome.class);
+              startActivity(intent);
+
             textView.setText("Your Device does not have a Fingerprint Sensor");
         }else {
             // Checks whether fingerprint permission is set on manifest

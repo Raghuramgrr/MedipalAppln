@@ -1,17 +1,15 @@
 package iss.nus.edu.medipalappln.activity;
 
-import android.os.Bundle;
-
-
-
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.Encryption.*;
 
+import iss.nus.edu.medipalappln.Encryption.CeaserCipher;
+import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.LoginDataBaseAdapter;
 
 public class SignUpActivity extends Activity
@@ -67,6 +65,8 @@ public class SignUpActivity extends Activity
 
                     loginDataBaseAdapter.insertEntry(userName, encodedPasswd);
                     Toast.makeText(getApplicationContext(), "Account Successfully Created ", Toast.LENGTH_LONG).show();
+                    Intent in=new Intent(getApplicationContext(),HomeActivity.class);
+                    startActivity(in);
                 }
             }
         });

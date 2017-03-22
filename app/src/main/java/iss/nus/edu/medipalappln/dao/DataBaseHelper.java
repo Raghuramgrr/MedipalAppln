@@ -1,9 +1,7 @@
 package iss.nus.edu.medipalappln.dao;
 
 import android.content.Context;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -128,10 +126,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
             "(" +
             ICE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             ICE.Name + " VARCHAR(100), " +
-            ICE.ContactNo + " VARCHAR(20), " +
-           /* ICE.ContactType + " INTEGER, " +
-            ICE.Description + " VARCHAR(255), " +
-            ICE.Sequence + " INTEGER " +*/
+            ICE.ContactNo + " VARCHAR(20) ," +
+           ICE.ContactType + " INTEGER, " +
+            ICE.Description + " VARCHAR(255) " +
+           // ICE.Sequence + " INTEGER " +
             ");";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
@@ -161,16 +159,20 @@ public class DataBaseHelper extends SQLiteOpenHelper
         catch (SQLException e){
             e.printStackTrace();
         }*/
-
-        _db.execSQL(CREATE_TABLE_PERSONALBIO);
-        _db.execSQL(CREATE_TABLE_HEALTHBIO);
-        _db.execSQL(CREATE_TABLE_CATEGORY);
-        _db.execSQL(CREATE_TABLE_MEDICINE);
-        _db.execSQL(CREATE_TABLE_MEASUREMENT);
-        _db.execSQL(CREATE_TABLE_CONSUMPTION);
-        _db.execSQL(CREATE_TABLE_REMINDER);
-        _db.execSQL(CREATE_TABLE_APPOINTMENT);
-        _db.execSQL(CREATE_TABLE_ICE);
+try {
+    _db.execSQL(CREATE_TABLE_PERSONALBIO);
+    _db.execSQL(CREATE_TABLE_HEALTHBIO);
+    _db.execSQL(CREATE_TABLE_CATEGORY);
+    _db.execSQL(CREATE_TABLE_MEDICINE);
+    _db.execSQL(CREATE_TABLE_MEASUREMENT);
+    _db.execSQL(CREATE_TABLE_CONSUMPTION);
+    _db.execSQL(CREATE_TABLE_REMINDER);
+    _db.execSQL(CREATE_TABLE_APPOINTMENT);
+    _db.execSQL(CREATE_TABLE_ICE);
+}
+catch (Exception e){
+    e.printStackTrace();
+}
 
         //_db.execSQL(INSERT_TABLE_MEASUREMENT);
     }

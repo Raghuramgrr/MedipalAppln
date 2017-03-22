@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Temperature extends Measurement {
 
     // Constructor
-    public Temperature(Integer temperature, Date measuredOn) {
+    public Temperature(Integer temperature, String measuredOn) {
         this.temperature = temperature;
         this.measuredOn = measuredOn;
     }
@@ -16,7 +16,7 @@ public class Temperature extends Measurement {
         return null;
     }
 
-    public void setTemperature(Integer temperature, Date measuredOn, Integer ID) {
+    public void setTemperature(Integer temperature, String measuredOn, Integer ID) {
         this.temperature = temperature;
         this.measuredOn = measuredOn;
     }

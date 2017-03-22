@@ -3,9 +3,9 @@ package iss.nus.edu.medipalappln.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import iss.nus.edu.medipalappln.FingerPrint.FingerprintActivity;
 import iss.nus.edu.medipalappln.R;
 
 public class HelpScreen extends Activity {
@@ -127,7 +126,8 @@ public class HelpScreen extends Activity {
     }
 
     private void launchHomeScreen() {
-        startActivity(new Intent(getApplicationContext(), FingerprintActivity.class));
+        startActivity(new Intent(getApplicationContext(),Welcome.class));
+       // startActivity(new Intent(getApplicationContext(), FingerprintActivity.class));
         finish();
     }
 

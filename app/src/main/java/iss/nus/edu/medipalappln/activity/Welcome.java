@@ -29,9 +29,6 @@ import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.MeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
-import iss.nus.edu.medipalappln.medipal.User;
-
-import static iss.nus.edu.medipalappln.medipal.App.user;
 
 /*<<<<<<< HEAD
 import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
@@ -122,7 +119,7 @@ public class Welcome extends AppCompatActivity
 /*=======*/
 
         //user = new User(session.username());
-        user = new User("S12345678");
+        //user = new User("S12345678");
 /*>>>>>>> eeec0a993cde1bf28bebd61b6f08e90393645978*/
     }
 
@@ -192,7 +189,7 @@ public class Welcome extends AppCompatActivity
 
         // Loading profile image
 
-        imgProfile.setImageResource(R.drawable.ic_medicine);
+        //imgProfile.setImageResource(R.drawable.ic_medicine);
          }
 
     @Override
@@ -228,7 +225,7 @@ public class Welcome extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -238,9 +235,11 @@ public class Welcome extends AppCompatActivity
         if (id == R.id.PersonalBio) {
             fragmentClass = PersonalBioForm.class;
         } else if (id == R.id.nav_ice) {
-            fragmentClass = IceDetails.class;
-        } else if (id == R.id.nav_measurement) {
-            fragmentClass = MeasurementFragment.class;
+            try{fragmentClass = IceDetails.class;}
+            catch (Exception e){e.printStackTrace();}
+        }
+        else if (id == R.id.nav_measurement) {
+            //fragmentClass = MeasurementFragment.class;
         } else if (id == R.id.nav_appointment) {
             //fragmentClass = FragmentOne.class;
         } else if (id == R.id.nav_health_bio) {
@@ -255,8 +254,13 @@ public class Welcome extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        try {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

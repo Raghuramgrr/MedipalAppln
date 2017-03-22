@@ -1,11 +1,13 @@
 
-/*
+
 package iss.nus.edu.medipalappln.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 import iss.nus.edu.medipalappln.medipal.Emergency;
 
@@ -24,15 +26,17 @@ public class EmergencyDataBaseAdapter extends DBDAO {
 
     public long addValues(Emergency phone) {
         ContentValues values = new ContentValues();
-
-        values.put(DataBaseHelper.MEASUREMENT.Systolic.toString(), phone.getPhone());
-        values.put(DataBaseHelper.MEASUREMENT.Diastolic.toString(), phone.getPriority());
+        values.put(DataBaseHelper.ICE.ID.toString(),phone.getID());
+        values.put(DataBaseHelper.ICE.Name.toString(),phone.getName());
+        values.put(DataBaseHelper.ICE.Description.toString(),phone.getDesc());
+        values.put(DataBaseHelper.ICE.ContactNo.toString(),phone.getPhone());
+        values.put(DataBaseHelper.ICE.ContactType.toString(), phone.getPriority());
 
         return database.insert(DataBaseHelper.TABLE_ICE, null, values);
     }
 
 
-*/
+
 /*public long updateBloodPressure(BloodPressure bloodPressure, String key) {
         ContentValues values = new ContentValues();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(bloodPressure.getMeasuredOn());
@@ -50,11 +54,56 @@ public class EmergencyDataBaseAdapter extends DBDAO {
 
         return database.delete(DataBaseHelper.TABLE_MEASUREMENT, "ID = ?", args);
     }
-*//*
 */
-/**//*
-*/
-/**//*
+public ArrayList<Emergency> getICE() {
+    ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+    String query[] = { DataBaseHelper.ICE.ID.toString(),
+            DataBaseHelper.ICE.Name.toString(),
+            DataBaseHelper.ICE.ContactNo.toString(),
+            DataBaseHelper.ICE.Description.toString(),
+            DataBaseHelper.ICE.Sequence.toString()
+             };
+    int id;
+
+    Cursor cursor = database.query(DataBaseHelper.TABLE_ICE, query, null, null, null,
+            null, null);
+
+    while (cursor.moveToNext()) {
+        id = cursor.getInt(0);
+        Emergency emergency = new Emergency(cursor.getInt(0), cursor.getString(1),
+                cursor.getString(2), cursor.getString(3), cursor.getString(4));
+        emergencies.add(emergency);
+    }
+
+    return emergencies;
+
+
+}
+
+
+
+    public Emergency getEmergency(int id) {
+        Emergency emergency = null;
+
+        String sql = "SELECT * FROM " + DataBaseHelper.TABLE_ICE
+                + " WHERE " + id + " = ?";
+
+        Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
+
+        if (cursor.moveToNext()) {
+           int eid = cursor.getInt(0);
+            String priority = cursor.getString(3);
+            String name = cursor.getString(1);
+            String phone = cursor.getString(2);
+            String desc=cursor.getString(4);
+
+            emergency = new Emergency(eid, name, phone, priority,desc);
+        }
+        return emergency;
+    }
+
+
+
 
 
     public String getSingleEntry() {
@@ -66,19 +115,17 @@ public class EmergencyDataBaseAdapter extends DBDAO {
         Log.i(TAG, "Record(s) count " + cursor.getCount());
 
         for( int i = 0; i < cursor.getCount(); i++) {
-            if(cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.ID.toString())) != null) {
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Systolic.toString()));
+            if(cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ID.toString())) != null) {
+
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Name.toString()));
                 dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Diastolic.toString()));
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ContactNo.toString()));
                 dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Pulse.toString()));
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ContactType.toString()));
                 dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Temperature.toString()));
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Description.toString()));
                 dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Weight.toString()));
-                dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.MeasuredOn.toString()));
-                dbString += "\n";
+
                 Log.i(TAG, "Record: " + dbString);
             }
             cursor.moveToNext();
@@ -89,15 +136,18 @@ public class EmergencyDataBaseAdapter extends DBDAO {
 }
 
 
-*/
 
 
+
+/*
 
 package iss.nus.edu.medipalappln.dao;
 
+*/
 /**
  * Created by root on 15/3/17.
- */
+ *//*
+
 
 
 import android.content.ContentValues;
@@ -153,6 +203,7 @@ public class EmergencyDataBaseAdapter {
     }
 }
 
+*/
 /* public int deleteEntry(String UserName)
     {
         //String id=String.valueOf(ID);
@@ -161,6 +212,8 @@ public class EmergencyDataBaseAdapter {
         // Toast.makeText(context, "Number fo Entry Deleted Successfully : "+numberOFEntriesDeleted, Toast.LENGTH_LONG).show();
         return numberOFEntriesDeleted;
     }*//*
+*/
+/*
 
     public String getSingleEntry(String userName,String priority)
     {
@@ -179,7 +232,9 @@ public class EmergencyDataBaseAdapter {
         }
         return phone;
     }
-       */
+       *//*
+
+*/
 /* Cursor cursor=db.query("EMERGENCYBIO", null, " PRIORITY=?", new String[]{priority}, null, null, null);
         if(cursor.getCount()<1) // UserName Not Exist
         {
@@ -189,9 +244,13 @@ public class EmergencyDataBaseAdapter {
         cursor.moveToFirst();
         //String phone= cursor.getString(cursor.getColumnIndex("PHONENUMBER"));
         cursor.close();*//*
+*/
+/*
 
 
-    */
+    *//*
+
+*/
 /*String selectTicketDetails = "SELECT ID,SUBJECT,DETAILS,PRIORITY FROM TICKET_DETAILS where SUBJECT=\""
             + subject + "\"";
 
@@ -201,6 +260,8 @@ public class EmergencyDataBaseAdapter {
     mCursor.moveToFirst();
 }
 		return mCursor;*//*
+*/
+/*
 
 
    public void  updateEntry(String userName,String PhoneNumber,String priority)

@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Pulse extends Measurement {
 
     // Constructor
-    public Pulse(Integer pulse, Date measuredOn) {
+    public Pulse(Integer pulse, String measuredOn) {
         this.pulse = pulse;
         this.measuredOn = measuredOn;
     }
@@ -16,7 +16,7 @@ public class Pulse extends Measurement {
         return null;
     }
 
-    public void setPulse(Integer pulse, Date measuredOn, Integer ID) {
+    public void setPulse(Integer pulse, String measuredOn, Integer ID) {
         this.pulse = pulse;
         this.measuredOn = measuredOn;
     }

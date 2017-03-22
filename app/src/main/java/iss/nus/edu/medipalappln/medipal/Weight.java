@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Weight extends Measurement {
 
     // Constructor
-    public Weight(Double weight, Date measuredOn) {
+    public Weight(Double weight, String measuredOn) {
         //this.weight.applyPattern(decimalPattern);
         this.weight = weight;
         this.measuredOn = measuredOn;
@@ -17,7 +17,7 @@ public class Weight extends Measurement {
         return null;
     }
 
-    public void setWeight(Double weight, Date measuredOn, Integer ID) {
+    public void setWeight(Double weight, String measuredOn, Integer ID) {
         this.weight = weight;
         this.measuredOn = measuredOn;
     }

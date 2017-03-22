@@ -5,7 +5,7 @@ import java.sql.Date;
 public class BloodPressure extends Measurement {
 
     // Constructor
-    public BloodPressure(Integer systolic, Integer diastolic, Date measuredOn) {
+    public BloodPressure(Integer systolic, Integer diastolic, String measuredOn) {
         this.systolic = systolic;
         this.diastolic = diastolic;
         this.pulse = 0;
@@ -32,7 +32,7 @@ public class BloodPressure extends Measurement {
         return null;
     }
 
-    public void setBloodPressure(Integer systolic, Integer diastolic, Date measuredOn, Integer ID) {
+    public void setBloodPressure(Integer systolic, Integer diastolic, String measuredOn, Integer ID) {
         this.systolic = systolic;
         this.diastolic = diastolic;
         this.measuredOn = measuredOn;

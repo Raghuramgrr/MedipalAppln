@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import iss.nus.edu.medipalappln.medipal.BloodPressure;
+import iss.nus.edu.medipalappln.medipal.Measurement;
 
 public class MeasurementDataBaseAdapter extends DBDAO {
 
@@ -49,6 +51,29 @@ public class MeasurementDataBaseAdapter extends DBDAO {
         String[] args = new String[] {key};
 
         return database.delete(DataBaseHelper.TABLE_MEASUREMENT, "ID = ?", args);
+    }
+
+    public ArrayList<Measurement> getMeasurement() {
+        ArrayList<Measurement> measurements = new ArrayList<Measurement>();
+        String query[] = { DataBaseHelper.MEASUREMENT.ID.toString(),
+                        DataBaseHelper.MEASUREMENT.Systolic.toString(),
+                        DataBaseHelper.MEASUREMENT.Diastolic.toString(),
+                        DataBaseHelper.MEASUREMENT.Temperature.toString(),
+                        DataBaseHelper.MEASUREMENT.Pulse.toString(),
+                        DataBaseHelper.MEASUREMENT.Weight.toString() };
+        int id;
+
+        Cursor cursor = database.query(DataBaseHelper.TABLE_MEASUREMENT, query, null, null, null,
+                            null, null);
+
+        while (cursor.moveToNext()) {
+            id = cursor.getInt(0);
+            Measurement measurement = new Measurement(cursor.getInt(0), cursor.getInt(1),
+                    cursor.getInt(2), cursor.getInt(3), cursor.getDouble(4), cursor.getString(5));
+            measurements.add(measurement);
+        }
+
+        return measurements;
     }
 
     public String databaseToString() {
