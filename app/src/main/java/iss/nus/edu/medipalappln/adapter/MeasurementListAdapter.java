@@ -28,6 +28,7 @@ public class MeasurementListAdapter extends ArrayAdapter {
         super(context, resource, textViewResourceId);
         this.context = context;
         refreshList();
+        Log.i(TAG, "MeasurementListAdapter constructor");
     }
 
     @Override
