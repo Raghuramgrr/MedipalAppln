@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+<<<<<<< HEAD
 import iss.nus.edu.medipalappln.asynTask.AddEmergency;
 import iss.nus.edu.medipalappln.asynTask.AddPersonal;
 import iss.nus.edu.medipalappln.asynTask.ListEmergency;
 import iss.nus.edu.medipalappln.asynTask.ListMeasurement;
 import iss.nus.edu.medipalappln.asynTask.ListPersonal;
+=======
+import iss.nus.edu.medipalappln.asynTask.ListMeasurementTask;
+>>>>>>> 37c916e6ffe02fb07aa264da1d8fc64feabd4e01
 
 public class User {
 
@@ -23,11 +27,16 @@ public class User {
     //private ArrayList<Appointment> appointment;
     private ArrayList<Emergency> emergency;
 
+<<<<<<< HEAD
     private ListMeasurement listMeasurement;
     private ListPersonal listPersonal;
     private ListEmergency listEmergency;
     private AddEmergency addEmergency;
     private AddPersonal addPersonal;
+=======
+    private ListMeasurementTask listMeasurementTask;
+
+>>>>>>> 37c916e6ffe02fb07aa264da1d8fc64feabd4e01
     public User() {
         personalBio = new ArrayList<Personal>();
         //healthBio = new ArrayList<HealthBio> ();
@@ -55,11 +64,11 @@ public class User {
     }
 
     public List<Measurement> getMeasurements (Context context) {
-        listMeasurement = new ListMeasurement(context);
-        listMeasurement.execute((Void) null);
+        listMeasurementTask = new ListMeasurementTask(context);
+        listMeasurementTask.execute((Void) null);
 
         try {
-            measurements = listMeasurement.get();
+            measurements = listMeasurementTask.get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
