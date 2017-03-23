@@ -2,13 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="iss.nus.edu.medipalappln.fragment.MeasureBloodPressureFragment"
+    tools:context="iss.nus.edu.medipalappln.fragment.ViewBloodPressureFragment"
     android:scrollbars="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/text_header" />
 
     <ListView
         android:id="@+id/list_view_measurement"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_below="@+id/text_header"
         android:layout_alignParentStart="true">
     </ListView>
 

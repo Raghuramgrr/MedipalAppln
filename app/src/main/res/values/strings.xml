@@ -23,7 +23,7 @@
     <string name="skip">Skip</string>
     <string name="start">Start</string>
     <string name="title_slide1">Welcome to MediPal!</string>
-    <string name="desc_slide1">Your one stop Personel Health Assistant..</string>
+    <string name="desc_slide1">Your one stop Personal Health Assistant..</string>
     <string name="title_slide2">Track Measurements!</string>
     <string name="desc_slide2">It records your health statistics and notify remainders on need..</string>
     <string name="title_slide3">Manage Medicines</string>
@@ -48,6 +48,9 @@
     <string name="text_ice">ICE</string>
     <string name="text_measurement">Measurement</string>
     <string name="text_blood_pressure">Blood Pressure</string>
+    <string name="text_systolic">Systolic</string>
+    <string name="text_diastolic">Diastolic</string>
+    <string name="text_measured_on">Measured On</string>
     <string name="text_pulse">Pulse</string>
     <string name="text_weight">Weight</string>
     <string name="text_temperature">Temperature</string>
@@ -68,6 +71,7 @@
     <string name="button_add">Add</string>
     <string name="button_update">Update</string>
     <string name="button_delete">Delete</string>
+    <string name="button_cancel">Cancel</string>
 
     <string name="edit_text_appt_date">Date</string>
     <string name="edit_text_appt_ID">Appointment ID</string>
@@ -75,4 +79,7 @@
     <string name="fragment_medicine_list">Medication</string>
     <string name="fragment_consumption_list">Consumption</string>
     <string name="fragment_measurement_list">Measurement</string>
+
+    <string name="error_invalid_data">Invalid data</string>
+    <string name="save_success">Saved successfully</string>
 </resources>
