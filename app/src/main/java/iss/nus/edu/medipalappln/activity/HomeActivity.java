@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import iss.nus.edu.medipalappln.Encryption.CeaserCipher;
-import iss.nus.edu.medipalappln.FingerPrint.FingerprintActivity;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.LoginDataBaseAdapter;
 
@@ -69,8 +68,8 @@ try {
             if (password.equals(decodedPasswd)) {
                 session.setLoggedin(Boolean.TRUE, userName);
                 Toast.makeText(HomeActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-                //Intent in = new Intent(getApplicationContext(), HelpScreen.class);
-Intent in =new Intent(getApplicationContext(), FingerprintActivity.class);
+                Intent in = new Intent(getApplicationContext(), HelpScreen.class);
+//Intent in =new Intent(getApplicationContext(), FingerprintActivity.class);
                 startActivity(in);
                 //dialog.dismiss();
 
