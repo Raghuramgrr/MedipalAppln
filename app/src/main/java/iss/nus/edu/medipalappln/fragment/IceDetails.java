@@ -23,7 +23,6 @@ import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.Session;
 import iss.nus.edu.medipalappln.adapter.EmergencyListAdapter;
 import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
-import iss.nus.edu.medipalappln.medipal.App;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -148,7 +147,7 @@ public class IceDetails extends Fragment implements View.OnClickListener,OnItemS
     }
     @Override
     public void onClick(final View v) {
-        App.user.addEmergency(1,name.getText().toString().trim(),phonenumber.getText().toString().trim(),spinnerText,relation.getText().toString().trim(),getActivity());
+        //App.user.addEmergency(1,name.getText().toString().trim(),phonenumber.getText().toString().trim(),spinnerText,relation.getText().toString().trim(),getActivity());
         Toast.makeText(getActivity().getApplicationContext(),"Insert successfull",Toast.LENGTH_LONG).show();
 
 

@@ -9,9 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import iss.nus.edu.medipalappln.medipal.BloodPressure;
-import iss.nus.edu.medipalappln.medipal.Measurement;
 
-public class MeasurementDataBaseAdapter extends DBDAO {
+public class BloodPressureDataBaseAdapter extends DBDAO {
 
     private static final String TAG = "DBDAO";
 
@@ -20,13 +19,14 @@ public class MeasurementDataBaseAdapter extends DBDAO {
             " WHERE 1";
     //end SQL statements
 
-    public MeasurementDataBaseAdapter(Context context) {
+    public BloodPressureDataBaseAdapter(Context context) {
         super(context);
     }
 
-    public long addBloodPressure(BloodPressure bloodPressure) {
+    public long add(BloodPressure bloodPressure) {
         ContentValues values = new ContentValues();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(bloodPressure.getMeasuredOn());
+        //String date = new SimpleDateFormat("yyyy-MM-dd").format(bloodPressure.getMeasuredOn());
+        String date = bloodPressure.getMeasuredOn().toString();
 
         values.put(DataBaseHelper.MEASUREMENT.Systolic.toString(), bloodPressure.getSystolic());
         values.put(DataBaseHelper.MEASUREMENT.Diastolic.toString(), bloodPressure.getDiastolic());
@@ -35,7 +35,7 @@ public class MeasurementDataBaseAdapter extends DBDAO {
         return database.insert(DataBaseHelper.TABLE_MEASUREMENT, null, values);
     }
 
-    public long updateBloodPressure(BloodPressure bloodPressure, String key) {
+    public long update(BloodPressure bloodPressure, String key) {
         ContentValues values = new ContentValues();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(bloodPressure.getMeasuredOn());
         String[] args = new String[] {key};
@@ -47,33 +47,39 @@ public class MeasurementDataBaseAdapter extends DBDAO {
         return database.update(DataBaseHelper.TABLE_MEASUREMENT, values, "ID = ?", args);
     }
 
-    public long deleteBloodPressure(String key) {
-        String[] args = new String[] {key};
+    public long delete(BloodPressure bloodPressure) {
+        String[] args = new String[] {bloodPressure.getID() + " "};
 
-        return database.delete(DataBaseHelper.TABLE_MEASUREMENT, "ID = ?", args);
+        Log.i(TAG, "key >> " + args + " >> " + bloodPressure.getID());
+        return database.delete(DataBaseHelper.TABLE_MEASUREMENT, DataBaseHelper.MEASUREMENT.ID + "= ?", args);
     }
 
-    public ArrayList<Measurement> getMeasurement() {
-        ArrayList<Measurement> measurements = new ArrayList<Measurement>();
+    public ArrayList<BloodPressure> get() {
+        ArrayList<BloodPressure> bloodPressures = new ArrayList<BloodPressure>();
         String query[] = { DataBaseHelper.MEASUREMENT.ID.toString(),
                         DataBaseHelper.MEASUREMENT.Systolic.toString(),
                         DataBaseHelper.MEASUREMENT.Diastolic.toString(),
-                        DataBaseHelper.MEASUREMENT.Temperature.toString(),
-                        DataBaseHelper.MEASUREMENT.Pulse.toString(),
-                        DataBaseHelper.MEASUREMENT.Weight.toString() };
+                        DataBaseHelper.MEASUREMENT.MeasuredOn.toString() };
+        String where = DataBaseHelper.MEASUREMENT.Systolic + " > 0 or " +
+                        DataBaseHelper.MEASUREMENT.Diastolic + " > 0 ";
         int id;
 
-        Cursor cursor = database.query(DataBaseHelper.TABLE_MEASUREMENT, query, null, null, null,
-                            null, null);
+        Log.i(TAG, "where " + where);
+        Cursor cursor = database.query(DataBaseHelper.TABLE_MEASUREMENT, query,
+                where, null, null, null, null);
 
         while (cursor.moveToNext()) {
             id = cursor.getInt(0);
-            Measurement measurement = new Measurement(cursor.getInt(0), cursor.getInt(1),
-                    cursor.getInt(2), cursor.getInt(3), cursor.getDouble(4), cursor.getString(5));
-            measurements.add(measurement);
+            BloodPressure bp = new BloodPressure(
+                    id,
+                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Systolic.toString())),
+                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Diastolic.toString())),
+                    cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.MeasuredOn.toString())));
+            bloodPressures.add(bp);
+            Log.i(TAG, id + ": " + bp.getSystolic() + "/" + bp.getDiastolic() + "/" + bp.getMeasuredOn());
         }
 
-        return measurements;
+        return bloodPressures;
     }
 
     public String databaseToString() {
@@ -89,12 +95,6 @@ public class MeasurementDataBaseAdapter extends DBDAO {
                 dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Systolic.toString()));
                 dbString += "\t";
                 dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Diastolic.toString()));
-                dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Pulse.toString()));
-                dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Temperature.toString()));
-                dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Weight.toString()));
                 dbString += "\t";
                 dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.MeasuredOn.toString()));
                 dbString += "\n";

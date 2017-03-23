@@ -20,7 +20,6 @@ import java.util.TimeZone;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.Session;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
-import iss.nus.edu.medipalappln.medipal.App;
 
 
 /**
@@ -112,7 +111,7 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
         final String Phone=editTextPhone.getText().toString();
 
 
-        App.user.addPersonal(1,"Raghu",Dob,"K1663126",Address,Pincode,Height,Blood,_context);
+        //App.user.addPersonal(1,"Raghu",Dob,"K1663126",Address,Pincode,Height,Blood,_context);
         //bioDataBaseAdapter.insertEntry(session.username(),Blood, Dob, Height, Weight, Address, Pincode,Phone);
     }
 

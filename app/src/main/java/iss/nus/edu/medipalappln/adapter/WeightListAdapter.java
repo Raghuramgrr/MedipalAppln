@@ -15,61 +15,70 @@ import java.util.List;
 
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.medipal.App;
-import iss.nus.edu.medipalappln.medipal.Measurement;
+import iss.nus.edu.medipalappln.medipal.Weight;
 
-public class MeasurementListAdapter extends ArrayAdapter {
+public class WeightListAdapter extends ArrayAdapter {
 
-    private static final String TAG = "MeasurementListAdapter";
+    private static final String TAG = "WeightListAdapter";
 
     private Context context;
-    private List<Measurement> measurements = new ArrayList<>();
+    private List<Weight> weights = new ArrayList<Weight>();
 
-    public MeasurementListAdapter(Context context,int resource, int textViewResourceId) {
+    public WeightListAdapter(Context context, int resource, int textViewResourceId) {
         super(context, resource, textViewResourceId);
         this.context = context;
         refreshList();
-        Log.i(TAG, "MeasurementListAdapter constructor");
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 
-        Log.i(TAG, position + "testing");
+        Log.i(TAG, "Retrieving record " + position);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.measurement_row_layout, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.textViewMeasurement = (TextView) convertView.findViewById(R.id.text_view_measurement);
+            viewHolder.textViewWeight = (TextView) convertView.findViewById(R.id.text_view_col1);
+            viewHolder.textViewMeasuredOn = (TextView) convertView.findViewById(R.id.text_view_measured_on);
             viewHolder.buttonDelete = (Button) convertView.findViewById(R.id.button_delete);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final Measurement measurement = measurements.get(position);
-        viewHolder.textViewMeasurement.setText(measurement.toString());
-        Log.i(TAG, position + " - measurement: " + measurement.toString());
+        if (weights.size() != 0) {
+            final Weight weight = weights.get(position);
 
-        viewHolder.buttonDelete.setOnClickListener(new View.OnClickListener() {
+            viewHolder.textViewWeight.setText(weight.getWeight().toString());
+            viewHolder.textViewMeasuredOn.setText(weight.getMeasuredOn());
 
-            @Override
-            public void onClick(View v) {
-                //App.user.deleteMeasurement(measurement.getID());
-            }
-        });
+            viewHolder.buttonDelete.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    App.user.deleteWeight(context, weight.getID());
+                    refreshList();
+                    Log.i(TAG, "Deleted record: " + weight.getID());
+                }
+            });
+        }
+        else
+        {
+            Log.i(TAG, "No record found");
+        }
 
         return convertView;
     }
 
     public void refreshList() {
         if (App.user == null) {
-            Log.i(TAG, "App.user is null");
+            Log.e(TAG, "Critical: App.user object is null");
         }
         else {
-            measurements.clear();
-            measurements.addAll(App.user.getMeasurements(context));
+            weights.clear();
+            weights.addAll(App.user.getWeight(context));
             Log.i(TAG, "refreshList");
             notifyDataSetChanged();
         }
@@ -77,11 +86,12 @@ public class MeasurementListAdapter extends ArrayAdapter {
 
     @Override
     public int getCount() {
-        return 1;
+        return weights.size();
     }
 
     static class ViewHolder {
-        TextView textViewMeasurement;
+        TextView textViewWeight;
+        TextView textViewMeasuredOn;
         Button buttonDelete;
     }
 }

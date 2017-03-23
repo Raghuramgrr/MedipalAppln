@@ -11,18 +11,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.adapter.MeasurementListAdapter;
+import iss.nus.edu.medipalappln.adapter.BloodPressureListAdapter;
 
-public class MeasureBloodPressureFragment extends Fragment {
+public class ViewBloodPressureFragment extends Fragment {
 
-    private static final String TAG = "MeasureBloodPressureFragment";
+    private static final String TAG = "ViewBloodPressureFragment";
 
-    private MeasurementListAdapter measurementListAdapter;
-    private TextView textViewEmpty;
+    private BloodPressureListAdapter bloodPressureListAdapter;
+    private TextView textViewEmpty, textViewHeader;
 
     private OnFragmentInteractionListener mListener;
 
-    public MeasureBloodPressureFragment() {
+    public ViewBloodPressureFragment() {
         // Required empty public constructor
     }
 
@@ -35,13 +35,15 @@ public class MeasureBloodPressureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_blood_pressure, container, false);
-        ListView listViewMeasurement = (ListView) view.findViewById(R.id.list_view_measurement);
+        View view = inflater.inflate(R.layout.fragment_measurement_list, container, false);
+        ListView listView = (ListView) view.findViewById(R.id.list_view_measurement);
         textViewEmpty = (TextView) view.findViewById(R.id.text_view_empty);
+        textViewHeader = (TextView) view.findViewById(R.id.text_header);
 
-        measurementListAdapter = new MeasurementListAdapter(getActivity(),
+        textViewHeader.setText("systolic/diastolic in mmHg");
+        bloodPressureListAdapter = new BloodPressureListAdapter(getActivity(),
                 R.layout.measurement_row_layout, R.id.text_view_empty);
-        listViewMeasurement.setAdapter(measurementListAdapter);
+        listView.setAdapter(bloodPressureListAdapter);
 
         return view;
     }
@@ -50,7 +52,7 @@ public class MeasureBloodPressureFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (MeasureBloodPressureFragment.OnFragmentInteractionListener) context;
+            mListener = (ViewBloodPressureFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -68,18 +70,10 @@ public class MeasureBloodPressureFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void onClickAdd(View view) {
-
-    }
-
-    public void onClickDelete(View view) {
-
-    }
-
     @Override
     public void onResume() {
         super.onResume();
-        measurementListAdapter.refreshList();
-        textViewEmpty.setVisibility(measurementListAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
+        bloodPressureListAdapter.refreshList();
+        textViewEmpty.setVisibility(bloodPressureListAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }
