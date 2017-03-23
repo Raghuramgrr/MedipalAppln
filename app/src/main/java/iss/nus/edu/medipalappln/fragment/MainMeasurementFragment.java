@@ -17,15 +17,25 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import iss.nus.edu.medipalappln.R;
+import iss.nus.edu.medipalappln.medipal.App;
+import iss.nus.edu.medipalappln.medipal.BloodPressure;
+import iss.nus.edu.medipalappln.medipal.Pulse;
+import iss.nus.edu.medipalappln.medipal.Temperature;
+import iss.nus.edu.medipalappln.medipal.Weight;
 
 public class MainMeasurementFragment extends Fragment {
 
     private static final String TAG = "MainMeasurementFragment";
-
-    //TODO: populate with measurement records
     private LineGraphSeries<DataPoint> series;
     private Button btn_show_all;
+    private List<BloodPressure> bloodPressures = new ArrayList<BloodPressure>();
+    private List<Pulse> pulses = new ArrayList<Pulse>();
+    private List<Temperature> temperatures = new ArrayList<Temperature>();
+    private List<Weight> weights = new ArrayList<Weight>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,18 +55,12 @@ public class MainMeasurementFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_measurement_graph, container, false);
         btn_show_all = (Button) view.findViewById(R.id.btn_show_all);
-        final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        double y, x;
-        x = 5.0;
+        //final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-        GraphView graphBP = (GraphView) view.findViewById(R.id.graph_bp);
-        series = new LineGraphSeries<DataPoint>();
-        for (int i = 0; i < 500; i++) {
-            x = x + 0.1;
-            y = 5.0 * x;
-            series.appendData(new DataPoint(x, y), true, 500);
-        }
-        graphBP.addSeries(series);
+        buildGraphBP(view);
+        buildGraphPulse(view);
+        buildGraphTemperature(view);
+        buildGraphWeight(view);
 
         btn_show_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,4 +113,80 @@ public class MainMeasurementFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    public void buildGraphBP(View view) {
+        double y, x;
+        int size = 0;
+
+        GraphView graphView = (GraphView) view.findViewById(R.id.graph_bp);
+        series = new LineGraphSeries<DataPoint>();
+
+        bloodPressures.clear();
+        bloodPressures.addAll(App.user.getBloodPressure(getContext()));
+        size = bloodPressures.size();
+
+        for (int i = 0; i < size; i++) {
+            x = i;
+            y = bloodPressures.get(i).getSystolic();
+            series.appendData(new DataPoint(x, y), true, size);
+        }
+        graphView.addSeries(series);
+    }
+
+    public void buildGraphPulse(View view) {
+        double y, x;
+        int size = 0;
+
+        GraphView graphView = (GraphView) view.findViewById(R.id.graph_pulse);
+        series = new LineGraphSeries<DataPoint>();
+
+        pulses.clear();
+        pulses.addAll(App.user.getPulse(getContext()));
+        size = pulses.size();
+
+        for (int i = 0; i < size; i++) {
+            x = i;
+            y = pulses.get(i).getPulse();
+            series.appendData(new DataPoint(x, y), true, size);
+        }
+        graphView.addSeries(series);
+    }
+
+    public void buildGraphTemperature(View view) {
+        double y, x;
+        int size = 0;
+
+        GraphView graphView = (GraphView) view.findViewById(R.id.graph_temperature);
+        series = new LineGraphSeries<DataPoint>();
+
+        temperatures.clear();
+        temperatures.addAll(App.user.getTemperature(getContext()));
+        size = temperatures.size();
+
+        for (int i = 0; i < size; i++) {
+            x = i;
+            y = temperatures.get(i).getTemperature();
+            series.appendData(new DataPoint(x, y), true, size);
+        }
+        graphView.addSeries(series);
+    }
+
+    public void buildGraphWeight(View view) {
+        double y, x;
+        int size = 0;
+
+        GraphView graphView = (GraphView) view.findViewById(R.id.graph_weight);
+        series = new LineGraphSeries<DataPoint>();
+
+        weights.clear();
+        weights.addAll(App.user.getWeight(getContext()));
+        size = weights.size();
+
+        for (int i = 0; i < size; i++) {
+            x = i;
+            y = weights.get(i).getWeight();
+            series.appendData(new DataPoint(x, y), true, size);
+        }
+        graphView.addSeries(series);
+    }
+    
 }

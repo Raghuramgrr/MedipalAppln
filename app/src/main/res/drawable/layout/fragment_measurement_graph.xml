@@ -6,62 +6,75 @@
     tools:context="iss.nus.edu.medipalappln.fragment.MainMeasurementFragment"
     android:scrollbars="vertical">
 
-    <TextView
-        android:id="@+id/text_view_bp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_blood_pressure"/>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/graph_bp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_view_pulse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_pulse" />
+            <TextView
+                android:id="@+id/text_view_bp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_blood_pressure"/>
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/graph_pulse" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/graph_bp" />
 
-    <TextView
-        android:id="@+id/text_view_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_temperature" />
+            <TextView
+                android:id="@+id/text_view_pulse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_pulse" />
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/graph_temperature" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/graph_pulse" />
 
-    <TextView
-        android:id="@+id/text_view_weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/text_weight" />
+            <TextView
+                android:id="@+id/text_view_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_temperature" />
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/graph_weight" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/graph_temperature" />
 
-    <Button
-        android:id="@+id/btn_show_all"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Show all"
-        android:gravity="left|center_vertical" />
+            <TextView
+                android:id="@+id/text_view_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_weight" />
 
-    <Button
-        android:id="@+id/btn_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add data"
-        android:gravity="left|center_vertical" />
+            <com.jjoe64.graphview.GraphView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/graph_weight" />
+
+            <Button
+                android:id="@+id/btn_show_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Show all"
+                android:gravity="left|center_vertical" />
+
+            <Button
+                android:id="@+id/btn_show_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:gravity="left|center_vertical" />
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
