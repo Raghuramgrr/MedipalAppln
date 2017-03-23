@@ -58,7 +58,7 @@ public class EmergencyListAdapter extends ArrayAdapter<Emergency> {
         }
         else {
             emergencies.clear();
-            emergencies.addAll(App.user.getEmergency(context));
+            //mergencies.addAll(App.user.getEmergency(context));
             Log.i(TAG, "refreshList");
             notifyDataSetChanged();
         }
