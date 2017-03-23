@@ -1,12 +1,12 @@
 package iss.nus.edu.medipalappln.medipal;
 
 import android.app.Application;
+import android.util.Log;
 
 public class App extends Application {
     private static final String TAG = "App";
     public static User user;
-    public static Emergency emergency;
-public static Personal formData;
+
     //TODO: link session to user object
     //public Session session
 
@@ -14,8 +14,7 @@ public static Personal formData;
     public void onCreate() {
         super.onCreate();
         user = new User();
-
         //user = new User(session.username());
-        //Log.i(TAG, "User: XXX" + user.getUserIDNo());
+        Log.i(TAG, "User: XXX" + user.getUserIDNo());
     }
 }

@@ -10,14 +10,6 @@
             android:textStyle="bold"
             android:layout_marginLeft="10dp"/>
 
-<<<<<<< HEAD
-    <Button
-        android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_delete"
-        android:layout_margin="10dp" />
-=======
         <TextView
             android:id="@+id/text_view_col2"
             android:layout_width="wrap_content"
@@ -49,6 +41,5 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/ic_delete"
             android:layout_alignParentRight="true"/>
->>>>>>> 37c916e6ffe02fb07aa264da1d8fc64feabd4e01
 
 </RelativeLayout>

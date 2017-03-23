@@ -5,6 +5,16 @@ import java.sql.Date;
 public class BloodPressure extends Measurement {
 
     // Constructor
+    public BloodPressure(Integer ID, Integer systolic, Integer diastolic, String measuredOn) {
+        this.ID = ID;
+        this.systolic = systolic;
+        this.diastolic = diastolic;
+        this.pulse = 0;
+        this.temperature = 0;
+        this.weight = 0.0;
+        this.measuredOn = measuredOn;
+    }
+
     public BloodPressure(Integer systolic, Integer diastolic, String measuredOn) {
         this.systolic = systolic;
         this.diastolic = diastolic;
@@ -15,16 +25,24 @@ public class BloodPressure extends Measurement {
     }
 
     // Methods
+    public Integer getID() { return this.ID; }
+
     public Integer getSystolic() {
-        return 0;
+        return this.systolic;
     }
 
     public Integer getDiastolic() {
-        return 0;
+        return this.diastolic;
     }
 
-    public Date getMeasuredOn() {
-        return null;
+    public String getMeasuredOn() {
+        return this.measuredOn;
+    }
+
+    public String toString() {
+        return this.systolic + " | " +
+                this.diastolic + " | " +
+                this.measuredOn;
     }
 
     public BloodPressure getBloodPressure(Date startDate, Date endDate) {
@@ -36,5 +54,6 @@ public class BloodPressure extends Measurement {
         this.systolic = systolic;
         this.diastolic = diastolic;
         this.measuredOn = measuredOn;
+        this.ID = ID;
     }
 }
