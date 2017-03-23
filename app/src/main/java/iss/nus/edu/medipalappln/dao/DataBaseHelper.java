@@ -32,7 +32,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public enum CONSUMPTION {ID, MedicineID, Quantity, ConsumedOn};
     public enum REMINDER {ID, Frequency, StartTime, Interval};
     public enum APPOINTMENT {ID, Location, Appointment, Description};
-    public enum ICE {ID, Name, ContactNo, ContactType, Description, Sequence};
+    public enum ICE {ID, Name, ContactNo, ContactType, Sequence};
 
     //begin SQL statement
     public static final String CREATE_TABLE_PERSONALBIO = "CREATE TABLE " + TABLE_PERSONALBIO +
@@ -128,7 +128,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             ICE.Name + " VARCHAR(100), " +
             ICE.ContactNo + " VARCHAR(20) ," +
            ICE.ContactType + " INTEGER, " +
-            ICE.Description + " VARCHAR(255) " +
+            ICE.Sequence + " VARCHAR(255) " +
            // ICE.Sequence + " INTEGER " +
             ");";
 

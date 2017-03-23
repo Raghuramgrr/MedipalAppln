@@ -1,8 +1,186 @@
+
 package iss.nus.edu.medipalappln.dao;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.util.Log;
+
+import java.util.ArrayList;
+
+import iss.nus.edu.medipalappln.medipal.Personal;
+
+public class BioDataBaseAdapter extends DBDAO {
+
+    private static final String TAG = "DBDAO";
+
+    //begin SQL statements
+    public static final String SELECT_ALL = "SELECT * FROM " + DataBaseHelper.TABLE_PERSONALBIO +
+            " WHERE 1";
+    //end SQL statements
+
+    public BioDataBaseAdapter(Context context) {
+        super(context);
+    }
+
+    public long addValues(Personal formData) {
+        ContentValues values = new ContentValues();
+        values.put(DataBaseHelper.PERSONALBIO.ID.toString(),formData.getID());
+        values.put(DataBaseHelper.PERSONALBIO.Name.toString(),formData.getName());
+        values.put(DataBaseHelper.PERSONALBIO.DOB.toString(),formData.getDob());
+        values.put(DataBaseHelper.PERSONALBIO.IDNo.toString(),formData.getIdno());
+        values.put(DataBaseHelper.PERSONALBIO.Address.toString(), formData.getAddress());
+        values.put(DataBaseHelper.PERSONALBIO.PostalCode.toString(), formData.getPostcode());
+        values.put(DataBaseHelper.PERSONALBIO.Height.toString(), formData.getHeight());
+        values.put(DataBaseHelper.PERSONALBIO.BloodType.toString(), formData.getBloodtype());
+
+        return database.insert(DataBaseHelper.TABLE_PERSONALBIO, null, values);
+    }
+
+
+
+    public long updateValues(Personal formData,String key) {
+        ContentValues values = new ContentValues();
+        String[] args = new String[] {key};
+
+        values.put(DataBaseHelper.PERSONALBIO.ID.toString(),formData.getID());
+        values.put(DataBaseHelper.PERSONALBIO.Name.toString(),formData.getName());
+        values.put(DataBaseHelper.PERSONALBIO.DOB.toString(),formData.getDob());
+        values.put(DataBaseHelper.PERSONALBIO.IDNo.toString(),formData.getIdno());
+        values.put(DataBaseHelper.PERSONALBIO.Address.toString(), formData.getAddress());
+        values.put(DataBaseHelper.PERSONALBIO.PostalCode.toString(), formData.getPostcode());
+        values.put(DataBaseHelper.PERSONALBIO.Height.toString(), formData.getHeight());
+        values.put(DataBaseHelper.PERSONALBIO.BloodType.toString(), formData.getBloodtype());
+
+        return database.update(DataBaseHelper.TABLE_PERSONALBIO, values, "ID = ?", args);
+    }
+
+    public long deleteValues(String key) {
+        String[] args = new String[] {key};
+
+        return database.delete(DataBaseHelper.TABLE_PERSONALBIO, "ID = ?", args);
+    }
+
+    public ArrayList<Personal> getFormDatas() {
+        ArrayList<Personal> formDatas = new ArrayList<Personal>();
+        String query[] = { DataBaseHelper.ICE.ID.toString(),
+                DataBaseHelper.PERSONALBIO.Name.toString(),
+                DataBaseHelper.PERSONALBIO.DOB.toString(),
+                DataBaseHelper.PERSONALBIO.IDNo.toString(),
+                DataBaseHelper.PERSONALBIO.Address.toString(),
+                DataBaseHelper.PERSONALBIO.PostalCode.toString(),
+                DataBaseHelper.PERSONALBIO.Height.toString(),
+                DataBaseHelper.PERSONALBIO.BloodType.toString()
+        };
+        int id;
+        try {
+            Cursor cursor = database.query(DataBaseHelper.TABLE_PERSONALBIO, query, null, null, null,
+                    null, null);
+
+            while (cursor.moveToNext()) {
+                id = cursor.getInt(0);
+                Personal formData = new Personal(cursor.getInt(0), cursor.getString(1),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                        cursor.getString(5),cursor.getString(6),cursor.getString(7));
+                formDatas.add(formData);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return formDatas;
+
+
+    }
+
+
+
+    public Personal getformData(int id) {
+        Personal formData = null;
+
+        String sql = "SELECT * FROM " + DataBaseHelper.TABLE_PERSONALBIO
+                + " WHERE " + id + " = ?";
+
+        Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
+
+        if (cursor.moveToNext()) {
+            int eid = cursor.getInt(0);
+            String name = cursor.getString(1);
+            String dob = cursor.getString(2);
+            String idno = cursor.getString(3);
+            String address=cursor.getString(4);
+
+            String postalcode=cursor.getString(5);
+            String height=cursor.getString(6);
+            String bloodtype=cursor.getString(7);
+
+            formData = new Personal(eid, name, dob,idno,address,postalcode,height,bloodtype);
+        }
+        return formData;
+    }
+
+
+
+
+
+    public String getSingleEntry() {
+        String dbString = "";
+
+        Cursor cursor = database.rawQuery(SELECT_ALL, null);
+        cursor.moveToFirst();
+
+        Log.i(TAG, "Record(s) count " + cursor.getCount());
+
+        for( int i = 0; i < cursor.getCount(); i++) {
+            if(cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.ID.toString())) != null) {
+
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Name.toString()));
+                dbString += "\t";
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.DOB.toString()));
+                dbString += "\t";
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.IDNo.toString()));
+                dbString += "\t";
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Address.toString()));
+                dbString += "\t";
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.PostalCode.toString()));
+                dbString += "\t";
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Height.toString()));
+                dbString += "\t";
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.BloodType.toString()));
+                dbString += "\t";
+                Log.i(TAG, "Record: " + dbString);
+            }
+            cursor.moveToNext();
+        }
+
+        return dbString;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 /**
  * Created by root on 15/3/17.
- */
+ *//*
+
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,7 +195,7 @@ public class BioDataBaseAdapter
     // TODO: Create public field for each column in your table.
     // SQL Statement to create a new database.
     static final String DATABASE_CREATE = "create table "+"PersonalBio"+
-            "( " + "USERNAME text,BLOODTYPE  text,DOB integer,HEIGHT text,WEIGHT text,ADDRESS text,PINCODE integer,PHONENUMBER integer); ";
+            "( " + "formDataNAME text,BLOODTYPE  text,DOB integer,HEIGHT text,WEIGHT text,ADDRESS text,PINCODE integer,PHONENUMBER integer); ";
     // Variable to hold the database instance
     public SQLiteDatabase db;
     // Context of the application using the database.
@@ -61,7 +239,8 @@ public class BioDataBaseAdapter
         db.insert("PersonalBio", null, newValues);
         ///Toast.makeText(context, "Reminder Is Successfully Saved", Toast.LENGTH_LONG).show();
     }
-   /* public int deleteEntry(String UserName)
+   */
+/* public int deleteEntry(String UserName)
     {
         //String id=String.valueOf(ID);
         String where="USERNAME=?";
@@ -82,7 +261,8 @@ public class BioDataBaseAdapter
         cursor.close();
         return password;
     }
-   /* public void  updateEntry(String userName,String password)
+   */
+/* public void  updateEntry(String userName,String password)
     {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
@@ -92,5 +272,7 @@ public class BioDataBaseAdapter
 
         String where="USERNAME = ?";
         db.update("LOGIN",updatedValues, where, new String[]{userName});
-    }*/
+    }*//*
+
 }
+*/

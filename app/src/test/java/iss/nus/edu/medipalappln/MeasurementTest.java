@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import iss.nus.edu.medipalappln.medipal.BloodPressure;
@@ -28,10 +27,10 @@ public class MeasurementTest extends TestCase {
 
         testDate = new SimpleDateFormat(datePattern);
 
-        measurementBloodPressure = new BloodPressure(100, 80, (Date) testDate.parse("2017-01-02 11:00"));
-        measurementPulse = new Pulse(90, (Date) testDate.parse("2017-01-02 12:00"));
-        measurementTemperature = new Temperature(36, (Date) testDate.parse("2017-01-02 15:00"));
-        measurementWeight = new Weight(41.10, (Date) testDate.parse("2017-01-02 18:00"));
+        /*measurementBloodPressure = new BloodPressure(100, 80, (String) testDate.parse("2017-01-02 11:00"));
+        measurementPulse = new Pulse(90, (String) testDate.parse("2017-01-02 12:00"));
+        measurementTemperature = new Temperature(36, (String) testDate.parse("2017-01-02 15:00"));
+        measurementWeight = new Weight(41.10, (String) testDate.parse("2017-01-02 18:00"));*/
 
     }
 

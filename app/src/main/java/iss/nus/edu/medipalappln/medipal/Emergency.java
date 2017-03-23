@@ -4,7 +4,7 @@ package iss.nus.edu.medipalappln.medipal;
  * Created by root on 21/3/17.
  */
 
-public class Emergency extends Measurement {
+public class Emergency {
     private String phone;
     private String priority;
     private String desc;

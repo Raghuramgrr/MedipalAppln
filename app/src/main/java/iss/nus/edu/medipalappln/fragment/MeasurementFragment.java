@@ -3,19 +3,20 @@ package iss.nus.edu.medipalappln.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.adapter.MeasurementListAdapter;
-import iss.nus.edu.medipalappln.dao.MeasurementDataBaseAdapter;
+import iss.nus.edu.medipalappln.adapter.MeasurementPagerAdapter;
 
-public class MeasurementFragment extends Fragment {
+public class MeasurementFragment extends Fragment implements
+        MeasureBloodPressureFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "MeasurementFragment";
 
@@ -26,14 +27,9 @@ public class MeasurementFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //private TextView measurementSummary;
-    //private EditText editTextSystolic;
-    //private EditText editTextDiastolic;
-    //private EditText editTextMeasuredOn;
-
-    private MeasurementListAdapter measurementListAdapter;
-    private MeasurementDataBaseAdapter measurementDataBaseAdapter;
-    private TextView textViewEmpty;
+    //private MeasurementListAdapter measurementListAdapter;
+    //private MeasurementDataBaseAdapter measurementDataBaseAdapter;
+    //private TextView textViewEmpty;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,23 +60,45 @@ public class MeasurementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_measurement, container, false);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-        textViewEmpty = (TextView) view.findViewById(R.id.text_view_empty);
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
+        MeasurementPagerAdapter measurementPagerAdapter = new MeasurementPagerAdapter(fragmentManager, 4);
+        viewPager.setAdapter(measurementPagerAdapter);
 
-        //measurementSummary = (TextView) view.findViewById(R.id.measurement_summary);
-        //editTextSystolic = (EditText) view.findViewById(R.id.edit_text_systolic);
-        //editTextDiastolic = (EditText) view.findViewById(R.id.edit_text_diastolic);
-        //editTextMeasuredOn = (EditText) view.findViewById(R.id.edit_text_measuredOn);
+        final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Blood Pressure").setIcon(R.drawable.ic_measurement));
+        tabLayout.addTab(tabLayout.newTab().setText("Pulse").setIcon(R.drawable.ic_measurement));
+        tabLayout.addTab(tabLayout.newTab().setText("Temperature").setIcon(R.drawable.ic_measurement));
+        tabLayout.addTab(tabLayout.newTab().setText("Weight").setIcon(R.drawable.ic_measurement));
 
-        //measurementSummary.setText("Summary of measurements");
-        ListView listViewMeasurement = (ListView) view.findViewById(R.id.list_view_measurement);
-        measurementListAdapter = new MeasurementListAdapter(getActivity(),
-                R.layout.measurement_row_layout, R.id.text_view_empty);
-        listViewMeasurement.setAdapter(measurementListAdapter);
-        //onClickView(view);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        //Fragment childFragment = viewPager.
+        //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        //transaction.replace(R.id.child_fragment_container, childFragment.commit);
+        super.onViewCreated(view, savedInstanceState);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,38 +125,13 @@ public class MeasurementFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void onClickAdd(View view) {
-
-    }
-
-    public void onClickDelete(View view) {
-
-    }
-
-    public void onClickView(View view) {
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //BloodPressure bloodPressure = new BloodPressure(100, 80, "2017-01-02 17:00:00");
-
-        //listMeasurement = new ListMeasurement(this.getContext());
-
-        //listMeasurement.execute((Void) null);
-
-        measurementDataBaseAdapter = new MeasurementDataBaseAdapter(getContext());
-        String result = measurementDataBaseAdapter.databaseToString();
-        Log.i(TAG, "List of measurement record(s): " + result);
-
-        //measurementSummary.setText(result);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        measurementListAdapter.refreshList();
-        textViewEmpty.setVisibility(measurementListAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }

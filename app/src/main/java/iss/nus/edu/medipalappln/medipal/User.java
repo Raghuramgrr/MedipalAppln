@@ -6,14 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import iss.nus.edu.medipalappln.asynTask.AddEmergency;
+import iss.nus.edu.medipalappln.asynTask.AddPersonal;
 import iss.nus.edu.medipalappln.asynTask.ListEmergency;
 import iss.nus.edu.medipalappln.asynTask.ListMeasurement;
-import iss.nus.edu.medipalappln.asynTask.AddEmergency;
+import iss.nus.edu.medipalappln.asynTask.ListPersonal;
 
 public class User {
 
     private String IDNo; //use this as login ID
-    //private PersonalBio personalBio;
+    private ArrayList<Personal> personalBio;
     //private ArrayList<HealthBio> healthBio;
     //private ArrayList<Medicine> medicine;
     private ArrayList<Measurement> measurements;
@@ -22,17 +24,19 @@ public class User {
     private ArrayList<Emergency> emergency;
 
     private ListMeasurement listMeasurement;
+    private ListPersonal listPersonal;
     private ListEmergency listEmergency;
     private AddEmergency addEmergency;
-
+    private AddPersonal addPersonal;
     public User() {
-        //personalBio = new personalBio();
+        personalBio = new ArrayList<Personal>();
         //healthBio = new ArrayList<HealthBio> ();
         //medicine = new ArrayList<Medicine> ();
         measurements = new ArrayList<Measurement> ();
         //consumption = new ArrayList<Consumption> ();
         //appointment = new ArrayList<Appointment> ();
         emergency = new ArrayList<Emergency> ();
+
     }
 
     public User(String IDNo) {
@@ -69,6 +73,25 @@ public class User {
         return new ArrayList<Measurement>(measurements);
     }
 
+   public List<Personal> getPersonal (Context context) {
+        listPersonal = new ListPersonal(context);
+        listPersonal.execute((Void) null);
+
+        try {
+            personalBio = listPersonal.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if (emergency == null) {
+            emergency = new ArrayList<Emergency> ();
+        }
+
+        return new ArrayList<Personal>(personalBio);
+    }
+
     public List<Emergency> getEmergency (Context context) {
         listEmergency = new ListEmergency(context);
         listEmergency.execute((Void) null);
@@ -100,6 +123,14 @@ public class User {
         Emergency em = new Emergency (ID,Name,Phone,Priority,Desc);
         addEmergency=new AddEmergency(context);
         addEmergency.execute(em);
+        return em;
+    }
+    public Personal addPersonal (int ID, String Name,
+                                   String Dob,String Idno,String Address,String Postcode,String Height,String Bloodtype,Context context) {
+        //numMembers++;
+        Personal em = new Personal (ID,Name,Dob,Idno,Address,Postcode,Height,Bloodtype);
+        addPersonal=new AddPersonal(context);
+        addPersonal.execute(em);
         return em;
     }
 

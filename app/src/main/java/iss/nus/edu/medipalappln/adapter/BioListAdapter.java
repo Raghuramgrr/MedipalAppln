@@ -14,18 +14,18 @@ import java.util.List;
 
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.medipal.App;
-import iss.nus.edu.medipalappln.medipal.Emergency;
+import iss.nus.edu.medipalappln.medipal.Personal;
 
-public class EmergencyListAdapter extends ArrayAdapter<Emergency> {
-    private static final String  TAG = "EMERGENCYLISTADAPTER";
+public class BioListAdapter extends ArrayAdapter<Personal> {
+    private static final String  TAG = "BioListAdapter";
 
     private Context context;
-    private List<Emergency> emergencies = new ArrayList<>();
+    private List<Personal> formDatas = new ArrayList<>();
 
-    public EmergencyListAdapter(Context context,int resource, int textViewResourceId) {
+    public BioListAdapter(Context context,int resource, int textViewResourceId) {
         super(context, R.layout.mem_fac_row_layout);
         this.context = context;
-       // refreshMembejava.lang.Stringrs();
+        // refreshMembejava.lang.Stringrs();
     }
 
     @Override public View getView(final int position, View convertView, ViewGroup parent) {
@@ -42,11 +42,11 @@ public class EmergencyListAdapter extends ArrayAdapter<Emergency> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final Emergency emergency = emergencies.get(position);
-        viewHolder.tvName.setText(emergency.toString());
+        final Personal formData = formDatas.get(position);
+        viewHolder.tvName.setText(formData.toString());
         viewHolder.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-               // App.user.removeMember(emergency.getMemberNumber());
+                // App.user.removeMember(emergency.getMemberNumber());
                 refreshList();
             }
         });
@@ -57,15 +57,15 @@ public class EmergencyListAdapter extends ArrayAdapter<Emergency> {
             Log.i(TAG, "App.user is null");
         }
         else {
-            emergencies.clear();
-            emergencies.addAll(App.user.getEmergency(context));
+            formDatas.clear();
+            formDatas.addAll(App.user.getPersonal(context));
             Log.i(TAG, "refreshList");
             notifyDataSetChanged();
         }
     }
 
     @Override public int getCount() {
-        return emergencies.size();
+        return formDatas.size();
     }
 
     static class ViewHolder {

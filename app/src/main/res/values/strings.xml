@@ -8,6 +8,12 @@
     <string name="activity_home_desc">You have successfully logged in with fingerprint authentication</string>
     <string name="activity_home_note">Close and re-open the app to see the fingerprint auth screen again</string>
 
+        <string-array name="Priority">
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            </string-array>
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

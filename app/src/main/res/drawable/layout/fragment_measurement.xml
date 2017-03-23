@@ -1,19 +1,26 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="iss.nus.edu.medipalappln.fragment.MeasurementFragment"
     android:scrollbars="vertical">
 
-    <ListView
-        android:id="@+id/list_view_measurement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </ListView>
-
-    <TextView
-        android:id="@+id/text_view_empty"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-</RelativeLayout>
+    <FrameLayout
+        android:id="@+id/child_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+
+    </FrameLayout>
+
+</LinearLayout>

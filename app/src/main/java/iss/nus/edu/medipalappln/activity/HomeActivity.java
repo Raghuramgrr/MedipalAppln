@@ -15,7 +15,6 @@ import android.widget.Toast;
 import iss.nus.edu.medipalappln.Encryption.CeaserCipher;
 import iss.nus.edu.medipalappln.FingerPrint.FingerprintActivity;
 import iss.nus.edu.medipalappln.R;
-
 import iss.nus.edu.medipalappln.dao.LoginDataBaseAdapter;
 
 public class HomeActivity extends Activity
@@ -48,45 +47,44 @@ public class HomeActivity extends Activity
         styledString.setSpan(new StyleSpan(Typeface.BOLD), 0, 7, 0);
         styledString.setSpan(new StyleSpan(Typeface.ITALIC), 8, 14, 0);
 
-        TextView tv = (TextView)findViewById(R.id.tv);
-        tv.setText(styledString);
+        //TextView tv = (TextView)findViewById(R.id.tv);
+        //tv.setText(styledString);
         session=new Session(this);
         final EditText editTextUserName=(EditText)findViewById(R.id.input_email);
         final EditText editTextPassword=(EditText)findViewById(R.id.input_password);
-
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+try {
+    btnSignIn.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
                 /*Intent intentSignIn = new Intent(getApplicationContext(), SignInActivity.class);
                 startActivity(intentSignIn);*/
-                        // get The User name and Password
-                        String userName=editTextUserName.getText().toString();
-                        String password=editTextPassword.getText().toString();
+            // get The User name and Password
+            String userName = editTextUserName.getText().toString();
+            String password = editTextPassword.getText().toString();
 
-                        // fetch the Password form database for respective user name
-                        String storedPassword=loginDataBaseAdapter.getSingleEntry(userName);
-                         String decodedPasswd=cipher.decode(storedPassword,5);
+            // fetch the Password form database for respective user name
+            String storedPassword = loginDataBaseAdapter.getSingleEntry(userName);
+            String decodedPasswd = cipher.decode(storedPassword, 5);
 
-                        // check if the Stored password matches with  Password entered by user
-                        if(password.equals(decodedPasswd))
-                        {
-                            session.setLoggedin(Boolean.TRUE,userName);
-                            Toast.makeText(HomeActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-                            Intent in=new Intent(getApplicationContext(),HelpScreen.class);
+            // check if the Stored password matches with  Password entered by user
+            if (password.equals(decodedPasswd)) {
+                session.setLoggedin(Boolean.TRUE, userName);
+                Toast.makeText(HomeActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
+                //Intent in = new Intent(getApplicationContext(), HelpScreen.class);
+Intent in =new Intent(getApplicationContext(), FingerprintActivity.class);
+                startActivity(in);
+                //dialog.dismiss();
 
-                            startActivity(in);
-                            //dialog.dismiss();
-
-                        }
-                        else
-                        {
-                            Toast.makeText(HomeActivity.this, "User Name or Password does not match", Toast.LENGTH_LONG).show();
-                        }
-
-
-
+            } else {
+                Toast.makeText(HomeActivity.this, "User Name or Password does not match", Toast.LENGTH_LONG).show();
             }
-        });
 
+
+        }
+    });
+}
+catch (Exception e){
+    e.printStackTrace();
+}
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -110,7 +108,7 @@ public class HomeActivity extends Activity
     private boolean first_time_check() {
         if((session.loggedin())){
             try {
-                Intent i = new Intent(HomeActivity.this, FingerprintActivity.class);
+                Intent i = new Intent(HomeActivity.this, Welcome.class);
                 startActivity(i);
             }
             catch (Exception e){

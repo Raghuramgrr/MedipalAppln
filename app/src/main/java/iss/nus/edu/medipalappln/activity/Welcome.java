@@ -26,25 +26,20 @@ import java.util.ArrayList;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
+import iss.nus.edu.medipalappln.fragment.Dashboard;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
+import iss.nus.edu.medipalappln.fragment.MeasureBloodPressureFragment;
 import iss.nus.edu.medipalappln.fragment.MeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
-
-/*<<<<<<< HEAD
-import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
-import iss.nus.edu.medipalappln.fragment.IceDetails;
-import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
-public class Welcome extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PersonalBioForm.OnFragmentInteractionListener,
-        IceDetails.OnFragmentInteractionListener, View.OnClickListener {
-=======*/
+import iss.nus.edu.medipalappln.fragment.ShowEmergency;
 
 public class Welcome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                     PersonalBioForm.OnFragmentInteractionListener,
                     IceDetails.OnFragmentInteractionListener,
-                    MeasurementFragment.OnFragmentInteractionListener,View.OnClickListener {
-/*>>>>>>> eeec0a993cde1bf28bebd61b6f08e90393645978*/
+                    MeasurementFragment.OnFragmentInteractionListener,
+                     ShowEmergency.OnFragmentInteractionListener,
+                    MeasureBloodPressureFragment.OnFragmentInteractionListener,Dashboard.OnFragmentInteractionListener, View.OnClickListener {
     public Session session;
     private View navHeader;
     private ImageView imgNavHeaderBg, imgProfile;
@@ -60,25 +55,14 @@ public class Welcome extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            setContentView(R.layout.activity_welcomehome);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        // context=this.getApplicationContext();
-        //bioDataBaseAdapter=new BioDataBaseAdapter(this);
-        //bioDataBaseAdapter=bioDataBaseAdapter.open();
-        // emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(this);
-        //emergencyDataBaseAdapter=emergencyDataBaseAdapter.open();
+        setContentView(R.layout.activity_welcomehome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
             Fragment fragment = null;
             Class fragmentClass = null;
-            session = new Session(this);
+            session=new Session(this);
             fragmentClass = PersonalBioForm.class;
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
@@ -88,8 +72,8 @@ public class Welcome extends AppCompatActivity
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-           // loadNavHeader();
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -105,7 +89,7 @@ public class Welcome extends AppCompatActivity
         // loadNavHeader();
         //txtWebsite = (TextView) navHeader.findViewById(R.id.website);
         //imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
-        imgProfile = (ImageView) navHeader.findViewById(R.id.imageView);
+         imgProfile = (ImageView) navHeader.findViewById(R.id.imageView);
         imgProfile.setClickable(true);
         try {
             imgProfile.setOnClickListener(this);
@@ -116,12 +100,13 @@ public class Welcome extends AppCompatActivity
         }
             //imgProfile.setOnClickListener((View.OnClickListener) this.getApplicationContext());
 
+    }
 /*=======*/
 
         //user = new User(session.username());
         //user = new User("S12345678");
 /*>>>>>>> eeec0a993cde1bf28bebd61b6f08e90393645978*/
-    }
+
 
 
     void openImageChooser() {
@@ -207,7 +192,6 @@ public class Welcome extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.welcome, menu);
         return true;
-
     }
 
     @Override
@@ -225,7 +209,7 @@ public class Welcome extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -235,16 +219,17 @@ public class Welcome extends AppCompatActivity
         if (id == R.id.PersonalBio) {
             fragmentClass = PersonalBioForm.class;
         } else if (id == R.id.nav_ice) {
-            try{fragmentClass = IceDetails.class;}
-            catch (Exception e){e.printStackTrace();}
-        }
-        else if (id == R.id.nav_measurement) {
-            //fragmentClass = MeasurementFragment.class;
+            fragmentClass = IceDetails.class;
+        } else if (id == R.id.nav_measurement) {
+            fragmentClass = MeasurementFragment.class;
         } else if (id == R.id.nav_appointment) {
             //fragmentClass = FragmentOne.class;
         } else if (id == R.id.nav_health_bio) {
-            //fragmentClass = FragmentTwo.class;
+            fragmentClass= Dashboard.class;
+        } else if(id==R.id.nav_show_ice){
+            fragmentClass = ShowEmergency.class;
         }
+
          else if (id == R.id.Logout) {
             //fragmentClass = FragmentTwo.class;
             logout();
@@ -254,13 +239,8 @@ public class Welcome extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

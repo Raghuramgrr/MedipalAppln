@@ -5,6 +5,7 @@ package iss.nus.edu.medipalappln.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -28,43 +29,44 @@ public class EmergencyDataBaseAdapter extends DBDAO {
         ContentValues values = new ContentValues();
         values.put(DataBaseHelper.ICE.ID.toString(),phone.getID());
         values.put(DataBaseHelper.ICE.Name.toString(),phone.getName());
-        values.put(DataBaseHelper.ICE.Description.toString(),phone.getDesc());
+        values.put(DataBaseHelper.ICE.Sequence.toString(),phone.getPriority());
         values.put(DataBaseHelper.ICE.ContactNo.toString(),phone.getPhone());
-        values.put(DataBaseHelper.ICE.ContactType.toString(), phone.getPriority());
+        values.put(DataBaseHelper.ICE.ContactType.toString(), phone.getDesc());
 
         return database.insert(DataBaseHelper.TABLE_ICE, null, values);
     }
 
 
 
-/*public long updateBloodPressure(BloodPressure bloodPressure, String key) {
+public long updateValues(Emergency phone,String key) {
         ContentValues values = new ContentValues();
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(bloodPressure.getMeasuredOn());
-        String[] args = new String[] {key};
+    String[] args = new String[] {key};
 
-        values.put(DataBaseHelper.MEASUREMENT.Systolic.toString(), bloodPressure.getSystolic());
-        values.put(DataBaseHelper.MEASUREMENT.Diastolic.toString(), bloodPressure.getDiastolic());
-        values.put(DataBaseHelper.MEASUREMENT.MeasuredOn.toString(), date);
+    values.put(DataBaseHelper.ICE.ID.toString(),phone.getID());
+    values.put(DataBaseHelper.ICE.Name.toString(),phone.getName());
+    values.put(DataBaseHelper.ICE.Sequence.toString(),phone.getPriority());
+    values.put(DataBaseHelper.ICE.ContactNo.toString(),phone.getPhone());
+    values.put(DataBaseHelper.ICE.ContactType.toString(), phone.getDesc());
 
-        return database.update(DataBaseHelper.TABLE_MEASUREMENT, values, "ID = ?", args);
+    return database.update(DataBaseHelper.TABLE_ICE, values, "ID = ?", args);
     }
 
-    public long deleteBloodPressure(String key) {
+    public long deleteValues(String key) {
         String[] args = new String[] {key};
 
-        return database.delete(DataBaseHelper.TABLE_MEASUREMENT, "ID = ?", args);
+        return database.delete(DataBaseHelper.TABLE_ICE, "ID = ?", args);
     }
-*/
+
 public ArrayList<Emergency> getICE() {
     ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
     String query[] = { DataBaseHelper.ICE.ID.toString(),
             DataBaseHelper.ICE.Name.toString(),
             DataBaseHelper.ICE.ContactNo.toString(),
-            DataBaseHelper.ICE.Description.toString(),
+            DataBaseHelper.ICE.ContactType.toString(),
             DataBaseHelper.ICE.Sequence.toString()
              };
     int id;
-
+try {
     Cursor cursor = database.query(DataBaseHelper.TABLE_ICE, query, null, null, null,
             null, null);
 
@@ -74,7 +76,10 @@ public ArrayList<Emergency> getICE() {
                 cursor.getString(2), cursor.getString(3), cursor.getString(4));
         emergencies.add(emergency);
     }
-
+}
+catch (SQLException e){
+    e.printStackTrace();
+}
     return emergencies;
 
 
@@ -123,7 +128,7 @@ public ArrayList<Emergency> getICE() {
                 dbString += "\t";
                 dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ContactType.toString()));
                 dbString += "\t";
-                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Description.toString()));
+                dbString += cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Sequence.toString()));
                 dbString += "\t";
 
                 Log.i(TAG, "Record: " + dbString);

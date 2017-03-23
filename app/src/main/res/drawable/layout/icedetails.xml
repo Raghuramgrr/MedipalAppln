@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="250dp"
+            android:layout_height="367dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -43,48 +43,70 @@
                 android:text="Add Emergency Details....Add Emergency Details....Add Emergency Details....Add Emergency Details...." />
 
 
-            <EditText
-                android:id="@+id/contactName"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="30dp"
-                android:background="#f3f3f3"
-                android:hint="Contact Name"
-                android:paddingLeft="5dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearlayout1"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                android:layout_marginBottom="20dp">
 
-            <EditText
-                android:id="@+id/contactRelation"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="0.13"
-                android:background="#f3f3f3"
-                android:hint="Relationship"
-                android:paddingLeft="5dp" />
+                    android:id="@+id/contactName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
+                    <EditText
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/contactName"
+                        android:textSize="20dp"
+                        android:hint="Name"
+                        android:layout_gravity="left"
+                        android:gravity="center"
+                        android:layout_weight="11.19" />
+                <Spinner
+                    android:id="@+id/contactPriority"
+                    android:layout_width="0dp"
+                    android:entries="@array/Priority"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:gravity="center"
+                    android:layout_weight="8.68"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="318dp"
+                android:layout_height="wrap_content">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50">
+             <EditText
 
+                 android:id="@+id/contactRelation"
+                 android:layout_width="wrap_content"
+                 android:layout_height="60dp"
+                 android:layout_marginTop="20dp"
+                 android:hint="Relationship"
+                 android:layout_gravity="left"
+                 android:gravity="center"
+                 android:layout_weight="1.77"/>
+
+            </LinearLayout>
+<LinearLayout
+    android:layout_width="318dp"
+    android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/contactPhone"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginTop="20dp"
-                android:background="#f3f3f3"
                 android:hint="Phonenumber"
+                android:gravity="center"
                 android:inputType="phone"
+                android:layout_weight="1.77"
                 android:paddingLeft="5dp" />
 
-
         </LinearLayout>
-
-        <Button
-            android:id="@+id/submitphone"
-
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn"
-            android:elevation="0dp"
-            android:text="SUBMIT"
-            android:textAlignment="center" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -109,13 +131,16 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <Button
+            android:id="@+id/submitphone"
+
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.93"
-
-            android:orientation="vertical">
-
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn"
+            android:elevation="0dp"
+            android:text="SUBMIT"
+            android:textAlignment="center" />
 
         </LinearLayout>
 

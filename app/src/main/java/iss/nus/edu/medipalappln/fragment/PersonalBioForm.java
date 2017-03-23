@@ -20,6 +20,7 @@ import java.util.TimeZone;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.Session;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
+import iss.nus.edu.medipalappln.medipal.App;
 
 
 /**
@@ -39,12 +40,13 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
     private int _month;
     private int _birthYear;
     private Context _context;
-    private BioDataBaseAdapter bioDataBaseAdapter;
+   
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
    Session session;
+    private BioDataBaseAdapter bioDataBaseAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,7 +90,7 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         bioDataBaseAdapter = new BioDataBaseAdapter(this.getActivity());
-        bioDataBaseAdapter = bioDataBaseAdapter.open();
+        bioDataBaseAdapter.open();
         session=new Session(getContext());
 
     }
@@ -109,7 +111,9 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
         final String Address = editTextAddress.getText().toString();
         final String Phone=editTextPhone.getText().toString();
 
-        bioDataBaseAdapter.insertEntry(session.username(),Blood, Dob, Height, Weight, Address, Pincode,Phone);
+
+        App.user.addPersonal(1,"Raghu",Dob,"K1663126",Address,Pincode,Height,Blood,_context);
+        //bioDataBaseAdapter.insertEntry(session.username(),Blood, Dob, Height, Weight, Address, Pincode,Phone);
     }
 
 
@@ -147,9 +151,9 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
         switch(v.getId()){
             case R.id.submit:
                 insertEntry();
+                break;
             case R.id.dob:
                 calenderEntry(view);
-
                 break;
         }
     }

@@ -6,7 +6,7 @@ public class App extends Application {
     private static final String TAG = "App";
     public static User user;
     public static Emergency emergency;
-
+public static Personal formData;
     //TODO: link session to user object
     //public Session session
 

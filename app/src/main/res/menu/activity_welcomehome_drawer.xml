@@ -29,6 +29,10 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Appointment" />
         <item
+            android:id="@+id/nav_show_ice"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Show Emergency" />
+        <item
             android:id="@+id/Logout"
             android:icon="@drawable/ic_menu_manage"
             android:title="Logout" />
