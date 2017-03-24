@@ -8,7 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 public class LoginDataBaseAdapter {
-    static final String DATABASE_NAME = "login.db";
+    static final String DATABASE_NAME = "medipal.db";
     static final int DATABASE_VERSION = 1;
     public static final int NAME_COLUMN = 1;
     // TODO: Create public field for each column in your table.
@@ -20,11 +20,11 @@ public class LoginDataBaseAdapter {
     // Context of the application using the database.
     private final Context context;
     // Database open/upgrade helper
-    private DataBaseHelper2 dbHelper;
+    private DataBaseHelper dbHelper;
 
     public LoginDataBaseAdapter(Context _context) {
         context = _context;
-        dbHelper = new DataBaseHelper2(context, DATABASE_NAME, null, DATABASE_VERSION);
+        dbHelper = new DataBaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public LoginDataBaseAdapter open() throws SQLException {
