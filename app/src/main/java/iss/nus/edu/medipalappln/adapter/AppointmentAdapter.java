@@ -277,7 +277,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                                                     NotificationManager mn = (NotificationManager) Welcome.getContext()
                                                             .getSystemService(NOTIFICATION_SERVICE);
                                                     mn.cancel(mLocation.get(position),position);
-                                                    RemindService.addNotification(delay,"Appointment Remind", Location, Time);
+                                                    RemindService.addNotification(Welcome.getContext(), delay,"Appointment Remind", Location, Time);
                                                 }
 
                                                 Appointment appointment = new Appointment(Location,Time,Description);

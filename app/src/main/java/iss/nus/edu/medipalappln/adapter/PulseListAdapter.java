@@ -58,6 +58,7 @@ public class PulseListAdapter extends ArrayAdapter {
             viewHolder.textViewPulse.setText(pulse.getPulse().toString());
             viewHolder.textViewMeasuredOn.setText(pulse.getMeasuredOn());
 
+
             viewHolder.buttonDelete.setOnClickListener(new View.OnClickListener() {
 
                 @Override

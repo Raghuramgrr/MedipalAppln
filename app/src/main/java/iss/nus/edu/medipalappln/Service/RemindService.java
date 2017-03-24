@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
@@ -22,9 +23,10 @@ public class RemindService extends Service {
 
     static Timer timer = null;
 
-    public static void cleanAllNotification() {
-        NotificationManager mn = (NotificationManager) Welcome
-                .getContext().getSystemService(NOTIFICATION_SERVICE);
+    public static void cleanAllNotification(Context context) {
+        //NotificationManager mn = (NotificationManager) Welcome
+        //        .getContext().getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager mn = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
         mn.cancelAll();
         if (timer != null) {
             timer.cancel();
@@ -33,15 +35,16 @@ public class RemindService extends Service {
     }
 
 
-    public static void addNotification(int delayTime, String tickerText,
+    public static void addNotification(Context context, int delayTime, String tickerText,
                                        String contentTitle, String contentText) {
-        Intent intent = new Intent(Welcome.getContext(),
+        //Intent intent = new Intent(Welcome.getContext(),
+        Intent intent = new Intent(context,
                 RemindService.class);
         intent.putExtra("delayTime", delayTime);
         intent.putExtra("tickerText", tickerText);
         intent.putExtra("contentTitle", contentTitle);
         intent.putExtra("contentText", contentText);
-        Welcome.getContext().startService(intent);
+        context.startService(intent);
     }
 
     public void onCreate() {

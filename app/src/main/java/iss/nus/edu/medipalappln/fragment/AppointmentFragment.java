@@ -29,7 +29,6 @@ import java.util.Date;
 
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.Service.RemindService;
-import iss.nus.edu.medipalappln.activity.Welcome;
 import iss.nus.edu.medipalappln.adapter.AppointmentAdapter;
 import iss.nus.edu.medipalappln.dao.AppointmentDataBaseAdapter;
 import iss.nus.edu.medipalappln.medipal.Appointment;
@@ -105,7 +104,7 @@ public class AppointmentFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = addAppDialog();
+                Dialog dialog = addAppDialog(getContext());
                 dialog.show();
             }
         });
@@ -123,7 +122,7 @@ public class AppointmentFragment extends Fragment {
     }
 
 
-    public Dialog addAppDialog(){
+    public Dialog addAppDialog(final Context context){
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -275,10 +274,10 @@ public class AppointmentFragment extends Fragment {
                             Log.e("value=",value+"");
                             long value2 = System.currentTimeMillis();
                             if(value <= value2){
-                                Toast.makeText(Welcome.getContext(),"Invalid Time", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context,"Invalid Time", Toast.LENGTH_LONG).show();
                             }
                             int delay = (int) (value - value2);
-                            RemindService.addNotification(delay,"Appointment Remind", Location, Time);
+                            RemindService.addNotification(getContext(), delay,"Appointment Remind", Location, Time);
 
                         }
                         appointment = new Appointment(Location,Time,Description);
