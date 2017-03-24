@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="iss.nus.edu.medipalappln.fragment.MainMeasurementFragment"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    tools:context="iss.nus.edu.medipalappln.fragment.MainMeasurementFragment">
 
     <ScrollView
+        android:id="@+id/scoll_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
@@ -22,9 +23,9 @@
                 android:text="@string/text_blood_pressure"/>
 
             <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph_bp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/graph_bp" />
+                android:layout_height="100dp" />
 
             <TextView
                 android:id="@+id/text_view_pulse"
@@ -33,9 +34,9 @@
                 android:text="@string/text_pulse" />
 
             <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph_pulse"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/graph_pulse" />
+                android:layout_height="100dp" />
 
             <TextView
                 android:id="@+id/text_view_temperature"
@@ -44,9 +45,9 @@
                 android:text="@string/text_temperature" />
 
             <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph_temperature"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/graph_temperature" />
+                android:layout_height="100dp" />
 
             <TextView
                 android:id="@+id/text_view_weight"
@@ -55,24 +56,16 @@
                 android:text="@string/text_weight" />
 
             <com.jjoe64.graphview.GraphView
+                android:id="@+id/graph_weight"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:id="@+id/graph_weight" />
+                android:layout_height="100dp" />
 
             <Button
                 android:id="@+id/btn_show_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Show all"
-                android:gravity="left|center_vertical" />
-
-            <Button
-                android:id="@+id/btn_show_add"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add"
-                android:gravity="left|center_vertical" />
-
+                android:gravity="left|center_vertical"
+                android:text="Show all" />
 
         </LinearLayout>
     </ScrollView>

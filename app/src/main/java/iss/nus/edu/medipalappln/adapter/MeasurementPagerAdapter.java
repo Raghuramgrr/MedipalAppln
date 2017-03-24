@@ -4,12 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import iss.nus.edu.medipalappln.fragment.MeasureBloodPressureFragment;
+import iss.nus.edu.medipalappln.fragment.ViewBloodPressureFragment;
+import iss.nus.edu.medipalappln.fragment.ViewPulseFragment;
+import iss.nus.edu.medipalappln.fragment.ViewTemperatureFragment;
+import iss.nus.edu.medipalappln.fragment.ViewWeightFragment;
 
 public class MeasurementPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int numTabs;
     String datePattern = "yyyy-MM-dd";
+    private int numTabs;
 
     public MeasurementPagerAdapter(FragmentManager fm, int numTabs) {
         super(fm);
@@ -19,22 +22,18 @@ public class MeasurementPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment childFragment = null;
-
         switch (position) {
             case 0:
-                childFragment = new MeasureBloodPressureFragment();
+                return new ViewBloodPressureFragment();
             case 1:
-                childFragment = new MeasureBloodPressureFragment();
+                return new ViewPulseFragment();
             case 2:
-                childFragment = new MeasureBloodPressureFragment();
+                return new ViewTemperatureFragment();
             case 3:
-                childFragment = new MeasureBloodPressureFragment();
-            default:
-                childFragment = new MeasureBloodPressureFragment();
+                return new ViewWeightFragment();
         }
 
-        return childFragment;
+        return null;
     }
 
     @Override
