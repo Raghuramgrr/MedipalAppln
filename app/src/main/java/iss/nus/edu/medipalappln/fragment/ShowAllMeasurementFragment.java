@@ -21,6 +21,7 @@ import iss.nus.edu.medipalappln.adapter.MeasurementPagerAdapter;
 public class ShowAllMeasurementFragment extends Fragment {
 
     private static final String TAG = "ShowAllMeasureFragment";
+    public String DATA_RECV_FILT_DATE;
 
     private OnFragmentInteractionListener mListener;
 
@@ -40,7 +41,6 @@ public class ShowAllMeasurementFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_measurement, container, false);
         final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
         MeasurementPagerAdapter measurementPagerAdapter = new MeasurementPagerAdapter(fragmentManager, 4);
         viewPager.setAdapter(measurementPagerAdapter);
@@ -87,6 +87,19 @@ public class ShowAllMeasurementFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Bundle args = getArguments();
+        if (args != null) {
+            Log.i(TAG, args.getString(DATA_RECV_FILT_DATE));
+            //filterDate = args.getString(DATA_RECV_FILT_DATE);
+
+            //textViewFilterDate.setText(filterDate);
+            //Log.i(TAG, "Filter Date: " + textViewFilterDate.getText());
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

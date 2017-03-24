@@ -18,34 +18,36 @@ public class MeasurementTest extends TestCase {
     String datePattern = "yyyy-MM-dd HH:mm";
     SimpleDateFormat testDate;
 
-    private BloodPressure measurementBloodPressure;
-    private Pulse measurementPulse;
-    private Temperature measurementTemperature;
-    private Weight measurementWeight;
+    private BloodPressure bp;
+    private Pulse pulse;
+    private Temperature temperature;
+    private Weight weight;
 
     @Before public void setUp() throws Exception {
 
         testDate = new SimpleDateFormat(datePattern);
 
-        /*measurementBloodPressure = new BloodPressure(100, 80, (String) testDate.parse("2017-01-02 11:00"));
-        measurementPulse = new Pulse(90, (String) testDate.parse("2017-01-02 12:00"));
-        measurementTemperature = new Temperature(36, (String) testDate.parse("2017-01-02 15:00"));
-        measurementWeight = new Weight(41.10, (String) testDate.parse("2017-01-02 18:00"));*/
+        bp = new BloodPressure(100, 80, "2017-01-02 11:00");
+        pulse = new Pulse(90, "2016-01-02 11:00");
+        temperature = new Temperature(36, "2012-01-02 11:00");
+        weight = new Weight(41.10, "2017-01-02 18:00");
 
     }
 
     @After public void tearDown() throws Exception {
-        measurementBloodPressure = null;
-        measurementPulse = null;
-        measurementTemperature = null;
-        measurementWeight = null;
+        bp = null;
+        pulse = null;
+        temperature = null;
+        weight = null;
     }
 
     @Test public void testGetBloodPressure() {
-
+        assertNotNull(bp);
+        assertSame(bp, bp = new BloodPressure(100, 80, "2017-01-02 11:00"));
     }
 
     @Test public void testSetBloodPressure() {
+
 
     }
 

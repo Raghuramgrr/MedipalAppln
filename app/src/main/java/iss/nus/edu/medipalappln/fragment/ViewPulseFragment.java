@@ -1,12 +1,17 @@
 package iss.nus.edu.medipalappln.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,7 +23,8 @@ public class ViewPulseFragment extends Fragment {
     private static final String TAG = "ViewPulseFragment";
 
     private PulseListAdapter pulseListAdapter;
-    private TextView textViewEmpty, textViewHeader;
+    private TextView textViewEmpty, textViewHeader, textViewStartDate, textViewEndDate;
+    private Button btnStartDate, btnEndDate, btnFilter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,12 +44,80 @@ public class ViewPulseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_measurement_list, container, false);
         ListView listView = (ListView) view.findViewById(R.id.list_view_measurement);
         textViewEmpty = (TextView) view.findViewById(R.id.text_view_empty);
+        btnStartDate = (Button) view.findViewById(R.id.btn_start_date);
+        btnEndDate = (Button) view.findViewById(R.id.btn_end_date);
+        btnFilter = (Button) view.findViewById(R.id.btn_filter);
+        textViewStartDate = (TextView) view.findViewById(R.id.text_view_start_date);
+        textViewEndDate = (TextView) view.findViewById(R.id.text_view_end_date);
         textViewHeader = (TextView) view.findViewById(R.id.text_header);
+        textViewHeader.setText("pulse in bpm");
 
-        textViewHeader.setText("pulse");
         pulseListAdapter = new PulseListAdapter(getActivity(),
                 R.layout.measurement_row_layout, R.id.text_view_empty);
         listView.setAdapter(pulseListAdapter);
+
+        btnStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                final DatePicker datePicker = new DatePicker(getContext());
+                datePicker.setCalendarViewShown(false);
+
+                builder.setTitle("Start date");
+                builder.setView(datePicker);
+                builder.setNegativeButton("Cancel", null);
+                builder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String year, month, day;
+                        year = String.format("%04d", datePicker.getYear());
+                        month = String.format("%02d", datePicker.getMonth()+1); //index begin from 0
+                        day = String.format("%02d", datePicker.getDayOfMonth());
+
+                        textViewStartDate.setText(year + "-" + month + "-" + day);
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
+        btnEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                final DatePicker datePicker = new DatePicker(getContext());
+                datePicker.setCalendarViewShown(false);
+
+                builder.setTitle("End date");
+                builder.setView(datePicker);
+                builder.setNegativeButton("Cancel", null);
+                builder.setPositiveButton("Set", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String year, month, day;
+                        year = String.format("%04d", datePicker.getYear());
+                        month = String.format("%02d", datePicker.getMonth()+1); //index begin from 0
+                        day = String.format("%02d", datePicker.getDayOfMonth());
+
+                        textViewEndDate.setText(year + "-" + month + "-" + day);
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String startDate = textViewStartDate.getText().toString().trim();
+                String endDate = textViewEndDate.getText().toString().trim();
+                Log.i(TAG, "Record(s) from " + startDate + " - " + endDate);
+
+                pulseListAdapter.refreshList(startDate, endDate);
+            }
+        });
 
         return view;
     }

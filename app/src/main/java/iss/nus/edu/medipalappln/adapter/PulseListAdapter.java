@@ -10,8 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.medipal.App;
@@ -22,7 +25,8 @@ public class PulseListAdapter extends ArrayAdapter {
     private static final String TAG = "PulseListAdapter";
 
     private Context context;
-    private List<Pulse> pulses = new ArrayList<Pulse>();
+    private ArrayList<Pulse> pulses = new ArrayList<Pulse>();
+    private ArrayList<Pulse> dbList = new ArrayList<Pulse>();
 
     public PulseListAdapter(Context context, int resource, int textViewResourceId) {
         super(context, resource, textViewResourceId);
@@ -54,6 +58,7 @@ public class PulseListAdapter extends ArrayAdapter {
             viewHolder.textViewPulse.setText(pulse.getPulse().toString());
             viewHolder.textViewMeasuredOn.setText(pulse.getMeasuredOn());
 
+
             viewHolder.buttonDelete.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -79,7 +84,52 @@ public class PulseListAdapter extends ArrayAdapter {
         else {
             pulses.clear();
             pulses.addAll(App.user.getPulse(context));
+            dbList = (ArrayList<Pulse>) pulses.clone();
             Log.i(TAG, "refreshList");
+            notifyDataSetChanged();
+        }
+    }
+
+    public void refreshList(String startDate, String endDate) {
+
+        if (App.user == null) {
+            Log.e(TAG, "Critical: App.user object is null");
+        }
+        else {
+            int initial_row = dbList.size();
+            ArrayList<Pulse> newList = new ArrayList<Pulse>();
+
+            if (startDate.isEmpty()) {
+                startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+            }
+
+            if (endDate.isEmpty()) {
+                endDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+            }
+
+            for (int i=0; i<initial_row; i++)
+            {
+                Log.i(TAG, "item: " + dbList.get(i).getMeasuredOn());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date listDate = Calendar.getInstance().getTime();
+                Date sDate = null;
+                Date eDate = null;
+                try {
+                    sDate = dateFormat.parse(startDate);
+                    eDate = dateFormat.parse(endDate);
+                    listDate = dateFormat.parse(dbList.get(i).getMeasuredOn());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "error parsing item: " + dbList.get(i).getMeasuredOn());
+                }
+
+                if (listDate.after(sDate) && listDate.before(eDate)) {
+                    newList.add(i, dbList.get(i));
+                }
+            }
+            pulses.clear();
+            pulses = newList;
+            Log.i(TAG, "filterList");
             notifyDataSetChanged();
         }
     }
@@ -94,4 +144,5 @@ public class PulseListAdapter extends ArrayAdapter {
         TextView textViewMeasuredOn;
         Button buttonDelete;
     }
+
 }

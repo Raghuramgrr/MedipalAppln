@@ -11,8 +11,8 @@ import iss.nus.edu.medipalappln.fragment.ViewWeightFragment;
 
 public class MeasurementPagerAdapter extends FragmentStatePagerAdapter {
 
-    private int numTabs;
     String datePattern = "yyyy-MM-dd";
+    private int numTabs;
 
     public MeasurementPagerAdapter(FragmentManager fm, int numTabs) {
         super(fm);

@@ -68,9 +68,7 @@ try {
             if (password.equals(decodedPasswd)) {
                 session.setLoggedin(Boolean.TRUE, userName);
                 Toast.makeText(HomeActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-                //Intent in = new Intent(getApplicationContext(), Recyclerview.class);
-                Intent in=new Intent(getApplicationContext(),Welcome.class);
-               // Intent in=new Intent(getApplicationContext(),contacts.class);
+                Intent in = new Intent(getApplicationContext(), HelpScreen.class);
 //Intent in =new Intent(getApplicationContext(), FingerprintActivity.class);
                 startActivity(in);
                 //dialog.dismiss();
@@ -109,8 +107,6 @@ catch (Exception e){
     private boolean first_time_check() {
         if((session.loggedin())){
             try {
-                //Intent i = new Intent(HomeActivity.this, Welcome.class);
-                //Intent i = new Intent(HomeActivity.this, contacts.class);
                 Intent i = new Intent(HomeActivity.this, Welcome.class);
                 startActivity(i);
             }
