@@ -58,7 +58,7 @@ public class BioListAdapter extends ArrayAdapter<Personal> {
         }
         else {
             formDatas.clear();
-            formDatas.addAll(App.user.getPersonal(context));
+            //formDatas.addAll(App.user.getPersonal(context));
             Log.i(TAG, "refreshList");
             notifyDataSetChanged();
         }
