@@ -56,7 +56,7 @@ public class RemindService extends Service {
 
     public int onStartCommand(final Intent intent, int flags, int startId) {
 
-        long period = 24 * 60 * 60 * 1000;
+        long period = 10 * 12 * 30 * 24 * 60 * 60 * 1000;
         int delay = intent.getIntExtra("delayTime", 0);
         if (null == timer) {
             timer = new Timer();
