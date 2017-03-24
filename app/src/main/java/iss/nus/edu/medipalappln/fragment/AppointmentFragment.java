@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ import iss.nus.edu.medipalappln.medipal.Appointment;
 public class AppointmentFragment extends Fragment {
 
     public static int Flag = 0;
+    public static int fFlag = 0;
 
     private FloatingActionButton fab;
     private RecyclerView recyclerView;
@@ -90,7 +92,6 @@ public class AppointmentFragment extends Fragment {
 
         appointmentAdapter = new AppointmentAdapter();
 
-
         refresh();
 
         fab = (FloatingActionButton)view.findViewById(R.id.fab_addapp);
@@ -100,6 +101,16 @@ public class AppointmentFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(appointmentAdapter);
 
+        SystemClock.sleep(1000);
+
+        Log.d("123",AppointmentAdapter.mId.size()+"");
+
+        if(fFlag == 0){
+            for(int i = 0; i < AppointmentAdapter.mId.size();i++){
+                AppointmentAdapter.flag.add(1);
+            }
+            fFlag = 1;
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +161,6 @@ public class AppointmentFragment extends Fragment {
         final DatePicker datePicker1 = (DatePicker) view.findViewById(R.id.datePicker_remind);
 
         final TimePicker timePicker1 = (TimePicker) view.findViewById(R.id.timePicker_remind);
-
 
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -277,14 +287,22 @@ public class AppointmentFragment extends Fragment {
                                 Toast.makeText(context,"Invalid Time", Toast.LENGTH_LONG).show();
                             }
                             int delay = (int) (value - value2);
-                            RemindService.addNotification(getContext(), delay,"Appointment Remind", Location, Time);
-
+                            RemindService.addNotification(delay,"Appointment Remind", Location, Time);
+                            AppointmentAdapter.flag.add(0);
+                            appointment = new Appointment(Location,Time,Description);
+                            AddAppointment addAppointment = new AddAppointment();
+                            addAppointment.start();
+                            refresh();
+                            builder.create().dismiss();
+                        }else{
+                            AppointmentAdapter.flag.add(1);
+                            appointment = new Appointment(Location,Time,Description);
+                            AddAppointment addAppointment = new AddAppointment();
+                            addAppointment.start();
+                            refresh();
+                            builder.create().dismiss();
                         }
-                        appointment = new Appointment(Location,Time,Description);
-                        AddAppointment addAppointment = new AddAppointment();
-                        addAppointment.start();
-                        refresh();
-                        builder.create().dismiss();
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
