@@ -42,8 +42,12 @@ public class MeasurementTest extends TestCase {
     }
 
     @Test public void testGetBloodPressure() {
+        BloodPressure bp2 = new BloodPressure(100, 80, "2017-01-02 11:00");
+        String date = "2017-01-02 11:00";
+
         assertNotNull(bp);
-        assertSame(bp, bp = new BloodPressure(100, 80, "2017-01-02 11:00"));
+        assertNotSame(bp, bp2); // different obj but same content
+        assertEquals(date, 0, bp.getMeasuredOn().compareTo(date));
     }
 
     @Test public void testSetBloodPressure() {
