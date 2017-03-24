@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import iss.nus.edu.medipalappln.Encryption.CeaserCipher;
-import iss.nus.edu.medipalappln.FingerPrint.FingerprintActivity;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.LoginDataBaseAdapter;
 

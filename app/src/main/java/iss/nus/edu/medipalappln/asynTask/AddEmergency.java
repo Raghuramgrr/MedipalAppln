@@ -12,7 +12,7 @@ import iss.nus.edu.medipalappln.medipal.Emergency;
 
 public class AddEmergency extends AsyncTask<Emergency, Void, Long> {
 
-    private static final String TAG = "AddMeasurement";
+    private static final String TAG = "AddEmergency";
     Emergency emergency=null;
     private EmergencyDataBaseAdapter emergencyDataBaseAdapter;
     String result;

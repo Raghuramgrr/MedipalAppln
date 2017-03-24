@@ -1,115 +1,93 @@
 package iss.nus.edu.medipalappln.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
+import java.util.ArrayList;
+import java.util.List;
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.widgetService.widgetMain;
+import iss.nus.edu.medipalappln.activity.dashboardcontent;
+import iss.nus.edu.medipalappln.activity.DashboardAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Dashboard.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Dashboard#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Dashboard extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerView;
+    private DashboardAdapter adapter;
+    private List<dashboardcontent> dashboardcontentList;
+    private static final String TAG = "Dashboard";
+ private Context _context;
+    private ImageButton ibtn_Measurement;
 
     private OnFragmentInteractionListener mListener;
 
+
+
+
     public Dashboard() {
         // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Dashboard.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Dashboard newInstance(String param1, String param2) {
-        Dashboard fragment = new Dashboard();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
-    View view;
-    @Override
+
+        @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view =inflater.inflate(R.layout.activity_dashboard,container,false);
+                             Bundle savedInstanceState)  {
 
-        return view;
+    View view = inflater.inflate(R.layout.recyclerview, container, false);
+ViewGroup fragmentview=(ViewGroup)getView();
+    dashboardcontentList = new ArrayList<>();
+    adapter = new DashboardAdapter(getActivity().getApplicationContext(), dashboardcontentList);
+    recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
+    RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
+    recyclerView.setLayoutManager(mLayoutManager);
+    recyclerView.addItemDecoration(new Dashboard.GridSpacingItemDecoration(2, dpToPx(10), true));
+    recyclerView.setItemAnimator(new DefaultItemAnimator());
+    recyclerView.setAdapter(adapter);
+
+    prepareView();
+
+    try {
+        Glide.with(this).load(R.drawable.cover).into((ImageView) getActivity().findViewById(R.id.backdrop));
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+
+    return view;
+}
+
 
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        Switch mySwitch = (Switch) getView().findViewById(R.id.mySwitch);
-
-        //set the switch to ON
-        mySwitch.setChecked(true);
-        //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
-
-                if (isChecked) {
-                    Intent in = new Intent(getContext(), widgetMain.class);
-                    startActivity(in);
-                }
-
-            }
-        });
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            mListener = (Dashboard.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -122,18 +100,97 @@ public class Dashboard extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void prepareView() {
+        int[] covers = new int[]{
+                R.drawable.album1,
+                R.drawable.album2,
+                R.drawable.album3,
+                R.drawable.album4,
+                R.drawable.album5,
+                R.drawable.album6,
+                R.drawable.album7,
+                R.drawable.album8
+
+        };
+
+        dashboardcontent a = new dashboardcontent("Add PersonalBio", covers[0]);
+        dashboardcontentList.add(a);
+
+        a = new dashboardcontent("Add Medication",  covers[1]);
+        dashboardcontentList.add(a);
+
+        a = new dashboardcontent("Add Appointment 5", covers[2]);
+        dashboardcontentList.add(a);
+
+        a = new dashboardcontent("Doctor", covers[3]);
+        dashboardcontentList.add(a);
+
+        a = new dashboardcontent("Doct visit", covers[4]);
+        dashboardcontentList.add(a);
+
+        a = new dashboardcontent("Measurements",covers[5]);
+        dashboardcontentList.add(a);
+
+        a = new dashboardcontent("Measurements",  covers[6]);
+        dashboardcontentList.add(a);
+
+        a = new dashboardcontent("PersonalBio", covers[7]);
+        dashboardcontentList.add(a);
+
+
+
+
+        adapter.notifyDataSetChanged();
+    }
+
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            int position = parent.getChildAdapterPosition(view); // item position
+            int column = position % spanCount; // item column
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+
+                if (position < spanCount) { // top edge
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing; // item bottom
+            } else {
+                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = spacing; // item top
+                }
+            }
+        }
+    }
+
+    /**
+     * Converting dp to pixel
+     */
+    private int dpToPx(int dp) {
+        Resources r = getResources();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+    public void onClickMeasurement() {
+
     }
 }

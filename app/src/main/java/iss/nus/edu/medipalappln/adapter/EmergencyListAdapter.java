@@ -23,7 +23,7 @@ public class EmergencyListAdapter extends ArrayAdapter<Emergency> {
     private List<Emergency> emergencies = new ArrayList<>();
 
     public EmergencyListAdapter(Context context,int resource, int textViewResourceId) {
-        super(context, R.layout.mem_fac_row_layout);
+        super(context, R.layout.emergencylist);
         this.context = context;
        // refreshMembejava.lang.Stringrs();
     }
@@ -33,17 +33,21 @@ public class EmergencyListAdapter extends ArrayAdapter<Emergency> {
         if (convertView == null) {
             LayoutInflater inflater =
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.mem_fac_row_layout, parent, false);
+            convertView = inflater.inflate(R.layout.emergencylist, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-            viewHolder.btnRemove = (Button) convertView.findViewById(R.id.btn_remove);
+            viewHolder.tvName = (TextView) convertView.findViewById(R.id.text_view_name);
+            viewHolder.tvPhone=(TextView)convertView.findViewById(R.id.phonenum);
+            viewHolder.tvRelation=(TextView)convertView.findViewById(R.id.relation);
+            //viewHolder.btnRemove = (Button) convertView.findViewById(R.id.btn_remove);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         final Emergency emergency = emergencies.get(position);
-        viewHolder.tvName.setText(emergency.toString());
+        viewHolder.tvName.setText(emergency.getName());
+        viewHolder.tvPhone.setText(emergency.getPhone());
+        viewHolder.tvRelation.setText(emergency.getDesc());
         viewHolder.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                // App.user.removeMember(emergency.getMemberNumber());
@@ -70,6 +74,8 @@ public class EmergencyListAdapter extends ArrayAdapter<Emergency> {
 
     static class ViewHolder {
         TextView tvName;
+        TextView tvRelation;
+        TextView tvPhone;
         Button btnRemove;
     }
 }

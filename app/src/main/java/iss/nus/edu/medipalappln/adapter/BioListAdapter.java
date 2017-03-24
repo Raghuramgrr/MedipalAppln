@@ -23,7 +23,7 @@ public class BioListAdapter extends ArrayAdapter<Personal> {
     private List<Personal> formDatas = new ArrayList<>();
 
     public BioListAdapter(Context context,int resource, int textViewResourceId) {
-        super(context, R.layout.mem_fac_row_layout);
+        super(context, R.layout.biolistlayout);
         this.context = context;
         // refreshMembejava.lang.Stringrs();
     }
@@ -33,18 +33,34 @@ public class BioListAdapter extends ArrayAdapter<Personal> {
         if (convertView == null) {
             LayoutInflater inflater =
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.mem_fac_row_layout, parent, false);
+            convertView = inflater.inflate(R.layout.biolistlayout, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-            viewHolder.btnRemove = (Button) convertView.findViewById(R.id.btn_remove);
+            viewHolder.textViewBlood = (TextView) convertView.findViewById(R.id.blood);
+            viewHolder.textViewAddress = (TextView) convertView.findViewById(R.id.address);
+            viewHolder.textViewDob = (TextView) convertView.findViewById(R.id.Dob);
+            viewHolder.textViewName = (TextView) convertView.findViewById(R.id.text_view_measured_on);
+            viewHolder.textViewWeight = (TextView) convertView.findViewById(R.id.weight);
+            viewHolder.textViewHeight = (TextView) convertView.findViewById(R.id.height);
+            viewHolder.textViewPincode = (TextView) convertView.findViewById(R.id.pincode);
+            viewHolder.textViewPhone = (TextView) convertView.findViewById(R.id.phone);
+            viewHolder.buttonUpdate = (Button) convertView.findViewById(R.id.btn_remove);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
         final Personal formData = formDatas.get(position);
-        viewHolder.tvName.setText(formData.toString());
-        viewHolder.btnRemove.setOnClickListener(new View.OnClickListener() {
+
+        viewHolder.textViewAddress.setText(formData.getAddress());
+        viewHolder.textViewBlood.setText(formData.getBloodtype());
+        viewHolder.textViewPincode.setText(formData.getPostcode());
+        viewHolder.textViewPhone.setText(formData.getPhone());
+        viewHolder.textViewWeight.setText(formData.getHeight());
+        viewHolder.textViewDob.setText(formData.getDob());
+        viewHolder.textViewHeight.setText(formData.getHeight());
+        viewHolder.textViewName.setText(formData.getName());
+
+        viewHolder.buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 // App.user.removeMember(emergency.getMemberNumber());
                 refreshList();
@@ -69,7 +85,16 @@ public class BioListAdapter extends ArrayAdapter<Personal> {
     }
 
     static class ViewHolder {
-        TextView tvName;
-        Button btnRemove;
+        TextView textViewPhone;
+        TextView textViewBlood;
+        TextView textViewDob;
+        TextView textViewHeight;
+        TextView textViewWeight;
+        TextView textViewAddress;
+        TextView textViewPincode;
+        TextView textViewName;
+
+
+        Button buttonUpdate;
     }
 }

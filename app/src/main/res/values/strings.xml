@@ -7,7 +7,10 @@
     <string name="title_activity_home">Fingerprint</string>
     <string name="activity_home_desc">You have successfully logged in with fingerprint authentication</string>
     <string name="activity_home_note">Close and re-open the app to see the fingerprint auth screen again</string>
-
+    <string name="action_add_favourite">Add PersonalBio</string>
+    <string name="action_play_next">Add ICE</string>
+    <string name="backdrop_title">MediPAL</string>
+    <string name="backdrop_subtitle">DASHBOARD</string>
         <string-array name="Priority">
             <item>1</item>
             <item>2</item>
