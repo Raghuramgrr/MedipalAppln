@@ -1,5 +1,6 @@
 package iss.nus.edu.medipalappln.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.AddMeasurementFragment;
+import iss.nus.edu.medipalappln.fragment.AppointmentFragment;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.MainFragment;
 import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
@@ -33,6 +35,7 @@ public class Welcome extends AppCompatActivity
                     PersonalBioForm.OnFragmentInteractionListener,
                     IceDetails.OnFragmentInteractionListener,
                     MainMeasurementFragment.OnFragmentInteractionListener,
+                    AppointmentFragment.OnFragmentInteractionListener,
                     ShowAllMeasurementFragment.OnFragmentInteractionListener,
                     AddMeasurementFragment.OnFragmentInteractionListener,
                     ViewBloodPressureFragment.OnFragmentInteractionListener,
@@ -40,7 +43,12 @@ public class Welcome extends AppCompatActivity
                     ViewTemperatureFragment.OnFragmentInteractionListener,
                     ViewWeightFragment.OnFragmentInteractionListener {
     public Session session;
+    private static Context sContext = null;
     BioDataBaseAdapter bioDataBaseAdapter;
+
+    public static Context getContext() {
+        return sContext;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +130,7 @@ public class Welcome extends AppCompatActivity
         } else if (id == R.id.nav_measurement) {
             fragmentClass = MainMeasurementFragment.class;
         } else if (id == R.id.nav_appointment) {
-            //fragmentClass = FragmentOne.class;
+            fragmentClass = AppointmentFragment.class;
         } else if (id == R.id.nav_health_bio) {
             //fragmentClass = FragmentTwo.class;
         }
