@@ -17,10 +17,12 @@ import iss.nus.edu.medipalappln.medipal.Category;
 import iss.nus.edu.medipalappln.medipal.Medicine;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.UpdateMedicineActivity;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
+
+
 
 /**
- * Created by Swarna on 8/6/2016.
+ * Created by Nivi Li on 8/6/2016.
  */
 public class MedicineListAdapter extends ArrayAdapter<Medicine> {
   private Context context;
@@ -41,7 +43,7 @@ public class MedicineListAdapter extends ArrayAdapter<Medicine> {
           (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       convertView = inflater.inflate(R.layout.medicine_row_layout, parent, false);
       viewHolder = new ViewHolder();
-        viewHolder.tvMedId = (TextView) convertView.findViewById(R.id.tv_medId);
+      viewHolder.tvMedId = (TextView) convertView.findViewById(R.id.tv_medId);
       viewHolder.tvMedName = (TextView) convertView.findViewById(R.id.tv_medName);
       viewHolder.tvMedDesc = (TextView) convertView.findViewById(R.id.tv_medDesc);
       viewHolder.tvMedCat = (TextView) convertView.findViewById(R.id.tv_medCode);
@@ -51,14 +53,13 @@ public class MedicineListAdapter extends ArrayAdapter<Medicine> {
     } else {
       viewHolder = (ViewHolder) convertView.getTag();
     }
-
     final Medicine medicine = medicines.get(position);
       Log.d("Niv", String.valueOf(medicine.getMedId()));
-    final Medicine m1 = App.club.getMember(medicine.getMedId());
+    final Medicine m1 = App.user.getMember(medicine.getMedId());
     viewHolder.tvMedName.setText(medicine.getMedName().toString());
     viewHolder.tvMedDesc.setText(medicine.getMedDesc().toString());
 
-      category = App.club.getFacility(medicine.getCatId(), getContext());
+      category = App.user.getFacility(medicine.getCatId(), getContext());
 
     viewHolder.tvMedCat.setText(category.getName());
 /*    viewHolder.tvMedReminder.setText(medicine.getReminder().toString());
@@ -74,7 +75,7 @@ public class MedicineListAdapter extends ArrayAdapter<Medicine> {
     viewHolder.btnMedRemove.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        App.club.removeMember(medicine, getContext());
+        App.user.removeMember(medicine, getContext());
         refreshMembers();
 
 /*        Snackbar snackbar = Snackbar.make(coordinatorLayout,,Snackbar.LENGTH_LONG)
@@ -121,7 +122,7 @@ public class MedicineListAdapter extends ArrayAdapter<Medicine> {
 
   public void refreshMembers() {
     medicines.clear();
-    medicines.addAll(App.club.getMedicines(this.context));
+    medicines.addAll(App.user.getMedicines(this.context));
     notifyDataSetChanged();
   }
 

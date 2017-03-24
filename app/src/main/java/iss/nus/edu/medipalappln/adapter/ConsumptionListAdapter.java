@@ -17,7 +17,7 @@ import java.util.Locale;
 import iss.nus.edu.medipalappln.medipal.Consumption;
 import iss.nus.edu.medipalappln.medipal.Medicine;
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
 import iss.nus.edu.medipalappln.dao.ConsumptionDAO;
 
 public class ConsumptionListAdapter extends ArrayAdapter<Consumption> {
@@ -78,7 +78,7 @@ public class ConsumptionListAdapter extends ArrayAdapter<Consumption> {
 
   public void refreshBookings() {
     consumptions.clear();
-    consumptions.addAll(App.club.getConsumptions(this.context));
+    consumptions.addAll(App.user.getConsumptions(this.context));
 
 //    List<Member> lMembers = App.club.getMembers(this.context);
 //    List<Facility> lFacilities = App.club.getFacilities(this.context);

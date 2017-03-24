@@ -30,7 +30,7 @@ import iss.nus.edu.medipalappln.medipal.Category;
 import iss.nus.edu.medipalappln.medipal.Medicine;
 import iss.nus.edu.medipalappln.medipal.Reminder;
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
 
 public class AddMedicineActivity extends AppCompatActivity {
 
@@ -64,7 +64,7 @@ public class AddMedicineActivity extends AppCompatActivity {
 
     spnFacility = (Spinner) findViewById(R.id.spn_facility);
 
-    categoryList = App.club.getFacilities(this);
+    categoryList = App.user.getFacilities(this);
     List<String> spnFacList = new ArrayList<>();
     spnFacList.add("<Select Category>");
     for (Category category : categoryList) {
@@ -131,7 +131,7 @@ public class AddMedicineActivity extends AppCompatActivity {
       }
     });
 
-    final  int remId = App.club.getMaxReminderId(getApplicationContext());
+    final  int remId = App.user.getMaxReminderId(getApplicationContext());
 
     Button btnSave = (Button) findViewById(R.id.btn_save);
     btnSave.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +177,7 @@ public class AddMedicineActivity extends AppCompatActivity {
           }
 
           if (flag) {
-            App.club.addMember(etMedicineName.getText().toString().trim(), etMedicineDesc.getText().toString().trim(),
+            App.user.addMember(etMedicineName.getText().toString().trim(), etMedicineDesc.getText().toString().trim(),
                     selectedCategory.getCatId(), remId,
                     quantity,
                     dosage, threshold,
@@ -186,7 +186,7 @@ public class AddMedicineActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             finish();
           }else{
-            App.club.addMember(etMedicineName.getText().toString().trim(), etMedicineDesc.getText().toString().trim(),
+            App.user.addMember(etMedicineName.getText().toString().trim(), etMedicineDesc.getText().toString().trim(),
                     selectedCategory.getCatId(), 0,
                     quantity,
                     dosage, threshold,

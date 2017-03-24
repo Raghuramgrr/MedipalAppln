@@ -66,11 +66,10 @@ public class MedicineDAO extends DBDAO {
         return database.delete(DataBaseHelper.TABLE_MEDICINE, WHERE_ID_EQUALS,
                 new String[] { medicine.getMedId() + "" });
     }
-
     //USING query() method
    public ArrayList<Medicine> getMembers() {
         ArrayList<Medicine> medicines = new ArrayList<Medicine>();
-        String[] querystr = new String[]{DataBaseHelper.MEDICINE.Name.toString(),DataBaseHelper.MEDICINE.Description.toString(),
+        String[] querystr = new String[]{DataBaseHelper.MEDICINE.ID.toString(),DataBaseHelper.MEDICINE.Name.toString(),DataBaseHelper.MEDICINE.Description.toString(),
                 DataBaseHelper.MEDICINE.CatID.toString(),DataBaseHelper.MEDICINE.ReminderID.toString(),DataBaseHelper.MEDICINE.Quantity.toString(),
                 DataBaseHelper.MEDICINE.Dosage.toString(),DataBaseHelper.MEDICINE.Threshold.toString(),DataBaseHelper.MEDICINE.DateIssued.toString(),
                 DataBaseHelper.MEDICINE.ExpiryFactor.toString()};
@@ -82,23 +81,20 @@ public class MedicineDAO extends DBDAO {
             int id = cursor.getInt(0);
             String mName = cursor.getString(1);
             String mDesc = cursor.getString(2);
-            int mCategory = cursor.getInt(3);
-            int mReminder = cursor.getInt(4);
+            int mCatId = cursor.getInt(3);
+            int mReminderID = cursor.getInt(4);
             int mQuantity = cursor.getInt(5);
             int mDosage = cursor.getInt(6);
             int mThreshold = cursor.getInt(7);
-
             Date mDateIssued = null;
-
             try {
                 mDateIssued = formatter.parse(cursor.getString(8));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
             int mExpiryFactor = cursor.getInt(9);
 
-            Medicine medicine = new Medicine(id, mName, mDesc, mCategory, mReminder, mQuantity, mDosage, mThreshold, mDateIssued, mExpiryFactor);
+            Medicine medicine = new Medicine(id, mName, mDesc, mCatId, mReminderID, mQuantity, mDosage, mThreshold, mDateIssued, mExpiryFactor);
             medicines.add(medicine);
         }
         return medicines;

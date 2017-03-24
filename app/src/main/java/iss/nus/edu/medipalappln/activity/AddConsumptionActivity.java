@@ -23,7 +23,7 @@ import java.util.Locale;
 import iss.nus.edu.medipalappln.medipal.Consumption;
 import iss.nus.edu.medipalappln.medipal.Medicine;
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
 
 public class AddConsumptionActivity extends AppCompatActivity {
 
@@ -60,7 +60,7 @@ public class AddConsumptionActivity extends AppCompatActivity {
 
 
 
-    medicineList = App.club.getMedicines(this);
+    medicineList = App.user.getMedicines(this);
     List<String> spnMemList = new ArrayList<>();
     spnMemList.add("<Select Medicine>");
     for (Medicine medicine : medicineList) {
@@ -202,7 +202,7 @@ public class AddConsumptionActivity extends AppCompatActivity {
           quantity = Integer.parseInt(etQuantity.getText().toString());
 
           Consumption b = new Consumption(selectedMedicine.getMedId(), quantity, selStartDate.getTime());
-          App.club.addConsumption(b.getMedId(), b.getQuantity(), b.getConDate(), getApplicationContext());
+          App.user.addConsumption(b.getMedId(), b.getQuantity(), b.getConDate(), getApplicationContext());
 
           Toast.makeText(AddConsumptionActivity.this, getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
           finish();

@@ -15,7 +15,7 @@ import java.util.Locale;
 
 import iss.nus.edu.medipalappln.medipal.Medicine;
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
 
 /**
  * Created by rama on 3/21/2017.
@@ -119,7 +119,7 @@ public class UpdateMedicineActivity extends AppCompatActivity {
                         quantity, dosage,threshold,
                         selectedDate.getTime(),expiryFactor);
 
-                App.club.updateMember(m, getApplicationContext());
+                App.user.updateMember(m, getApplicationContext());
                 finish();
             }
         });

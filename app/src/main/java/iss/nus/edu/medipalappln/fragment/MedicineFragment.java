@@ -30,7 +30,7 @@ public class MedicineFragment extends Fragment {
     View fragmentView = inflater.inflate(R.layout.fragment_medicine, container, false);
     ListView memberList = (ListView) fragmentView.findViewById(R.id.lv_member_list);
     tvEmpty = (TextView) fragmentView.findViewById(R.id.tv_empty_value);
-    medicineListAdapter = new MedicineListAdapter(getActivity());
+    medicineListAdapter = new MedicineListAdapter(fragmentView.getContext());
     memberList.setAdapter(medicineListAdapter);
     FloatingActionButton floatingActionButton =
             (FloatingActionButton) fragmentView.findViewById(R.id.fab);

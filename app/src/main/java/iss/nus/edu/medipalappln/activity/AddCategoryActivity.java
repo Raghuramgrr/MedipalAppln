@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
 
 public class AddCategoryActivity extends AppCompatActivity {
     private EditText etFacilityName, etFacilityDesc, etFacilityCode, etFacilityReminder;
@@ -27,7 +27,7 @@ public class AddCategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isValid()) {
-                    App.club.addFacility(etFacilityName.getText().toString().trim(), etFacilityDesc.getText().toString().trim(),
+                    App.user.addFacility(etFacilityName.getText().toString().trim(), etFacilityDesc.getText().toString().trim(),
                             etFacilityCode.getText().toString().trim(),
                             etFacilityReminder.getText().toString().trim(),getApplicationContext());
                     Toast.makeText(AddCategoryActivity.this, getString(R.string.save_successful),

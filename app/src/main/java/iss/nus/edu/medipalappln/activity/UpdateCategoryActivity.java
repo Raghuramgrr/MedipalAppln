@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
 
 /**
  * Created by rama on 3/21/2017.
@@ -49,7 +49,7 @@ public class UpdateCategoryActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                App.club.updateFacility(id, editName.getText().toString(), editCode.getText().toString(), editDescription.getText().toString(),editReminder.getText().toString(),
+                App.user.updateFacility(id, editName.getText().toString(), editCode.getText().toString(), editDescription.getText().toString(),editReminder.getText().toString(),
                         getApplicationContext());
 
                 finish();

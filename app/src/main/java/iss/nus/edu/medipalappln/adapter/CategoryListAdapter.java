@@ -15,7 +15,7 @@ import java.util.List;
 import iss.nus.edu.medipalappln.medipal.Category;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.UpdateCategoryActivity;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
 
 /**
  * Created by darryl on 26/12/2016.
@@ -37,7 +37,7 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
         if (convertView == null) {
             LayoutInflater inflater =
                     (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.mem_fac_row_layout, parent, false);
+            convertView = inflater.inflate(R.layout.med_fac_row_layout, parent, false);
 
             viewHolder = new CategoryListAdapter.ViewHolder();
             viewHolder.tvCatName = (TextView) convertView.findViewById(R.id.tv_catName);
@@ -85,7 +85,7 @@ public class CategoryListAdapter extends ArrayAdapter<Category> {
 
     public void refreshFacilities() {
         facilities.clear();
-        facilities.addAll(App.club.getFacilities(this.context));
+        facilities.addAll(App.user.getFacilities(this.context));
         notifyDataSetChanged();
     }
 

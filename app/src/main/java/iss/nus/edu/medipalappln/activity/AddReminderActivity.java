@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import iss.nus.edu.medipalappln.medipal.Reminder;
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.application.App;
+import iss.nus.edu.medipalappln.medipal.App;
 
 public class AddReminderActivity extends AppCompatActivity {
   private EditText etReminderFreq, etReminderStTime, etReminderInterval;
@@ -31,7 +31,7 @@ public class AddReminderActivity extends AppCompatActivity {
     reminder = new Reminder(etReminderFreq.getText().toString(), etReminderStTime.getText().toString(),
             etReminderInterval.getText().toString());
 
-    final int remId = App.club.getMaxReminderId(this);
+    final int remId = App.user.getMaxReminderId(this);
 
 
     Button btnSave = (Button) findViewById(R.id.btn_save_remind);
@@ -39,7 +39,7 @@ public class AddReminderActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         if (isValid()) {
-          App.club.addReminder(etReminderFreq.getText().toString(), etReminderStTime.getText().toString(),
+          App.user.addReminder(etReminderFreq.getText().toString(), etReminderStTime.getText().toString(),
                   etReminderInterval.getText().toString(), getApplicationContext());
 
           /*Intent intent = new Intent(getApplicationContext(), AddMedicineActivity.class);
