@@ -10,8 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.medipal.App;
@@ -22,7 +25,8 @@ public class BloodPressureListAdapter extends ArrayAdapter {
     private static final String TAG = "BPListAdapter";
 
     private Context context;
-    private List<BloodPressure> bloodPressures = new ArrayList<BloodPressure>();
+    private ArrayList<BloodPressure> bloodPressures = new ArrayList<BloodPressure>();
+    private ArrayList<BloodPressure> dbList = new ArrayList<BloodPressure>();
 
     public BloodPressureListAdapter(Context context, int resource, int textViewResourceId) {
         super(context, resource, textViewResourceId);
@@ -44,6 +48,7 @@ public class BloodPressureListAdapter extends ArrayAdapter {
             viewHolder.textViewDiastolic = (TextView) convertView.findViewById(R.id.text_view_col2);
             viewHolder.textViewMeasuredOn = (TextView) convertView.findViewById(R.id.text_view_measured_on);
             viewHolder.buttonDelete = (Button) convertView.findViewById(R.id.button_delete);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -66,17 +71,6 @@ public class BloodPressureListAdapter extends ArrayAdapter {
                 }
             });
 
-            /*
-            viewHolder.buttonUpdate.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    App.user.updateBloodPressure(context, bloodPressure.getID());
-                    refreshList();
-                    Log.i(TAG, "Updated record: " + bloodPressure.getID());
-                }
-            });
-            */
         }
         else
         {
@@ -93,7 +87,52 @@ public class BloodPressureListAdapter extends ArrayAdapter {
         else {
             bloodPressures.clear();
             bloodPressures.addAll(App.user.getBloodPressure(context));
+            dbList = (ArrayList<BloodPressure>) bloodPressures.clone();
             Log.i(TAG, "refreshList");
+            notifyDataSetChanged();
+        }
+    }
+
+    public void refreshList(String startDate, String endDate) {
+
+        if (App.user == null) {
+            Log.e(TAG, "Critical: App.user object is null");
+        }
+        else {
+            int initial_row = dbList.size();
+            ArrayList<BloodPressure> newList = new ArrayList<BloodPressure>();
+
+            if (startDate.isEmpty()) {
+                startDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+            }
+
+            if (endDate.isEmpty()) {
+                endDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+            }
+
+            for (int i=0; i<initial_row; i++)
+            {
+                Log.i(TAG, "item: " + dbList.get(i).getMeasuredOn());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date listDate = Calendar.getInstance().getTime();
+                Date sDate = null;
+                Date eDate = null;
+                try {
+                    sDate = dateFormat.parse(startDate);
+                    eDate = dateFormat.parse(endDate);
+                    listDate = dateFormat.parse(dbList.get(i).getMeasuredOn());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "error parsing item: " + dbList.get(i).getMeasuredOn());
+                }
+
+                if (listDate.after(sDate) && listDate.before(eDate)) {
+                    newList.add(i, dbList.get(i));
+                }
+            }
+            bloodPressures.clear();
+            bloodPressures = newList;
+            Log.i(TAG, "filterList");
             notifyDataSetChanged();
         }
     }
@@ -108,6 +147,5 @@ public class BloodPressureListAdapter extends ArrayAdapter {
         TextView textViewDiastolic;
         TextView textViewMeasuredOn;
         Button buttonDelete;
-        Button buttonUpdate;
     }
 }
