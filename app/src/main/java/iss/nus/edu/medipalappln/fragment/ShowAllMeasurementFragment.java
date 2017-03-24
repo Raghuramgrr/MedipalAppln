@@ -4,10 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,46 +18,21 @@ import android.view.ViewGroup;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.adapter.MeasurementPagerAdapter;
 
-public class MeasurementFragment extends Fragment implements
-        MeasureBloodPressureFragment.OnFragmentInteractionListener {
+public class ShowAllMeasurementFragment extends Fragment {
 
-    private static final String TAG = "MeasurementFragment";
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    //private MeasurementListAdapter measurementListAdapter;
-    //private MeasurementDataBaseAdapter measurementDataBaseAdapter;
-    //private TextView textViewEmpty;
+    private static final String TAG = "ShowAllMeasureFragment";
+    public String DATA_RECV_FILT_DATE;
 
     private OnFragmentInteractionListener mListener;
 
-    public MeasurementFragment() {
+    public ShowAllMeasurementFragment() {
         // Required empty public constructor
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static MeasurementFragment newInstance(String param1, String param2) {
-        MeasurementFragment fragment = new MeasurementFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -62,8 +40,7 @@ public class MeasurementFragment extends Fragment implements
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_measurement, container, false);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
+        final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
         MeasurementPagerAdapter measurementPagerAdapter = new MeasurementPagerAdapter(fragmentManager, 4);
         viewPager.setAdapter(measurementPagerAdapter);
@@ -90,15 +67,39 @@ public class MeasurementFragment extends Fragment implements
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Switch to add measurement fragment");
+                AddMeasurementFragment fragment = new AddMeasurementFragment();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.flContent, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        //Fragment childFragment = viewPager.
-        //FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        //transaction.replace(R.id.child_fragment_container, childFragment.commit);
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Bundle args = getArguments();
+        if (args != null) {
+            Log.i(TAG, args.getString(DATA_RECV_FILT_DATE));
+            //filterDate = args.getString(DATA_RECV_FILT_DATE);
+
+            //textViewFilterDate.setText(filterDate);
+            //Log.i(TAG, "Filter Date: " + textViewFilterDate.getText());
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -112,7 +113,7 @@ public class MeasurementFragment extends Fragment implements
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (MeasurementFragment.OnFragmentInteractionListener) context;
+            mListener = (ShowAllMeasurementFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -123,11 +124,6 @@ public class MeasurementFragment extends Fragment implements
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     public interface OnFragmentInteractionListener {
