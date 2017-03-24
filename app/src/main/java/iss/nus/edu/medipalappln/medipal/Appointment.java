@@ -50,4 +50,15 @@ public class Appointment {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Appointment getAppointment(){
+        Appointment app = new Appointment("China","2018-07-01 09:00","Time to eat");
+        return app;
+    }
+
+    public void setAppointment(String loc,String date,String des){
+        this.location = loc;
+        this.date = date;
+        this.description = des;
+    }
 }
