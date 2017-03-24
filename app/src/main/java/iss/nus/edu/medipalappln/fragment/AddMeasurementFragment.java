@@ -166,7 +166,7 @@ public class AddMeasurementFragment extends Fragment {
                 }
 
                 if (isValidTemperature() ) {
-                    Integer temp = Integer.parseInt(editTextTemperature.getText().toString());
+                    Double temp = Double.parseDouble(editTextTemperature.getText().toString());
                     String dateTime = new StringBuilder(dateView.getText().toString().trim() + " " +
                             timeView.getText().toString().trim()).toString();
 
@@ -178,7 +178,7 @@ public class AddMeasurementFragment extends Fragment {
                 }
 
                 if (isValidWeight() ) {
-                    Double weight = Double.parseDouble(editTextWeight.getText().toString());
+                    Integer weight = Integer.parseInt(editTextWeight.getText().toString());
                     String dateTime = new StringBuilder(dateView.getText().toString().trim() + " " +
                             timeView.getText().toString().trim()).toString();
 
@@ -289,11 +289,11 @@ public class AddMeasurementFragment extends Fragment {
         if (!isBp)
             isValid = false;
 
-        if (TextUtils.isEmpty(editTextSystolic.getText().toString().trim())) {
+        if (!TextUtils.isDigitsOnly(editTextSystolic.getText())) {
             editTextSystolic.setError(getString(R.string.error_invalid_data));
             isValid = false;
         }
-        if (TextUtils.isEmpty(editTextDiastolic.getText().toString().trim())) {
+        if (!TextUtils.isDigitsOnly(editTextDiastolic.getText())) {
             editTextDiastolic.setError(getString(R.string.error_invalid_data));
             isValid = false;
         }
@@ -307,7 +307,7 @@ public class AddMeasurementFragment extends Fragment {
         if (!isPulse)
             isValid = false;
 
-        if (TextUtils.isEmpty(editTextPulse.getText().toString().trim())) {
+        if (!TextUtils.isDigitsOnly(editTextPulse.getText())) {
             editTextPulse.setError(getString(R.string.error_invalid_data));
             isValid = false;
         }
@@ -335,7 +335,7 @@ public class AddMeasurementFragment extends Fragment {
         if (!isWeight)
             isValid = false;
 
-        if (TextUtils.isEmpty(editTextWeight.getText().toString().trim())) {
+        if (!TextUtils.isDigitsOnly(editTextWeight.getText())) {
             editTextWeight.setError(getString(R.string.error_invalid_data));
             isValid = false;
         }
