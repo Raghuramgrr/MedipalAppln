@@ -26,14 +26,6 @@
             android:layout_marginLeft="150dp"/>
 
         <Button
-            android:id="@+id/button_edit"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_edit"
-            android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/button_delete" />
-
-        <Button
             android:id="@+id/button_delete"
             android:layout_width="50dp"
             android:layout_height="50dp"

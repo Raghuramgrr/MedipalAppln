@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/scoll_view">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,14 +66,6 @@
                 android:layout_height="wrap_content"
                 android:text="Show all"
                 android:gravity="left|center_vertical" />
-
-            <Button
-                android:id="@+id/btn_show_add"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add"
-                android:gravity="left|center_vertical" />
-
 
         </LinearLayout>
     </ScrollView>

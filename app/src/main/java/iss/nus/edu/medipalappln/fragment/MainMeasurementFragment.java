@@ -1,6 +1,7 @@
 package iss.nus.edu.medipalappln.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,8 +31,8 @@ import iss.nus.edu.medipalappln.medipal.Weight;
 public class MainMeasurementFragment extends Fragment {
 
     private static final String TAG = "MainMeasurementFragment";
-    private LineGraphSeries<DataPoint> series;
-    private Button btn_show_all;
+    private LineGraphSeries<DataPoint> series1, series2;
+    private Button btnShowAll;
     private List<BloodPressure> bloodPressures = new ArrayList<BloodPressure>();
     private List<Pulse> pulses = new ArrayList<Pulse>();
     private List<Temperature> temperatures = new ArrayList<Temperature>();
@@ -54,7 +55,7 @@ public class MainMeasurementFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_measurement_graph, container, false);
-        btn_show_all = (Button) view.findViewById(R.id.btn_show_all);
+        btnShowAll = (Button) view.findViewById(R.id.btn_show_all);
         //final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
         buildGraphBP(view);
@@ -62,7 +63,7 @@ public class MainMeasurementFragment extends Fragment {
         buildGraphTemperature(view);
         buildGraphWeight(view);
 
-        btn_show_all.setOnClickListener(new View.OnClickListener() {
+        btnShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Switch to show all measurement fragment");
@@ -114,11 +115,14 @@ public class MainMeasurementFragment extends Fragment {
     }
 
     public void buildGraphBP(View view) {
-        double y, x;
+        double y1, y2, x;
         int size = 0;
 
         GraphView graphView = (GraphView) view.findViewById(R.id.graph_bp);
-        series = new LineGraphSeries<DataPoint>();
+        series1 = new LineGraphSeries<DataPoint>();
+        series2 = new LineGraphSeries<DataPoint>();
+        series1.setColor(Color.GREEN);
+        series1.setColor(Color.CYAN);
 
         bloodPressures.clear();
         bloodPressures.addAll(App.user.getBloodPressure(getContext()));
@@ -126,10 +130,15 @@ public class MainMeasurementFragment extends Fragment {
 
         for (int i = 0; i < size; i++) {
             x = i;
-            y = bloodPressures.get(i).getSystolic();
-            series.appendData(new DataPoint(x, y), true, size);
+            y1 = bloodPressures.get(i).getSystolic();
+            y2 = bloodPressures.get(i).getDiastolic();
+            series1.appendData(new DataPoint(x, y1), true, size);
+            series2.appendData(new DataPoint(x, y2), true, size);
         }
-        graphView.addSeries(series);
+        graphView.setTitle("Systolic/Diastolic (mmHg)");
+        graphView.setBackgroundColor(Color.LTGRAY);
+        graphView.addSeries(series1);
+        graphView.addSeries(series2);
     }
 
     public void buildGraphPulse(View view) {
@@ -137,7 +146,8 @@ public class MainMeasurementFragment extends Fragment {
         int size = 0;
 
         GraphView graphView = (GraphView) view.findViewById(R.id.graph_pulse);
-        series = new LineGraphSeries<DataPoint>();
+        series1 = new LineGraphSeries<DataPoint>();
+        series1.setColor(Color.GREEN);
 
         pulses.clear();
         pulses.addAll(App.user.getPulse(getContext()));
@@ -146,9 +156,11 @@ public class MainMeasurementFragment extends Fragment {
         for (int i = 0; i < size; i++) {
             x = i;
             y = pulses.get(i).getPulse();
-            series.appendData(new DataPoint(x, y), true, size);
+            series1.appendData(new DataPoint(x, y), true, size);
         }
-        graphView.addSeries(series);
+        graphView.setTitle("Pulse (bpm)");
+        graphView.setBackgroundColor(Color.LTGRAY);
+        graphView.addSeries(series1);
     }
 
     public void buildGraphTemperature(View view) {
@@ -156,7 +168,8 @@ public class MainMeasurementFragment extends Fragment {
         int size = 0;
 
         GraphView graphView = (GraphView) view.findViewById(R.id.graph_temperature);
-        series = new LineGraphSeries<DataPoint>();
+        series1 = new LineGraphSeries<DataPoint>();
+        series1.setColor(Color.GREEN);
 
         temperatures.clear();
         temperatures.addAll(App.user.getTemperature(getContext()));
@@ -165,9 +178,11 @@ public class MainMeasurementFragment extends Fragment {
         for (int i = 0; i < size; i++) {
             x = i;
             y = temperatures.get(i).getTemperature();
-            series.appendData(new DataPoint(x, y), true, size);
+            series1.appendData(new DataPoint(x, y), true, size);
         }
-        graphView.addSeries(series);
+        graphView.setTitle("Temperature (Celcius)");
+        graphView.setBackgroundColor(Color.LTGRAY);
+        graphView.addSeries(series1);
     }
 
     public void buildGraphWeight(View view) {
@@ -175,7 +190,8 @@ public class MainMeasurementFragment extends Fragment {
         int size = 0;
 
         GraphView graphView = (GraphView) view.findViewById(R.id.graph_weight);
-        series = new LineGraphSeries<DataPoint>();
+        series1 = new LineGraphSeries<DataPoint>();
+        series1.setColor(Color.GREEN);
 
         weights.clear();
         weights.addAll(App.user.getWeight(getContext()));
@@ -184,9 +200,30 @@ public class MainMeasurementFragment extends Fragment {
         for (int i = 0; i < size; i++) {
             x = i;
             y = weights.get(i).getWeight();
-            series.appendData(new DataPoint(x, y), true, size);
+
+            /*
+            String j = "113029";
+            Date date = null;
+
+            Log.i(TAG, "Grego date: " + weights.get(i).getMeasuredOn());
+            try {
+                //date = new SimpleDateFormat("Myydd").parse(j);
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(weights.get(i).getWeight().toString());
+            } catch (ParseException e) {
+                Log.i(TAG, "Unable to convert date");
+                e.printStackTrace();
+            }
+            //String g = new SimpleDateFormat("dd-MM-yyyy").format(date);
+            String g = new SimpleDateFormat("Myydd").format(date);
+            System.out.println(g);
+            Log.i(TAG, "Julian date: " + weights.get(i).getWeight().toString() + "/" + g);
+            */
+            series1.appendData(new DataPoint(x, y), true, size);
+
         }
-        graphView.addSeries(series);
+        graphView.setTitle("Weight (kg)");
+        graphView.setBackgroundColor(Color.LTGRAY);
+        graphView.addSeries(series1);
     }
-    
+
 }
