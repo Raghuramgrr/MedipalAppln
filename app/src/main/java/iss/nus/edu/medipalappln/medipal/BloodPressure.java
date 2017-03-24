@@ -1,26 +1,21 @@
 package iss.nus.edu.medipalappln.medipal;
 
-import java.sql.Date;
-
 public class BloodPressure extends Measurement {
+
+    private Integer systolic;
+    private Integer diastolic;
 
     // Constructor
     public BloodPressure(Integer ID, Integer systolic, Integer diastolic, String measuredOn) {
         this.ID = ID;
         this.systolic = systolic;
         this.diastolic = diastolic;
-        this.pulse = 0;
-        this.temperature = 0;
-        this.weight = 0.0;
         this.measuredOn = measuredOn;
     }
 
     public BloodPressure(Integer systolic, Integer diastolic, String measuredOn) {
         this.systolic = systolic;
         this.diastolic = diastolic;
-        this.pulse = 0;
-        this.temperature = 0;
-        this.weight = 0.0;
         this.measuredOn = measuredOn;
     }
 
@@ -45,9 +40,20 @@ public class BloodPressure extends Measurement {
                 this.measuredOn;
     }
 
-    public BloodPressure getBloodPressure(Date startDate, Date endDate) {
-        //search within timeframe
-        return null;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        BloodPressure other = (BloodPressure) obj;
+        super.equals(other);
+        if (this.getID() != other.getID()) {
+            return false;
+        }
+        return true;
     }
 
     public void setBloodPressure(Integer systolic, Integer diastolic, String measuredOn, Integer ID) {

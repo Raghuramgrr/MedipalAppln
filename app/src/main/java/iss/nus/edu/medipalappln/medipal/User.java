@@ -225,7 +225,7 @@ public class User {
         return new ArrayList<Temperature>(temperatures);
     }
 
-    public void addTemperature (Context context, Integer temperature, String measuredOn) {
+    public void addTemperature (Context context, Double temperature, String measuredOn) {
         Temperature bp = new Temperature(temperature, measuredOn);
         addTemperatureTask = new AddTemperatureTask(context);
         addTemperatureTask.execute(bp);
@@ -273,7 +273,7 @@ public class User {
         return new ArrayList<Weight>(weights);
     }
 
-    public void addWeight (Context context, Double weight, String measuredOn) {
+    public void addWeight (Context context, Integer weight, String measuredOn) {
         Weight w = new Weight(weight, measuredOn);
         addWeightTask = new AddWeightTask(context);
         addWeightTask.execute(w);

@@ -68,7 +68,7 @@ public class WeightDataBaseAdapter extends DBDAO {
             id = cursor.getInt(0);
             Weight weight = new Weight(
                     id,
-                    cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Weight.toString())),
+                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Weight.toString())),
                     cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.MeasuredOn.toString())));
             Weights.add(weight);
             Log.i(TAG, id + ": " + weight.getWeight() + "/" + weight.getMeasuredOn());

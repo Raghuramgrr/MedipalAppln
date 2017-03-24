@@ -1,26 +1,18 @@
 package iss.nus.edu.medipalappln.medipal;
 
-import java.sql.Date;
-
 public class Pulse extends Measurement {
+
+    protected Integer pulse;
 
     // Constructor
     public Pulse(Integer ID, Integer pulse, String measuredOn) {
         this.ID = ID;
-        this.systolic = 0;
-        this.diastolic = 0;
         this.pulse = pulse;
-        this.temperature = 0;
-        this.weight = 0.0;
         this.measuredOn = measuredOn;
     }
 
     public Pulse (Integer pulse, String measuredOn) {
-        this.systolic = 0;
-        this.diastolic = 0;
         this.pulse = pulse;
-        this.temperature = 0;
-        this.weight = 0.0;
         this.measuredOn = measuredOn;
     }
 
@@ -38,9 +30,20 @@ public class Pulse extends Measurement {
                 this.measuredOn;
     }
 
-    public Pulse getPulse(Date startDate, Date endDate) {
-        //search within timeframe
-        return null;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pulse other = (Pulse) obj;
+        super.equals(other);
+        if (this.getID() != other.getID()) {
+            return false;
+        }
+        return true;
     }
 
     public void setPulse(Integer pulse, String measuredOn, Integer ID) {
