@@ -126,17 +126,20 @@ public class MainMeasurementFragment extends Fragment {
         bloodPressures.addAll(App.user.getBloodPressure(getContext()));
         size = bloodPressures.size();
 
-        for (int i = 0; i < size; i++) {
-            x = i;
-            y1 = bloodPressures.get(i).getSystolic();
-            y2 = bloodPressures.get(i).getDiastolic();
-            series1.appendData(new DataPoint(x, y1), true, size);
-            series2.appendData(new DataPoint(x, y2), true, size);
+        if(size > 0) {
+            for (int i = 0; i < size; i++) {
+                x = i;
+                y1 = bloodPressures.get(i).getSystolic();
+                y2 = bloodPressures.get(i).getDiastolic();
+                series1.appendData(new DataPoint(x, y1), true, size);
+                series2.appendData(new DataPoint(x, y2), true, size);
+            }
+
+            graphView.setTitle("Systolic/Diastolic (mmHg)");
+            graphView.setBackgroundColor(Color.LTGRAY);
+            graphView.addSeries(series1);
+            graphView.addSeries(series2);
         }
-        graphView.setTitle("Systolic/Diastolic (mmHg)");
-        graphView.setBackgroundColor(Color.LTGRAY);
-        graphView.addSeries(series1);
-        graphView.addSeries(series2);
     }
 
     public void buildGraphPulse(View view) {
@@ -151,15 +154,17 @@ public class MainMeasurementFragment extends Fragment {
         pulses.addAll(App.user.getPulse(getContext()));
         size = pulses.size();
 
-        for (int i = 0; i < size; i++) {
-            x = i;
-            y = pulses.get(i).getPulse();
+        if(size > 0) {
+            for (int i = 0; i < size; i++) {
+                x = i;
+                y = pulses.get(i).getPulse();
+                series1.appendData(new DataPoint(x, y), true, size);
+            }
+            graphView.setTitle("Pulse (bpm)");
+            graphView.setBackgroundColor(Color.LTGRAY);
+            graphView.addSeries(series1);
             series1.appendData(new DataPoint(x, y), true, size);
         }
-        graphView.setTitle("Pulse (bpm)");
-        graphView.setBackgroundColor(Color.LTGRAY);
-        graphView.addSeries(series1);
-        series1.appendData(new DataPoint(x, y), true, size);
     }
 
     public void buildGraphTemperature(View view) {
@@ -174,14 +179,16 @@ public class MainMeasurementFragment extends Fragment {
         temperatures.addAll(App.user.getTemperature(getContext()));
         size = temperatures.size();
 
-        for (int i = 0; i < size; i++) {
-            x = i;
-            y = temperatures.get(i).getTemperature();
-            series1.appendData(new DataPoint(x, y), true, size);
+        if(size > 0) {
+            for (int i = 0; i < size; i++) {
+                x = i;
+                y = temperatures.get(i).getTemperature();
+                series1.appendData(new DataPoint(x, y), true, size);
+            }
+            graphView.setTitle("Temperature (Celcius)");
+            graphView.setBackgroundColor(Color.LTGRAY);
+            graphView.addSeries(series1);
         }
-        graphView.setTitle("Temperature (Celcius)");
-        graphView.setBackgroundColor(Color.LTGRAY);
-        graphView.addSeries(series1);
     }
 
     public void buildGraphWeight(View view) {
@@ -196,9 +203,10 @@ public class MainMeasurementFragment extends Fragment {
         weights.addAll(App.user.getWeight(getContext()));
         size = weights.size();
 
-        for (int i = 0; i < size; i++) {
-            x = i;
-            y = weights.get(i).getWeight();
+        if(size > 0) {
+            for (int i = 0; i < size; i++) {
+                x = i;
+                y = weights.get(i).getWeight();
             /*
             String j = "113029";
             Date date = null;
@@ -216,14 +224,15 @@ public class MainMeasurementFragment extends Fragment {
             System.out.println(g);
             Log.i(TAG, "Julian date: " + weights.get(i).getWeight().toString() + "/" + g);
             */
-            series1.appendData(new DataPoint(x, y), true, size);
+                series1.appendData(new DataPoint(x, y), true, size);
 
-        }
-        graphView.setTitle("Weight (kg)");
-        graphView.setBackgroundColor(Color.LTGRAY);
-        graphView.addSeries(series1);
+            }
+            graphView.setTitle("Weight (kg)");
+            graphView.setBackgroundColor(Color.LTGRAY);
+            graphView.addSeries(series1);
             series1.appendData(new DataPoint(x, y), true, size);
         }
+    }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
