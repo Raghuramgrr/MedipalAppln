@@ -40,6 +40,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     public static ArrayList<String> mLocation = new ArrayList<String>();
     public static ArrayList<String> mDescription = new ArrayList<String>();
     public static ArrayList<String> mTime = new ArrayList<String>();
+    public static ArrayList<Integer> flag = new ArrayList<Integer>();
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -141,35 +142,47 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
                                 final TextView tv2 = (TextView) view2.findViewById(R.id.tv2);
 
+                                final TextView tv3 = (TextView) view2.findViewById(R.id.tv_cbti);
+
                                 final View v1 = (View) view2.findViewById(R.id.view1);
 
                                 final View v2 = (View) view2.findViewById(R.id.view2);
+
+                                final View v3 = (View) view2.findViewById(R.id.v_cbline);
 
                                 final DatePicker datePicker1 = (DatePicker) view2.findViewById(R.id.datePicker_remind);
 
                                 final TimePicker timePicker1 = (TimePicker) view2.findViewById(R.id.timePicker_remind);
 
-                                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                    @Override
-                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                        if(isChecked){
-                                            tv1.setVisibility(View.VISIBLE);
-                                            tv2.setVisibility(View.VISIBLE);
-                                            v1.setVisibility(View.VISIBLE);
-                                            v2.setVisibility(View.VISIBLE);
-                                            datePicker1.setVisibility(View.VISIBLE);
-                                            timePicker1.setVisibility(View.VISIBLE);
-                                        }else{
-                                            tv1.setVisibility(View.INVISIBLE);
-                                            tv2.setVisibility(View.INVISIBLE);
-                                            v1.setVisibility(View.INVISIBLE);
-                                            v2.setVisibility(View.INVISIBLE);
-                                            datePicker1.setVisibility(View.INVISIBLE);
-                                            timePicker1.setVisibility(View.INVISIBLE);
+                                if(flag.get(position) == 0){
+                                    checkBox.setVisibility(View.INVISIBLE);
+                                    tv3.setVisibility(View.INVISIBLE);
+                                    v3.setVisibility(View.INVISIBLE);
+                                }else{
+                                    checkBox.setVisibility(View.VISIBLE);
+                                }
+                                if(checkBox.getVisibility() == View.VISIBLE){
+                                    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                            if(isChecked){
+                                                tv1.setVisibility(View.VISIBLE);
+                                                tv2.setVisibility(View.VISIBLE);
+                                                v1.setVisibility(View.VISIBLE);
+                                                v2.setVisibility(View.VISIBLE);
+                                                datePicker1.setVisibility(View.VISIBLE);
+                                                timePicker1.setVisibility(View.VISIBLE);
+                                            }else{
+                                                tv1.setVisibility(View.INVISIBLE);
+                                                tv2.setVisibility(View.INVISIBLE);
+                                                v1.setVisibility(View.INVISIBLE);
+                                                v2.setVisibility(View.INVISIBLE);
+                                                datePicker1.setVisibility(View.INVISIBLE);
+                                                timePicker1.setVisibility(View.INVISIBLE);
+                                            }
                                         }
-                                    }
-                                });
-
+                                    });
+                                }
                                 timePicker.setIs24HourView(true);
 
                                 timePicker1.setIs24HourView(true);
@@ -223,7 +236,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                                                 String Time = Integer.toString(datePicker.getYear()) + "-" + Month + "-" + Day + " " + Hour + ":" + Min;
                                                 Log.d("Record", Location + Description + Time);
 
-                                                if(tv1.getVisibility() == View.VISIBLE){
+                                                if(tv1.getVisibility() == View.VISIBLE && checkBox.getVisibility() == View.VISIBLE){
                                                     String Monthre;
                                                     String Dayre;
                                                     String Hourre;
@@ -267,25 +280,29 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
                                                     } catch (ParseException e) {
                                                         e.printStackTrace();
                                                     }
-                                                    Log.e("str_date=",Timere);
-                                                    Log.e("value=",value+"");
                                                     long value2 = System.currentTimeMillis();
                                                     if(value <= value2){
                                                         Toast.makeText(Welcome.getContext(),"Invalid Time", Toast.LENGTH_LONG).show();
                                                     }
                                                     int delay = (int) (value - value2);
-                                                    NotificationManager mn = (NotificationManager) Welcome.getContext()
-                                                            .getSystemService(NOTIFICATION_SERVICE);
-                                                    mn.cancel(mLocation.get(position),position);
-                                                    RemindService.addNotification(Welcome.getContext(), delay,"Appointment Remind", Location, Time);
+                                                    RemindService.addNotification(delay,"Appointment Remind", Location, Time);
+                                                    AppointmentAdapter.flag.set(position,0);
+                                                    Appointment appointment = new Appointment(Location,Time,Description);
+                                                    AppointmentDataBaseAdapter appointmentDataBaseAdapter = new AppointmentDataBaseAdapter(mHolder.mParent.getContext());
+                                                    appointmentDataBaseAdapter.updateAppointment(appointment,mId.get(position));
+                                                    appointmentDataBaseAdapter.queryAll();
+                                                    AppointmentFragment.appointmentAdapter.notifyDataSetChanged();
+                                                    builder.create().dismiss();
+                                                }else{
+                                                    AppointmentAdapter.flag.set(position,1);
+                                                    Appointment appointment = new Appointment(Location,Time,Description);
+                                                    AppointmentDataBaseAdapter appointmentDataBaseAdapter = new AppointmentDataBaseAdapter(mHolder.mParent.getContext());
+                                                    appointmentDataBaseAdapter.updateAppointment(appointment,mId.get(position));
+                                                    appointmentDataBaseAdapter.queryAll();
+                                                    AppointmentFragment.appointmentAdapter.notifyDataSetChanged();
+                                                    builder.create().dismiss();
                                                 }
 
-                                                Appointment appointment = new Appointment(Location,Time,Description);
-                                                AppointmentDataBaseAdapter appointmentDataBaseAdapter = new AppointmentDataBaseAdapter(mHolder.mParent.getContext());
-                                                appointmentDataBaseAdapter.updateAppointment(appointment,mId.get(position));
-                                                appointmentDataBaseAdapter.queryAll();
-                                                AppointmentFragment.appointmentAdapter.notifyDataSetChanged();
-                                                builder.create().dismiss();
                                             }
                                         })
                                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

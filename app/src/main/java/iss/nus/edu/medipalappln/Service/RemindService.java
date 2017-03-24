@@ -35,16 +35,14 @@ public class RemindService extends Service {
     }
 
 
-    public static void addNotification(Context context, int delayTime, String tickerText,
+    public static void addNotification(int delayTime, String tickerText,
                                        String contentTitle, String contentText) {
-        //Intent intent = new Intent(Welcome.getContext(),
-        Intent intent = new Intent(context,
-                RemindService.class);
+        Intent intent = new Intent(Welcome.getContext(),RemindService.class);
         intent.putExtra("delayTime", delayTime);
         intent.putExtra("tickerText", tickerText);
         intent.putExtra("contentTitle", contentTitle);
         intent.putExtra("contentText", contentText);
-        context.startService(intent);
+        Welcome.getContext().startService(intent);
     }
 
     public void onCreate() {
@@ -63,7 +61,6 @@ public class RemindService extends Service {
         if (null == timer) {
             timer = new Timer();
         }
-        Log.v("comebaby", AppointmentAdapter.mTime.indexOf(intent.getStringExtra("contentText")) + "" + AppointmentAdapter.mTime.indexOf(intent.getStringExtra("contentText")));
         timer.schedule(new TimerTask() {
 
             @Override
@@ -86,7 +83,7 @@ public class RemindService extends Service {
                 builder.setDefaults(Notification.DEFAULT_ALL);
                 Notification notification = builder.build();
                 notification.flags = Notification.FLAG_INSISTENT | Notification.FLAG_AUTO_CANCEL;
-                mn.notify(intent.getStringExtra("contentTitle"), AppointmentAdapter.mLocation.indexOf(intent.getStringExtra("contentTitle")), notification);
+                mn.notify((int)System.currentTimeMillis(), notification);
             }
         }, delay, period);
 
