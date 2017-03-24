@@ -126,7 +126,7 @@ public class MainMeasurementFragment extends Fragment {
         bloodPressures.addAll(App.user.getBloodPressure(getContext()));
         size = bloodPressures.size();
 
-        if(size <= 0) {
+        if(size > 0) {
             for (int i = 0; i < size; i++) {
                 x = i;
                 y1 = bloodPressures.get(i).getSystolic();
@@ -179,7 +179,7 @@ public class MainMeasurementFragment extends Fragment {
         temperatures.addAll(App.user.getTemperature(getContext()));
         size = temperatures.size();
 
-        if(size <= 0) {
+        if(size > 0) {
             for (int i = 0; i < size; i++) {
                 x = i;
                 y = temperatures.get(i).getTemperature();
@@ -203,7 +203,7 @@ public class MainMeasurementFragment extends Fragment {
         weights.addAll(App.user.getWeight(getContext()));
         size = weights.size();
 
-        if(size <= 0) {
+        if(size > 0) {
             for (int i = 0; i < size; i++) {
                 x = i;
                 y = weights.get(i).getWeight();
