@@ -80,9 +80,15 @@ public class BioDataBaseAdapter extends DBDAO {
 
             while (cursor.moveToNext()) {
                 id = cursor.getInt(0);
-                Personal formData = new Personal(cursor.getInt(0), cursor.getString(1),
-                        cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                        cursor.getString(5),cursor.getString(6),cursor.getString(7));
+                Personal formData = new Personal(cursor.getInt(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.ID.toString())),
+                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.BloodType.toString())),
+                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.DOB.toString())),
+                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Height.toString())),
+                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.IDNo.toString())),
+                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Address.toString())),
+                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.PostalCode.toString())),
+                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Name.toString())),
+                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Phone.toString())));
                 formDatas.add(formData);
             }
         }
@@ -114,8 +120,9 @@ public class BioDataBaseAdapter extends DBDAO {
             String postalcode=cursor.getString(5);
             String height=cursor.getString(6);
             String bloodtype=cursor.getString(7);
+            String phone=cursor.getString(8);
 
-            formData = new Personal(eid, name, dob,idno,address,postalcode,height,bloodtype);
+            formData = new Personal(eid, name, dob,idno,address,postalcode,height,bloodtype,phone);
         }
         return formData;
     }

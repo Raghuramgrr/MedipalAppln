@@ -13,8 +13,9 @@ public class Personal {
     private String Postcode;
     private String Height;
     private String Bloodtype;
+    public String Phone;
 
-    public Personal(int ID, String name, String dob, String idno, String address, String postcode, String height, String bloodtype) {
+    public Personal(int ID, String name, String dob, String idno, String address, String postcode, String height, String bloodtype,String phone) {
         this.ID = ID;
         Name = name;
         Dob = dob;
@@ -23,6 +24,7 @@ public class Personal {
         Postcode = postcode;
         Height = height;
         Bloodtype = bloodtype;
+        Phone=phone;
     }
 
 
@@ -36,7 +38,7 @@ public class Personal {
                 this.Bloodtype;
     }
     public Personal getPersonal(){
-        Personal formData=new Personal(ID,Name,Dob,Idno,Address,Postcode,Height,Bloodtype);
+        Personal formData=new Personal(ID,Name,Dob,Idno,Address,Postcode,Height,Bloodtype,Phone);
         return formData;
 
     }
@@ -56,9 +58,16 @@ public class Personal {
     public void setName(String name) {
         Name = name;
     }
+    public void setPhone(String phone) {
+        Name = phone;
+    }
 
     public String getDob() {
         return Dob;
+    }
+
+    public String getPhone() {
+        return Phone;
     }
 
     public void setDob(String dob) {

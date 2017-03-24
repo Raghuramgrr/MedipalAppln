@@ -23,7 +23,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String TABLE_ICE= "ICE";
 
     //table columns
-    public enum PERSONALBIO {ID, Name, DOB, IDNo, Address, PostalCode, Height, BloodType};
+    public enum PERSONALBIO {ID, Name, DOB, IDNo, Address, PostalCode, Height, BloodType,Phone};
     public enum HEALTHBIO {ID, Condition, StartDate, ConditionType};
     public enum CATEGORY {ID, Category, Code, Description, Remind};
     public enum MEDICINE {ID, Medicine, Description, CatID, ReminderID, Remind, Quantity, Dosage,
@@ -124,7 +124,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     public static final String CREATE_TABLE_ICE = "CREATE TABLE " + TABLE_ICE +
             "(" +
-            ICE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            ICE.ID + " INTEGER , " +
             ICE.Name + " VARCHAR(100), " +
             ICE.ContactNo + " VARCHAR(20) ," +
            ICE.ContactType + " INTEGER, " +

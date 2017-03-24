@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import iss.nus.edu.medipalappln.asynTask.AddBloodPressureTask;
+import iss.nus.edu.medipalappln.asynTask.AddEmergency;
+import iss.nus.edu.medipalappln.asynTask.AddPersonal;
 import iss.nus.edu.medipalappln.asynTask.AddPulseTask;
 import iss.nus.edu.medipalappln.asynTask.AddTemperatureTask;
 import iss.nus.edu.medipalappln.asynTask.AddWeightTask;
@@ -15,15 +17,18 @@ import iss.nus.edu.medipalappln.asynTask.DeleteBloodPressureTask;
 import iss.nus.edu.medipalappln.asynTask.DeletePulseTask;
 import iss.nus.edu.medipalappln.asynTask.DeleteTemperatureTask;
 import iss.nus.edu.medipalappln.asynTask.DeleteWeightTask;
+import iss.nus.edu.medipalappln.asynTask.ListEmergency;
+import iss.nus.edu.medipalappln.asynTask.ListPersonal;
 import iss.nus.edu.medipalappln.asynTask.ViewBloodPressureTask;
 import iss.nus.edu.medipalappln.asynTask.ViewPulseTask;
 import iss.nus.edu.medipalappln.asynTask.ViewTemperatureTask;
 import iss.nus.edu.medipalappln.asynTask.ViewWeightTask;
+import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
 
 public class User {
 
     private String IDNo; //use this as login ID
-    //private PersonalBio personalBio;
+    private ArrayList<Personal> personalBio;
     //private ArrayList<HealthBio> healthBio;
     //private ArrayList<Medicine> medicine;
     private ArrayList<Measurement> measurements;
@@ -33,7 +38,7 @@ public class User {
     private ArrayList<Weight> weights;
     //private ArrayList<Consumption> consumption;
     //private ArrayList<Appointment> appointment;
-    //private ArrayList<ICE> ice;
+    private ArrayList<Emergency> emergency;
 
     private ViewBloodPressureTask viewBloodPressureTask;
     private AddBloodPressureTask addBloodPressureTask;
@@ -51,9 +56,16 @@ public class User {
     private AddWeightTask addWeightTask;
     private DeleteWeightTask deleteWeightTask;
 
+    private AddEmergency addEmergency;
+    private ListEmergency listEmergency;
+
+    private AddPersonal addPersonal;
+    private ListPersonal listPersonal;
+
+    private EmergencyDataBaseAdapter emergencyDataBaseAdapter;
 
     public User() {
-        //personalBio = new personalBio();
+        personalBio = new ArrayList<Personal>();
         //healthBio = new ArrayList<HealthBio> ();
         //medicine = new ArrayList<Medicine> ();
         //measurements = new ArrayList<Measurement> ();
@@ -63,7 +75,7 @@ public class User {
         temperatures = new ArrayList<Temperature>();
         //consumption = new ArrayList<Consumption> ();
         //appointment = new ArrayList<Appointment> ();
-        //ice = new ArrayList<ICE> ();
+        emergency = new ArrayList<Emergency> ();
     }
 
     public User(String IDNo) {
@@ -80,6 +92,7 @@ public class User {
         //consumption = new ArrayList<Consumption> ();
         //appointment = new ArrayList<Appointment> ();
         //ice = new ArrayList<ICE> ();
+        emergency=new ArrayList<Emergency>();
     }
 
     public String getUserIDNo() {
@@ -273,6 +286,47 @@ public class User {
         }
         deleteWeightTask = new DeleteWeightTask(context);
         deleteWeightTask.execute(w);
+    }
+    public Emergency getEmergency (String priority,Context context) {
+       // Emergency e=new Emergency(context);
+        emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(context);
+
+        ArrayList<Emergency>em=emergencyDataBaseAdapter.get();
+        Iterator<Emergency> i=em.iterator();
+
+             while(i.hasNext()){
+                 Emergency e= i.next();
+                 if(e.getPriority().equals(priority)){
+                     return e;
+                 }
+             }
+
+
+        return  null;
+        //return new ArrayList<Emergency>(emergency);
+    }
+    public Emergency addEmergency (int ID, String Name,
+                                   String Phone,String Priority,String Desc) {
+        //numMembers++;
+        Emergency m = new Emergency (ID,Name,Phone,Priority,Desc);
+        emergency.add (m);
+        return m;
+    }
+    public Emergency addEmergency (int ID, String Name,
+                                   String Phone,String Priority,String Desc,Context context) {
+        //numMembers++;
+        Emergency em = new Emergency (ID,Name,Phone,Priority,Desc);
+        addEmergency=new AddEmergency(context);
+        addEmergency.execute(em);
+        return em;
+    }
+    public Personal addPersonal (int ID, String Name,
+                                 String Dob,String Idno,String Address,String Postcode,String Height,String Bloodtype,String phone,Context context) {
+        //numMembers++;
+        Personal em = new Personal (ID,Name,Dob,Idno,Address,Postcode,Height,Bloodtype,phone);
+        addPersonal=new AddPersonal(context);
+        addPersonal.execute(em);
+        return em;
     }
 
 

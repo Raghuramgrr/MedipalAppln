@@ -8,11 +8,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.adapter.EmergencyListAdapter;
+import iss.nus.edu.medipalappln.medipal.App;
 
 public class ShowEmergency extends Fragment {
 
@@ -51,13 +51,16 @@ public class ShowEmergency extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_show_emergency, container, false);
-        ListView listViewMeasurement = (ListView) view.findViewById(R.id.list_view_emergency);
-        textViewEmpty = (TextView) view.findViewById(R.id.text_view_empty);
+        App.user.getEmergency("1",getContext());
 
-        emergenyListAdapter = new EmergencyListAdapter(getActivity(),
-                R.layout.emergency_row_layout, R.id.text_view_empty);
-        listViewMeasurement.setAdapter(emergenyListAdapter);
+      View view = inflater.inflate(R.layout.emergencylist, container, false);
+      /*  ListView listView= (ListView) view.findViewById(R.id.list_view_measurement);
+        textViewEmpty = (TextView) view.findViewById(R.id.text_view_empty);
+        emergenyListAdapter = new EmergencyListAdapter(getActivity(), R.layout.measurement_row_layout, R.id.text_view_empty);
+        listView.setAdapter(emergenyListAdapter);
+*/
+
+       // listView.setAdapter(emergenyListAdapter);
 
         return view;
     }
@@ -95,7 +98,7 @@ public class ShowEmergency extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        emergenyListAdapter.refreshList();
-        textViewEmpty.setVisibility(emergenyListAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
+       // emergenyListAdapter.refreshList();
+        //textViewEmpty.setVisibility(emergenyListAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }

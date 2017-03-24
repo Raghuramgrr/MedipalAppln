@@ -33,7 +33,7 @@ public class Emergency {
         }
 
     public String getPriority() {
-        return priority;
+        return this.priority;
     }
 
     public String toString() {
@@ -44,14 +44,14 @@ public class Emergency {
     }
 
     public Integer getID() {
-        return ID;
+        return this.ID;
     }
 
     public String getDesc() {
-        return desc;
+        return this.desc;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 }
