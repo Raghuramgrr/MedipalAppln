@@ -104,7 +104,7 @@ public class ConsumptionDAO extends DBDAO {
 
     public Medicine getConsumptionMedicine(Consumption consumption){
         Medicine medicine = null;
-        int medId = medicine.getMedId();
+        int medId = consumption.getMedId();
         String sql = "SELECT * FROM " + DataBaseHelper.TABLE_MEDICINE
                 + " WHERE " + DataBaseHelper.MEDICINE.ID.toString() + " = ?";
         Cursor cursor = database.rawQuery(sql, new String[]{Integer.toString(medId)});
