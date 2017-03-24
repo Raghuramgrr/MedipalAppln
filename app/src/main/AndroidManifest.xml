@@ -44,6 +44,13 @@
             android:name=".activity.MainActivity"
             android:label="Medicine Management"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.AddMedicineActivity"/>
+        <activity android:name=".activity.AddConsumptionActivity"/>
+        <activity android:name=".activity.AddReminderActivity"/>
+        <activity android:name=".activity.UpdateCategoryActivity"/>
+        <activity android:name=".activity.AddCategoryActivity"/>
+        <activity android:name=".activity.UpdateMedicineActivity"/>
     </application>
 
 </manifest>

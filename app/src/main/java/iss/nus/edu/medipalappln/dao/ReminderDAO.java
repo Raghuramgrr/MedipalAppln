@@ -114,8 +114,8 @@ public class ReminderDAO extends DBDAO {
     public int getMaxReminderId() {
         int maxRemindId = -1;
         String sql = "SELECT MAX(rem_id) from reminder_table";
-
-        Cursor cursor = database.rawQuery(sql, null);
+        String querystr =  "SELECT MAX(" + DataBaseHelper.REMINDER.ID.toString() + ") from " + DataBaseHelper.TABLE_REMINDER;
+        Cursor cursor = database.rawQuery(querystr, null);
         if(cursor.getCount()== 1){
             cursor.moveToFirst();
             maxRemindId = cursor.getInt(0);
