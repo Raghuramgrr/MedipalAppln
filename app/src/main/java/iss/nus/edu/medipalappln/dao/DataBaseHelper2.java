@@ -18,7 +18,9 @@ public class DataBaseHelper2 extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase _db)
     {
         _db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
-
+        _db.execSQL(DataBaseHelper.CREATE_TABLE_PERSONALBIO);
+        Log.d("22222","Build PERSONBIO Database SUCCESSFUL!!!!!!!!");
+        _db.execSQL(DataBaseHelper.CREATE_TABLE_HEALTHBIO);
     }
     // Called when there is a database version mismatch meaning that the version
     // of the database on disk needs to be upgraded to the current version.

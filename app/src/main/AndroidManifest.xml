@@ -40,6 +40,10 @@
             android:label="FingerPrint"
             android:theme="@style/Theme.AppCompat" />
         <activity android:name=".widgetService.widgetMain" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="Medicine Management"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

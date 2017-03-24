@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class DataBaseHelper extends SQLiteOpenHelper
 {
-    private static final String TAG = "DatabaseHelper";
+    private static final String TAG = "DBH";
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MediPal.db";
@@ -20,14 +20,14 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String TABLE_CONSUMPTION = "Consumption";
     public static final String TABLE_REMINDER = "Reminders";
     public static final String TABLE_APPOINTMENT = "Appointment";
-    public static final String TABLE_ICE= "ICE";
+    public static final String TABLE_ICE = "ICE";
 
     //table columns
     public enum PERSONALBIO {ID, Name, DOB, IDNo, Address, PostalCode, Height, BloodType};
     public enum HEALTHBIO {ID, Condition, StartDate, ConditionType};
-    public enum CATEGORY {ID, Category, Code, Description, Remind};
-    public enum MEDICINE {ID, Medicine, Description, CatID, ReminderID, Remind, Quantity, Dosage,
-        ConsumeQualty, Threshold, DateIssued, ExpireFactor};
+    public enum CATEGORY {ID, Name, Code, Description, Remind};
+    public enum MEDICINE {ID, Name, Description, CatID, ReminderID, Remind, Quantity, Dosage,
+         Threshold, DateIssued, ExpiryFactor};
     public enum MEASUREMENT {ID, Systolic, Diastolic, Pulse, Temperature, Weight , MeasuredOn};
     public enum CONSUMPTION {ID, MedicineID, Quantity, ConsumedOn};
     public enum REMINDER {ID, Frequency, StartTime, Interval};
@@ -58,26 +58,25 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY +
             "(" +
             CATEGORY.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            CATEGORY.Category + " VARCHAR(50), " +
-            CATEGORY.Code + " VARCHAR(5), " +
+            CATEGORY.Name + " VARCHAR(50) not null, " +
+            CATEGORY.Code + " VARCHAR(5) not null, " +
             CATEGORY.Description + " VARCHAR(255), " +
-            CATEGORY.Remind + " INTEGER DEFAULT 0" + //there is no boolean type in sqlite
+            CATEGORY.Remind + " VARCHAR(100) not null" + //there is no boolean type in sqlite
             ");";
 
     public static final String CREATE_TABLE_MEDICINE = "CREATE TABLE " + TABLE_MEDICINE +
             "(" +
             MEDICINE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            MEDICINE.Medicine + " VARCHAR(50), " +
+            MEDICINE.Name + " VARCHAR(50) not null, " +
             MEDICINE.Description + " VARCHAR(255), " +
-            MEDICINE.CatID + " INTEGER, " +
+            MEDICINE.CatID + " INTEGER not null, " +
             MEDICINE.ReminderID + " INTEGER, " +
             MEDICINE.Remind + " INTEGER DEFAULT 0, " +
-            MEDICINE.Quantity + " INTEGER, " +
-            MEDICINE.Dosage + " INTEGER, " +
-            MEDICINE.ConsumeQualty + " INTEGER, " +
-            MEDICINE.Threshold + " INTEGER, " +
-            MEDICINE.DateIssued  + " DATE, " +
-            MEDICINE.ExpireFactor  + " INTEGER " +
+            MEDICINE.Quantity + " INTEGER not null, " +
+            MEDICINE.Dosage + " INTEGER not null, " +
+            MEDICINE.Threshold + " INTEGER not null, " +
+            MEDICINE.DateIssued  + " DATE not null, " +
+            MEDICINE.ExpiryFactor  + " INTEGER " +
             ");";
 
     public static final String CREATE_TABLE_MEASUREMENT = "CREATE TABLE " + TABLE_MEASUREMENT +
@@ -91,13 +90,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
             MEASUREMENT.MeasuredOn + " DATETIME" +
             ");";
 
-    //test data
-    public static final String INSERT_TABLE_MEASUREMENT = "INSERT INTO " + TABLE_MEASUREMENT +
-            "(" +
-            MEASUREMENT.Systolic + ", " +
-            MEASUREMENT.Diastolic + ") " +
-            "VALUES (100, 85);";
-
     public static final String CREATE_TABLE_CONSUMPTION = "CREATE TABLE " + TABLE_CONSUMPTION +
             "(" +
             CONSUMPTION.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -109,9 +101,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String CREATE_TABLE_REMINDER = "CREATE TABLE " + TABLE_REMINDER +
             "(" +
             REMINDER.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            REMINDER.Frequency + " INTEGER, " +
+            REMINDER.Frequency + " INTEGER not null, " +
             REMINDER.StartTime + " DATETIME, " +
-            REMINDER.Interval + " INTEGER " +
+            REMINDER.Interval + " VARCHAR(100) " +
             ");";
 
     public static final String CREATE_TABLE_APPOINTMENT = "CREATE TABLE " + TABLE_APPOINTMENT +
@@ -132,6 +124,17 @@ public class DataBaseHelper extends SQLiteOpenHelper
            // ICE.Sequence + " INTEGER " +
             ");";
 
+    //Initial Data Insert String
+    private static final String INITIAL_CATEGORY = "INSERT INTO " + TABLE_CATEGORY +
+            "(" + CATEGORY.Name + "," + CATEGORY.Code + "," + CATEGORY.Description + "," + CATEGORY.Remind + ")" +
+            " VALUES " +
+            "('Supplement','SUP','Set reminder option for consumption of supplement is optional','REMINDER IS OPTIONAL')," +
+            "('Incidental','INC','For unplanned incidents with prescription from general practitioners','SET REMINDER')," +
+            "('Complete Course','COM','For antibiotics medication like sinus infection, pneumonia, bronchitis, acne, strep throat, cellulitis, etc','SET REMINDER')," +
+            "('Self Apply','SEL','To note down any self-prescribed medication','REMINDER IS OPTIONAL')," +
+            "('Chronic','CHR','To categorise medication for long-term/life-time consumption for diseases','SET REMINDER')" ;
+
+
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS ";
     //end of SQL statements
 
@@ -140,6 +143,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static synchronized DataBaseHelper getHelper(Context context) {
         if (instance == null) {
             instance = new DataBaseHelper(context);
+            Log.d(TAG,"!!!!!!!!!!!!!!!");
         }
         return instance;
     }
@@ -149,32 +153,42 @@ public class DataBaseHelper extends SQLiteOpenHelper
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    public DataBaseHelper(Context context, String DBNAME, SQLiteDatabase.CursorFactory factory, int version){
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase _db)
     {
         _db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
-        /*try {
-            _db.execSQL(EmergencyDataBaseAdapter.DATABASE_CREATE_Emergency);
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }*/
-try {
-    _db.execSQL(CREATE_TABLE_PERSONALBIO);
-    _db.execSQL(CREATE_TABLE_HEALTHBIO);
-    _db.execSQL(CREATE_TABLE_CATEGORY);
-    _db.execSQL(CREATE_TABLE_MEDICINE);
-    _db.execSQL(CREATE_TABLE_MEASUREMENT);
-    _db.execSQL(CREATE_TABLE_CONSUMPTION);
-    _db.execSQL(CREATE_TABLE_REMINDER);
-    _db.execSQL(CREATE_TABLE_APPOINTMENT);
-    _db.execSQL(CREATE_TABLE_ICE);
-}
-catch (Exception e){
-    e.printStackTrace();
-}
+        Log.d(TAG,"1 Build LOGININ Database SUCCESSFUL!!!!!!!!");
 
-        //_db.execSQL(INSERT_TABLE_MEASUREMENT);
+        try {
+            _db.execSQL(CREATE_TABLE_PERSONALBIO);
+            Log.d(TAG,"2 Build PERSONBIO Database SUCCESSFUL!!!!!!!!");
+            _db.execSQL(CREATE_TABLE_HEALTHBIO);
+            Log.d(TAG,"3 Build HEALTHBIO Database SUCCESSFUL!!!!!!!!");
+            _db.execSQL(CREATE_TABLE_CATEGORY);
+            Log.d(TAG,"4 Build CATEGORY Database SUCCESSFUL!!!!!!!!");
+            _db.execSQL(CREATE_TABLE_MEDICINE);
+            Log.d(TAG,"5 Build MEDICINE Database SUCCESSFUL!!!!!!!!");
+            _db.execSQL(CREATE_TABLE_MEASUREMENT);
+            Log.d(TAG,"6 Build MEASUREMENT Database SUCCESSFUL!!!!!!!!");
+            _db.execSQL(CREATE_TABLE_CONSUMPTION);
+            Log.d(TAG,"7 Build CONSUMPTION Database SUCCESSFUL!!!!!!!!");
+            _db.execSQL(CREATE_TABLE_REMINDER);
+            Log.d(TAG,"8 Build REMINDER Database SUCCESSFUL!!!!!!!!");
+            _db.execSQL(CREATE_TABLE_APPOINTMENT);
+            Log.d(TAG,"9 Build APPOINTMENT Database SUCCESSFUL!!!!!!!!");
+            _db.execSQL(CREATE_TABLE_ICE);
+            Log.d(TAG,"10 Build ICE Database SUCCESSFUL!!!!!!!!");
+            //initial Category data
+            _db.execSQL(INITIAL_CATEGORY);
+            Log.d(TAG,"INITIAL CATEGORY SUCCESS!!!!!!!!!!");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
