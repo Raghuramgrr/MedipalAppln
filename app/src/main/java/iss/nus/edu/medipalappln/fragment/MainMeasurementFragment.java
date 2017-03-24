@@ -154,7 +154,7 @@ public class MainMeasurementFragment extends Fragment {
         pulses.addAll(App.user.getPulse(getContext()));
         size = pulses.size();
 
-        if(size > 0) {
+        if(size >= 0) {
             for (int i = 0; i < size; i++) {
                 x = i;
                 y = pulses.get(i).getPulse();
