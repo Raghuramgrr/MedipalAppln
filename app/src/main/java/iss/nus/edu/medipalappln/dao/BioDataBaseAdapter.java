@@ -24,20 +24,22 @@ public class BioDataBaseAdapter extends DBDAO {
         super(context);
     }
 
-    public long addValues(Personal formData) {
+
+
+        public long addValues (Personal formData){
         ContentValues values = new ContentValues();
-        values.put(DataBaseHelper.PERSONALBIO.ID.toString(),formData.getID());
-        values.put(DataBaseHelper.PERSONALBIO.Name.toString(),formData.getName());
-        values.put(DataBaseHelper.PERSONALBIO.DOB.toString(),formData.getDob());
-        values.put(DataBaseHelper.PERSONALBIO.IDNo.toString(),formData.getIdno());
+        values.put(DataBaseHelper.PERSONALBIO.ID.toString(), formData.getID());
+        values.put(DataBaseHelper.PERSONALBIO.Name.toString(), formData.getName());
+        values.put(DataBaseHelper.PERSONALBIO.DOB.toString(), formData.getDob());
+        values.put(DataBaseHelper.PERSONALBIO.IDNo.toString(), formData.getIdno());
         values.put(DataBaseHelper.PERSONALBIO.Address.toString(), formData.getAddress());
         values.put(DataBaseHelper.PERSONALBIO.PostalCode.toString(), formData.getPostcode());
         values.put(DataBaseHelper.PERSONALBIO.Height.toString(), formData.getHeight());
         values.put(DataBaseHelper.PERSONALBIO.BloodType.toString(), formData.getBloodtype());
 
         return database.insert(DataBaseHelper.TABLE_PERSONALBIO, null, values);
-    }
 
+    }
 
 
     public long updateValues(Personal formData,String key) {
@@ -80,7 +82,7 @@ public class BioDataBaseAdapter extends DBDAO {
 
             while (cursor.moveToNext()) {
                 id = cursor.getInt(0);
-                Personal formData = new Personal(cursor.getInt(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.ID.toString())),
+                Personal formData = new Personal(cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.ID.toString())),
                         cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.BloodType.toString())),
                         cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.DOB.toString())),
                         cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Height.toString())),
@@ -111,7 +113,7 @@ public class BioDataBaseAdapter extends DBDAO {
         Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
 
         if (cursor.moveToNext()) {
-            int eid = cursor.getInt(0);
+            String eid = cursor.getString(0);
             String name = cursor.getString(1);
             String dob = cursor.getString(2);
             String idno = cursor.getString(3);

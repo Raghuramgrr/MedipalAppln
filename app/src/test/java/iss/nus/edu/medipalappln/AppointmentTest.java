@@ -39,17 +39,29 @@ public class AppointmentTest extends TestCase{
         app1 = null;
     }
 
-    @Test public void testGetAppointment(){
-        assertNull(app1);
-        Appointment app2 = new Appointment("Chengdu","2017-06-25 15:00","Time to go back");
-        assertNotSame(app1,app2);
-    }
+    @Test public void testBloodPressure() throws ParseException {
+        String location = "Shanghai";
+        String description = "Come back home";
+        String date = "2017-06-28 14:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Appointment app3 = new Appointment("Chengdu","2019-05-30 20:00","Go for Hotpot");
+        ArrayList<Appointment> appList1 = new ArrayList<Appointment>();
+        ArrayList<Appointment> appList2 = new ArrayList<Appointment>();
 
-    @Test public void testSetAppointment(){
-        Appointment app3 = null;
-        assertNull(app3);
-        app3 = new Appointment("Shanghai","2018-07-03 09:00","Modu");
-        assertNotNull(app3);
-        assertNotSame(app1,app3);
+        Date date1 = sdf.parse(date);
+
+        assertNull(app1);
+        assertSame(app1,app2);
+
+
+        appList1.add(0,app1);
+        appList1.add(1,app2);
+        appList1.add(2,app3);
+
+        appList2.add(app1);
+        appList2.add(app2);
+        appList2.add(app3);
+
+        assertNotSame(appList1,appList2);
     }
 }

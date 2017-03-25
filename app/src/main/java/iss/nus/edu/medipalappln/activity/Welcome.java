@@ -22,9 +22,11 @@ import iss.nus.edu.medipalappln.fragment.AppointmentFragment;
 import iss.nus.edu.medipalappln.fragment.Dashboard;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.MainFragment;
-import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.MainMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
+import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
+import iss.nus.edu.medipalappln.fragment.ShowEmergency;
+import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ViewBloodPressureFragment;
 import iss.nus.edu.medipalappln.fragment.ViewPulseFragment;
 import iss.nus.edu.medipalappln.fragment.ViewTemperatureFragment;
@@ -42,7 +44,9 @@ public class Welcome extends AppCompatActivity
                     AddMeasurementFragment.OnFragmentInteractionListener,
                     ViewBloodPressureFragment.OnFragmentInteractionListener,
                     ViewPulseFragment.OnFragmentInteractionListener,
+                      ShowEmergency.OnFragmentInteractionListener,
                     ViewTemperatureFragment.OnFragmentInteractionListener,
+Dashboard.OnFragmentInteractionListener,
                     ViewWeightFragment.OnFragmentInteractionListener {
     public Session session;
     private static Context sContext = null;

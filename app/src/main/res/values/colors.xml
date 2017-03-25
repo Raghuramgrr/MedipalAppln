@@ -18,11 +18,19 @@
     <color name="bg_screen1">#a29ecd</color>
     <color name="bg_screen2">#C58F9D</color>
     <color name="bg_screen3">#77A8AB</color>
-    <color name="bg_screen4">#e8f2f2</color>
-    <color name="bg_screen5">#cde3e4</color>
+
+
+
+
+
+
+
+
+
     <color name="viewBg">#f1f5f8</color>
     <color name="album_title">#4c4c4c</color>
-
+    <color name="bg_screen4">#e8f2f2</color>
+    <color name="bg_screen5">#cde3e4</color>
     <!-- dots active colors -->
     <color name="dot_active">#000000</color>
 

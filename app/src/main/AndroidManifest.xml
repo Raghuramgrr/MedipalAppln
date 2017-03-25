@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <user-permission android:name="android.permission.CALL_PHONE"></user-permission>
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -40,17 +41,20 @@
             android:name=".FingerPrint.FingerprintActivity"
             android:label="FingerPrint"
             android:theme="@style/Theme.AppCompat" />
-        <activity android:name=".activity.Recyclerview"
-            android:label="Recyclerview"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".activity.contacts">
-
-        </activity>
         <activity android:name=".widgetService.widgetMain" />
-        <service android:name=".Service.RemindService"
-            android:enabled="true"
-            android:process="system"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="Medicine Management"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.AddMedicineActivity"/>
+        <activity android:name=".activity.AddConsumptionActivity"/>
+        <activity android:name=".activity.AddReminderActivity"/>
+        <activity android:name=".activity.UpdateCategoryActivity"/>
+        <activity android:name=".activity.AddCategoryActivity"/>
+        <activity android:name=".activity.UpdateMedicineActivity"/>
+
+
     </application>
 
 </manifest>
