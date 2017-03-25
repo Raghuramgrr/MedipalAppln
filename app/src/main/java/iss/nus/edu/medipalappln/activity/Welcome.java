@@ -44,9 +44,10 @@ public class Welcome extends AppCompatActivity
                     AddMeasurementFragment.OnFragmentInteractionListener,
                     ViewBloodPressureFragment.OnFragmentInteractionListener,
                     ViewPulseFragment.OnFragmentInteractionListener,
-                      ShowEmergency.OnFragmentInteractionListener,
+                    ShowEmergency.OnFragmentInteractionListener,
                     ViewTemperatureFragment.OnFragmentInteractionListener,
-                    ViewWeightFragment.OnFragmentInteractionListener {
+                    ViewWeightFragment.OnFragmentInteractionListener,
+                    MedicineFragment.OnFragmentInteractionListener {
     public Session session;
     private static Context sContext = null;
     BioDataBaseAdapter bioDataBaseAdapter;
@@ -142,6 +143,8 @@ public class Welcome extends AppCompatActivity
             fragmentClass = AppointmentFragment.class;
         } else if (id == R.id.nav_health_bio) {
             //fragmentClass = FragmentTwo.class;
+        } else if (id == R.id.nav_medicine) {
+            fragmentClass = MedicineFragment.class;
         }
         else if (id == R.id.nav_home) {
             fragmentClass = MainFragment.class;
