@@ -18,12 +18,11 @@ import android.view.MenuItem;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.AddMeasurementFragment;
-import iss.nus.edu.medipalappln.fragment.AppointmentFragment;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.MainFragment;
-import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.MainMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
+import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ViewBloodPressureFragment;
 import iss.nus.edu.medipalappln.fragment.ViewPulseFragment;
 import iss.nus.edu.medipalappln.fragment.ViewTemperatureFragment;
@@ -31,20 +30,21 @@ import iss.nus.edu.medipalappln.fragment.ViewWeightFragment;
 
 public class Welcome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-                    MainFragment.OnFragmentInteractionListener,
-                    PersonalBioForm.OnFragmentInteractionListener,
-                    IceDetails.OnFragmentInteractionListener,
-                    MainMeasurementFragment.OnFragmentInteractionListener,
-                    AppointmentFragment.OnFragmentInteractionListener,
-                    ShowAllMeasurementFragment.OnFragmentInteractionListener,
-                    AddMeasurementFragment.OnFragmentInteractionListener,
-                    ViewBloodPressureFragment.OnFragmentInteractionListener,
-                    ViewPulseFragment.OnFragmentInteractionListener,
-                    ViewTemperatureFragment.OnFragmentInteractionListener,
-                    ViewWeightFragment.OnFragmentInteractionListener {
+        MainFragment.OnFragmentInteractionListener,
+        PersonalBioForm.OnFragmentInteractionListener,
+        IceDetails.OnFragmentInteractionListener,
+        MainMeasurementFragment.OnFragmentInteractionListener,
+        ShowAllMeasurementFragment.OnFragmentInteractionListener,
+        AddMeasurementFragment.OnFragmentInteractionListener,
+        ViewBloodPressureFragment.OnFragmentInteractionListener,
+        ViewPulseFragment.OnFragmentInteractionListener,
+        ViewTemperatureFragment.OnFragmentInteractionListener,
+        ViewWeightFragment.OnFragmentInteractionListener {
     public Session session;
-    private static Context sContext = null;
     BioDataBaseAdapter bioDataBaseAdapter;
+
+    private static Context sContext = null;
+
 
     public static Context getContext() {
         return sContext;
@@ -54,9 +54,6 @@ public class Welcome extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcomehome);
-
-        sContext = this;
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -133,7 +130,7 @@ public class Welcome extends AppCompatActivity
         } else if (id == R.id.nav_measurement) {
             fragmentClass = MainMeasurementFragment.class;
         } else if (id == R.id.nav_appointment) {
-            fragmentClass = AppointmentFragment.class;
+            //fragmentClass = FragmentOne.class;
         } else if (id == R.id.nav_health_bio) {
             //fragmentClass = FragmentTwo.class;
         }

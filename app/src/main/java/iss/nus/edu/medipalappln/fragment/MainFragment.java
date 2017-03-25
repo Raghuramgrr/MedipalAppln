@@ -1,6 +1,7 @@
 package iss.nus.edu.medipalappln.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,12 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import iss.nus.edu.medipalappln.R;
+import iss.nus.edu.medipalappln.activity.MainActivity;
 
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
 
-    private ImageButton ibtn_Measurement;
+    private ImageButton ibtn_Measurement,ibtn_medicine;
 
     private OnFragmentInteractionListener mListener;
 
@@ -53,6 +55,18 @@ public class MainFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        ibtn_medicine = (ImageButton) view.findViewById(R.id.ibtn_medicine);
+        ibtn_medicine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Switch to main medicine fragment");
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
 
         return view;
     }
