@@ -1,6 +1,8 @@
 package iss.nus.edu.medipalappln.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,11 @@ import iss.nus.edu.medipalappln.adapter.MedicineListAdapter;
 public class MedicineFragment extends Fragment {
   private MedicineListAdapter medicineListAdapter;
   private TextView tvEmpty;
+
+  private MedicineFragment.OnFragmentInteractionListener mListener;
+
+  public MedicineFragment() {
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -43,10 +50,37 @@ public class MedicineFragment extends Fragment {
     return fragmentView;
   }
 
+  public void onButtonPressed(Uri uri) {
+    if (mListener != null) {
+      mListener.onFragmentInteraction(uri);
+    }
+  }
+
+  @Override
+  public void onAttach(Context context) {
+    super.onAttach(context);
+    if (context instanceof MedicineFragment.OnFragmentInteractionListener) {
+      mListener = (MedicineFragment.OnFragmentInteractionListener) context;
+    } else {
+      throw new RuntimeException(context.toString()
+              + " must implement OnFragmentInteractionListener");
+    }
+  }
+
+  @Override
+  public void onDetach() {
+    super.onDetach();
+    mListener = null;
+  }
+
   @Override
   public void onResume() {
     super.onResume();
     medicineListAdapter.refreshMembers();
     tvEmpty.setVisibility(medicineListAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
+  }
+
+  public interface OnFragmentInteractionListener {
+    void onFragmentInteraction(Uri uri);
   }
 }
