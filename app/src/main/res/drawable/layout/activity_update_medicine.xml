@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="sg.edu.nus.clubmanagement.activity.UpdateMedicineActivity">
+    tools:context="iss.nus.edu.medipalappln.activity.UpdateMedicineActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,35 +97,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/Text2">
+                android:layout_below="@+id/Text2"
+                >
 
-                <TextView
-                    android:id="@+id/text_medCat"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="0.6"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:textColor="#FF7F3300"
-                    android:textSize="14dip"
-                    android:textStyle="italic"
-                    android:text="Category"
-                    />
-
-
-                <EditText
-                    android:id="@+id/et_medCat"
-                    android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/spn_facility_1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14dip"
-                    android:textColor="#FF267F00"
-                    android:textStyle="italic"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1.4"
-                    android:imeOptions="actionNext"
-                    android:paddingLeft="10dp"
-                    android:maxLines="2"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
                     />
 
             </LinearLayout>
@@ -136,31 +119,20 @@
                 android:orientation="horizontal"
                 android:layout_below="@+id/Text3">
 
-                <TextView
-                    android:id="@+id/text_medRemind"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="0.6"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:textColor="#FF7F3300"
-                    android:textSize="14dip"
-                    android:textStyle="italic"
-                    android:text="Reminder"
-                    />
-
-                <EditText
-                    android:id="@+id/et_medRemind"
+                <Switch
+                    android:id="@+id/rem_switch1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14dip"
-                    android:textColor="#FF267F00"
-                    android:textStyle="italic"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1.4"
-                    android:imeOptions="actionNext"
-                    android:paddingLeft="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Reminder"
+                    android:textOff="OFF"
+                    android:textOn="ON"
                     />
 
             </LinearLayout>

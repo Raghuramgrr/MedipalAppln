@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="sg.edu.nus.clubmanagement.activity.UpdateCategoryActivity">
+    tools:context="iss.nus.edu.medipalappln.activity.UpdateCategoryActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,15 +23,15 @@
 
             <EditText
                 android:id="@+id/et_catName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FF7F3300"
                 android:textSize="20dip"
                 android:textStyle="italic"
                 />
             <EditText
-                android:id="@+id/et_catDesc"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_catCode"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#FF7F3300"
                 android:textSize="14dip"
@@ -40,15 +40,15 @@
                 />
 
             <EditText
-                android:id="@+id/et_catCode"
-                android:layout_width="wrap_content"
+                android:id="@+id/et_catDesc"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14dip"
                 android:textColor="#FF267F00"
-                android:layout_below="@id/et_catDesc"
+                android:layout_below="@id/et_catCode"
 
                 />
-            <EditText
+<!--            <EditText
                 android:id="@+id/et_catReminder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,6 +56,41 @@
                 android:textColor="#FF267F00"
                 android:layout_below="@id/et_catCode"
                 android:focusable="false"
+                />-->
+<!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reminder"
+                android:layout_below="@id/et_catDesc"
+                android:id="@+id/tv_rem_id"
+                android:textStyle="bold"
+                />
+            <Spinner
+                android:id="@+id/spn_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_rem_id"
+                >
+            </Spinner>
+-->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SET REMINDER OPTION"
+                android:layout_below="@id/et_catDesc"
+                android:id="@+id/tv_set_rem_id"
+                android:textStyle="bold"
+                />
+
+            <Switch
+                android:id="@+id/switch_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="DISABLED"
+                android:textOn="ENABLED"
+                android:layout_below="@id/tv_set_rem_id"
                 />
 
         </RelativeLayout>
