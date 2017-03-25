@@ -38,12 +38,12 @@ public class UpdateCategoryActivity extends AppCompatActivity {
         editName = (EditText) findViewById(R.id.et_catName);
         editCode = (EditText) findViewById(R.id.et_catCode);
         editDescription = (EditText) findViewById(R.id.et_catDesc);
-        editReminder = (EditText) findViewById(R.id.et_catReminder);
+       // editReminder = (EditText) findViewById(R.id.et_catReminder);
 
         editName.setText(name);
         editCode.setText(code);
         editDescription.setText(description);
-        editReminder.setText(reminder);
+      //  editReminder.setText(reminder);
 
         updateBtn = (Button) findViewById(R.id.btn_cat_update);
         updateBtn.setOnClickListener(new View.OnClickListener() {

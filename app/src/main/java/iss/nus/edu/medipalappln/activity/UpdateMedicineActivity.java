@@ -97,8 +97,8 @@ public class UpdateMedicineActivity extends AppCompatActivity {
             public void onClick(View v) {
                 editName = (EditText) findViewById(R.id.et_medName);
                 editDescription = (EditText) findViewById(R.id.et_medDesc);
-                editCategory = (EditText) findViewById(R.id.et_medCat);
-                editRemind = (EditText) findViewById(R.id.et_medRemind);
+           //     editCategory = (EditText) findViewById(R.id.et_medCat);
+           //     editRemind = (EditText) findViewById(R.id.et_medRemind);
                 editQuantity = (EditText) findViewById(R.id.et_medQuantity);
                 editDosage = (EditText) findViewById(R.id.et_medDosage);
                 editThreshold = (EditText) findViewById(R.id.et_medThreshold);

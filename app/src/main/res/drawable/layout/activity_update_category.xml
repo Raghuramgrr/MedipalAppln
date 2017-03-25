@@ -48,32 +48,32 @@
                 android:layout_below="@id/et_catCode"
 
                 />
-<!--            <EditText
-                android:id="@+id/et_catReminder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14dip"
-                android:textColor="#FF267F00"
-                android:layout_below="@id/et_catCode"
-                android:focusable="false"
-                />-->
-<!--
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/reminder"
-                android:layout_below="@id/et_catDesc"
-                android:id="@+id/tv_rem_id"
-                android:textStyle="bold"
-                />
-            <Spinner
-                android:id="@+id/spn_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_rem_id"
-                >
-            </Spinner>
--->
+            <!--            <EditText
+                            android:id="@+id/et_catReminder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14dip"
+                            android:textColor="#FF267F00"
+                            android:layout_below="@id/et_catCode"
+                            android:focusable="false"
+                            />-->
+            <!--
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/reminder"
+                            android:layout_below="@id/et_catDesc"
+                            android:id="@+id/tv_rem_id"
+                            android:textStyle="bold"
+                            />
+                        <Spinner
+                            android:id="@+id/spn_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_rem_id"
+                            >
+                        </Spinner>
+            -->
 
             <TextView
                 android:layout_width="match_parent"
