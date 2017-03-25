@@ -320,7 +320,7 @@ public class User {
         addEmergency.execute(em);
         return em;
     }
-    public Personal addPersonal (int ID, String Name,
+    public Personal addPersonal (String ID, String Name,
                                  String Dob,String Idno,String Address,String Postcode,String Height,String Bloodtype,String phone,Context context) {
         //numMembers++;
         Personal em = new Personal (ID,Name,Dob,Idno,Address,Postcode,Height,Bloodtype,phone);

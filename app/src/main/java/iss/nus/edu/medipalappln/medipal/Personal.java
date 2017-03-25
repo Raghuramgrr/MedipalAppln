@@ -5,7 +5,7 @@ package iss.nus.edu.medipalappln.medipal;
  */
 
 public class Personal {
-    private int ID;
+    private String  ID;
     private String Name;
     private String Dob;
     private String Idno;
@@ -15,7 +15,7 @@ public class Personal {
     private String Bloodtype;
     public String Phone;
 
-    public Personal(int ID, String name, String dob, String idno, String address, String postcode, String height, String bloodtype,String phone) {
+    public Personal(String ID, String name, String dob, String idno, String address, String postcode, String height, String bloodtype,String phone) {
         this.ID = ID;
         Name = name;
         Dob = dob;
@@ -43,11 +43,11 @@ public class Personal {
 
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 

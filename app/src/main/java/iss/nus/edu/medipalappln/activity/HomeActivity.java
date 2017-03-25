@@ -107,7 +107,8 @@ catch (Exception e){
     private boolean first_time_check() {
         if((session.loggedin())){
             try {
-                Intent i = new Intent(HomeActivity.this, Welcome.class);
+                //Intent i = new Intent(HomeActivity.this, Welcome.class);
+                Intent i=new Intent(HomeActivity.this, Welcome.class);
                 startActivity(i);
             }
             catch (Exception e){

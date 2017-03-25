@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <user-permission android:name="android.permission.CALL_PHONE"></user-permission>
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -34,7 +35,7 @@
         <activity
             android:name=".activity.Welcome"
             android:label="@string/title_activity_welcome"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.NoActionBar"  android:parentActivityName=".activity.HomeActivity" />
         <activity android:name=".activity.HelpScreen" />
         <activity
             android:name=".FingerPrint.FingerprintActivity"

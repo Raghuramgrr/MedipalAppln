@@ -20,8 +20,9 @@
                 android:id="@+id/thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/album_cover_height"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@color/cardview_dark_background"
                 android:clickable="true"
+                android:onClick="callICE"
                 android:scaleType="fitXY" />
 
             <TextView
@@ -46,7 +47,7 @@
                 android:textSize="@dimen/songs_count" />
 
             <ImageView
-                android:id="@+id/overflow"
+                android:id="@+id/overflowing"
                 android:layout_width="@dimen/ic_album_overflow_width"
                 android:layout_height="@dimen/ic_album_overflow_height"
                 android:layout_alignParentRight="true"
@@ -54,7 +55,7 @@
                 android:layout_marginTop="@dimen/ic_album_overflow_margin_top"
                 android:adjustViewBounds="false"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_dots" />
+                android:src="@drawable/ic_edit" />
 
         </RelativeLayout>
 

@@ -1,8 +1,5 @@
 package iss.nus.edu.medipalappln.activity;
 
-/**
- * Created by Lincoln on 18/05/16.
- */
 public class dashboardcontent {
     private String name;
     private int numOfSongs;

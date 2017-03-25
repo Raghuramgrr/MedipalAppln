@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +18,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
-import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.activity.dashboardcontent;
-import iss.nus.edu.medipalappln.activity.DashboardAdapter;
 
-public class Dashboard extends Fragment {
+import iss.nus.edu.medipalappln.R;
+import iss.nus.edu.medipalappln.activity.DashboardAdapter;
+import iss.nus.edu.medipalappln.activity.dashboardcontent;
+
+public class Dashboard extends Fragment implements IceDetails.OnFragmentInteractionListener {
     private RecyclerView recyclerView;
     private DashboardAdapter adapter;
     private List<dashboardcontent> dashboardcontentList;
@@ -51,15 +56,17 @@ public class Dashboard extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)  {
-
+            setHasOptionsMenu(true);
     View view = inflater.inflate(R.layout.recyclerview, container, false);
 ViewGroup fragmentview=(ViewGroup)getView();
     dashboardcontentList = new ArrayList<>();
     adapter = new DashboardAdapter(getActivity().getApplicationContext(), dashboardcontentList);
     recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-    RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
+    RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(),2);
     recyclerView.setLayoutManager(mLayoutManager);
+            FragmentManager fragmentManager=getFragmentManager();
+
     recyclerView.addItemDecoration(new Dashboard.GridSpacingItemDecoration(2, dpToPx(10), true));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     recyclerView.setAdapter(adapter);
@@ -81,6 +88,7 @@ ViewGroup fragmentview=(ViewGroup)getView();
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        callICE(view);
     }
 
     @Override
@@ -100,12 +108,70 @@ ViewGroup fragmentview=(ViewGroup)getView();
         mListener = null;
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    public void callICE(View view) {
+         Fragment fragment=null;
+        Class classone=null;
+        IceDetails fragment2 = new IceDetails();
+        classone=IceDetails.class;
+        IceDetails ice=new IceDetails();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction =        fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.flContent,ice );
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+      //  FragmentManager fragmentManager = getFragmentManager();
+        //FragmentTransaction fragmentTransaction =
+        //        fragmentManager.beginTransaction().replace(R.id.recycler_view,fragment2).commit();
+        //fragmentTransaction.replace(R.id.recycler_view, fragment2);
+        //fragmentTransaction.commit();
+        /*Class fragmentClass=null;
+
+       fragmentClass=IceDetails.class;
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();*/
+                /*Class fragmentclass= IceDetails.class;
+                try {
+                    fragment = (Fragment) fragmentclass.newInstance();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (java.lang.InstantiationException e) {
+                    e.printStackTrace();
+                }
+        IceDetails fragment1=new IceDetails();
+
+                FragmentManager fragmentManager= getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmenttransaction=fragmentManager.beginTransaction();
+        fragmenttransaction.replace(R.id.recycler_view, fragment).commit();
+        fragmenttransaction.addToBackStack(null);
+        fragmenttransaction.commit();*/
+
+
+
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //drawer.closeDrawer(GravityCompat.START);
+
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
     private void prepareView() {
+        //DashBoard images tbd by kiruba
         int[] covers = new int[]{
                 R.drawable.album1,
                 R.drawable.album2,

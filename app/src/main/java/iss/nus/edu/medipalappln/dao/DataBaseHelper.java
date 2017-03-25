@@ -37,9 +37,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
     //begin SQL statement
     public static final String CREATE_TABLE_PERSONALBIO = "CREATE TABLE " + TABLE_PERSONALBIO +
             "(" +
-            PERSONALBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            PERSONALBIO.ID + " VARCHAR(20), " +
             PERSONALBIO.Name + " VARCHAR(100), " +
-            PERSONALBIO.DOB + " DATE, " +
+            PERSONALBIO.DOB + " VARCHAR(20), " +
             PERSONALBIO.IDNo + " VARCHAR(20), " +
             PERSONALBIO.Address + " VARCHAR(100), " +
             PERSONALBIO.PostalCode + " VARCHAR(10), " +
