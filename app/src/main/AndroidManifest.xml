@@ -35,23 +35,26 @@
         <activity
             android:name=".activity.Welcome"
             android:label="@string/title_activity_welcome"
-            android:theme="@style/AppTheme.NoActionBar"  android:parentActivityName=".activity.HomeActivity" />
+            android:theme="@style/AppTheme" />
         <activity android:name=".activity.HelpScreen" />
         <activity
             android:name=".FingerPrint.FingerprintActivity"
             android:label="FingerPrint"
             android:theme="@style/Theme.AppCompat" />
-        <activity android:name=".activity.Recyclerview"
-            android:label="Recyclerview"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".activity.contacts">
-
-        </activity>
         <activity android:name=".widgetService.widgetMain" />
-        <service android:name=".Service.RemindService"
-            android:enabled="true"
-            android:process="system"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="Medicine Management"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.AddMedicineActivity"/>
+        <activity android:name=".activity.AddConsumptionActivity"/>
+        <activity android:name=".activity.AddReminderActivity"/>
+        <activity android:name=".activity.UpdateCategoryActivity"/>
+        <activity android:name=".activity.AddCategoryActivity"/>
+        <activity android:name=".activity.UpdateMedicineActivity"/>
+
+
     </application>
 
 </manifest>

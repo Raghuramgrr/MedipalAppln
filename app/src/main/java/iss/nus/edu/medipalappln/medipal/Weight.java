@@ -1,25 +1,17 @@
 package iss.nus.edu.medipalappln.medipal;
 
-import java.sql.Date;
-
 public class Weight extends Measurement {
 
+    private Integer weight;
+
     // Constructor
-    public Weight(Integer ID, Double weight, String measuredOn) {
+    public Weight(Integer ID, Integer weight, String measuredOn) {
         this.ID = ID;
-        this.systolic = 0;
-        this.diastolic = 0;
-        this.pulse = 0;
-        this.temperature = 0;
         this.weight = weight;
         this.measuredOn = measuredOn;
     }
 
-    public Weight (Double weight, String measuredOn) {
-        this.systolic = 0;
-        this.diastolic = 0;
-        this.pulse = 0;
-        this.temperature = 0;
+    public Weight (Integer weight, String measuredOn) {
         this.weight = weight;
         this.measuredOn = measuredOn;
     }
@@ -27,7 +19,7 @@ public class Weight extends Measurement {
     // Methods
     public Integer getID() { return this.ID; }
 
-    public Double getWeight() { return this.weight; }
+    public Integer getWeight() { return this.weight; }
 
     public String getMeasuredOn() {
         return this.measuredOn;
@@ -38,12 +30,23 @@ public class Weight extends Measurement {
                 this.measuredOn;
     }
 
-    public Weight getWeight(Date startDate, Date endDate) {
-        //search within timeframe
-        return null;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Weight other = (Weight) obj;
+        super.equals(other);
+        if (this.getID() != other.getID()) {
+            return false;
+        }
+        return true;
     }
 
-    public void setWeight(Double weight, String measuredOn, Integer ID) {
+    public void setWeight(Integer weight, String measuredOn, Integer ID) {
         this.weight = weight;
         this.measuredOn = measuredOn;
         this.ID = ID;

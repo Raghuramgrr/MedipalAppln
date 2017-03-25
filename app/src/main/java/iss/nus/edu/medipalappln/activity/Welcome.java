@@ -26,6 +26,7 @@ import iss.nus.edu.medipalappln.fragment.MainMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ShowEmergency;
+import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ViewBloodPressureFragment;
 import iss.nus.edu.medipalappln.fragment.ViewPulseFragment;
 import iss.nus.edu.medipalappln.fragment.ViewTemperatureFragment;
@@ -62,13 +63,13 @@ Dashboard.OnFragmentInteractionListener,
         sContext = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
             Fragment fragment = null;
             Class fragmentClass = null;
             session=new Session(this);
-            fragmentClass = Dashboard.class;
+            fragmentClass = MainFragment.class;
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
             } catch (Exception e) {
@@ -143,9 +144,6 @@ Dashboard.OnFragmentInteractionListener,
         }
         else if (id == R.id.nav_home) {
             fragmentClass = MainFragment.class;
-        }
-        else if (id==R.id.nav_show_ice){
-            fragmentClass = ShowEmergency.class;
         }
         else if (id == R.id.Logout) {
             //fragmentClass = FragmentTwo.class;

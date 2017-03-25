@@ -68,7 +68,7 @@ public class TemperatureDataBaseAdapter extends DBDAO {
             id = cursor.getInt(0);
             Temperature temperature = new Temperature(
                     id,
-                    cursor.getInt(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Temperature.toString())),
+                    cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Temperature.toString())),
                     cursor.getString(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.MeasuredOn.toString())));
             Temperatures.add(temperature);
             Log.i(TAG, id + ": " + temperature.getTemperature() + "/" + temperature.getMeasuredOn());
