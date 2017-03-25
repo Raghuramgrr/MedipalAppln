@@ -46,7 +46,6 @@ public class Welcome extends AppCompatActivity
                     ViewPulseFragment.OnFragmentInteractionListener,
                       ShowEmergency.OnFragmentInteractionListener,
                     ViewTemperatureFragment.OnFragmentInteractionListener,
-Dashboard.OnFragmentInteractionListener,
                     ViewWeightFragment.OnFragmentInteractionListener {
     public Session session;
     private static Context sContext = null;
