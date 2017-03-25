@@ -19,10 +19,13 @@ import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.AddMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.AppointmentFragment;
+import iss.nus.edu.medipalappln.fragment.ConsumptionFragment;
 import iss.nus.edu.medipalappln.fragment.Dashboard;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.MainFragment;
 import iss.nus.edu.medipalappln.fragment.MainMeasurementFragment;
+import iss.nus.edu.medipalappln.fragment.MainMedicineFragment;
+import iss.nus.edu.medipalappln.fragment.MedicineFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ShowEmergency;
@@ -44,10 +47,12 @@ public class Welcome extends AppCompatActivity
                     AddMeasurementFragment.OnFragmentInteractionListener,
                     ViewBloodPressureFragment.OnFragmentInteractionListener,
                     ViewPulseFragment.OnFragmentInteractionListener,
-                      ShowEmergency.OnFragmentInteractionListener,
+                    ShowEmergency.OnFragmentInteractionListener,
                     ViewTemperatureFragment.OnFragmentInteractionListener,
-Dashboard.OnFragmentInteractionListener,
-                    ViewWeightFragment.OnFragmentInteractionListener {
+                    ViewWeightFragment.OnFragmentInteractionListener,
+                    MainMedicineFragment.OnFragmentInteractionListener,
+                    MedicineFragment.OnFragmentInteractionListener,
+                    ConsumptionFragment.OnFragmentInteractionListener {
     public Session session;
     private static Context sContext = null;
     BioDataBaseAdapter bioDataBaseAdapter;
@@ -143,6 +148,8 @@ Dashboard.OnFragmentInteractionListener,
             fragmentClass = AppointmentFragment.class;
         } else if (id == R.id.nav_health_bio) {
             //fragmentClass = FragmentTwo.class;
+        } else if (id == R.id.nav_medicine) {
+            fragmentClass = MainMedicineFragment.class;
         }
         else if (id == R.id.nav_home) {
             fragmentClass = MainFragment.class;

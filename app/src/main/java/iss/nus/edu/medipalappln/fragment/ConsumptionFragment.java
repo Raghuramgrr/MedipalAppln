@@ -1,6 +1,7 @@
 package iss.nus.edu.medipalappln.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,8 @@ public class ConsumptionFragment extends Fragment implements SearchView.OnQueryT
   private TextView tvEmpty;
   private ConsumptionListAdapter consumptionListAdapter;
   Spinner spnMember;
+
+  private MedicineFragment.OnFragmentInteractionListener mListener;
 
   // for searching
   SearchView editsearch;
@@ -91,6 +94,12 @@ public class ConsumptionFragment extends Fragment implements SearchView.OnQueryT
     return fragmentView;
   }
 
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
   @Override
   public void onResume() {
     super.onResume();
@@ -111,4 +120,8 @@ public class ConsumptionFragment extends Fragment implements SearchView.OnQueryT
     consumptionListAdapter.filter(text);
     return false;
   }
+
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
+    }
 }
