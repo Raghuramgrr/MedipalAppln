@@ -96,21 +96,19 @@
 
       </LinearLayout>
 
-
-   <LinearLayout
+     <LinearLayout
         android:id="@+id/relative_layout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_below="@+id/switch_layout2"
         android:orientation="vertical"
-       android:visibility="gone"
         >
 
-       <!--<RelativeLayout
+<!--       <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           >
+           >-->
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -143,7 +141,17 @@
                android:layout_centerHorizontal="true"
                android:layout_alignBaseline="@id/tv_remindFreq"
                />
-           <EditText
+
+            <Button
+                android:id="@+id/bt_select_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/strt_time_select"
+                android:layout_toRightOf="@id/et_remind_freq"
+                android:layout_toEndOf="@id/et_remind_freq"
+                android:layout_alignBaseline="@id/et_remind_freq"
+                />
+           <!--<EditText
                android:id="@+id/et_select_start_time"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -155,7 +163,7 @@
                android:focusable="true"
                android:inputType="datetime"
                android:layout_alignBaseline="@id/et_remind_freq"
-               />
+               />-->
            <EditText
                android:id="@+id/et_remindInterval"
                android:layout_width="wrap_content"
@@ -180,9 +188,9 @@
                android:layout_alignLeft="@id/et_remindInterval"
                android:layout_alignStart="@id/et_remindInterval"
                />
-       </RelativeLayout>-->
+ <!--     </RelativeLayout>-->
 
-       <Button
+<!--       <Button
            android:id="@+id/btn_set_remind"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
@@ -191,7 +199,7 @@
            android:textColor="@android:color/white"
            android:layout_marginLeft="8dp"
            android:layout_marginRight="8dp"
-           android:layout_alignParentBottom="true"/>
+           android:layout_alignParentBottom="true"/>-->
 
       </LinearLayout>
             <LinearLayout
