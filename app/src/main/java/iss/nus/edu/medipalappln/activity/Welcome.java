@@ -47,7 +47,8 @@ public class Welcome extends AppCompatActivity
                     ShowEmergency.OnFragmentInteractionListener,
                     ViewTemperatureFragment.OnFragmentInteractionListener,
                     ViewWeightFragment.OnFragmentInteractionListener,
-                    MedicineFragment.OnFragmentInteractionListener {
+                    MedicineFragment.OnFragmentInteractionListener,
+                    ConsumptionFragment.OnFragmentInteractionListener {
     public Session session;
     private static Context sContext = null;
     BioDataBaseAdapter bioDataBaseAdapter;
