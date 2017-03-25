@@ -22,12 +22,15 @@ import java.util.List;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.AddConsumptionActivity;
 import iss.nus.edu.medipalappln.adapter.ConsumptionListAdapter;
+import iss.nus.edu.medipalappln.adapter.ConsumptionListCategoryAdapter;
 
 
 // for searching - implements SearchView.OnQueryTextListener
 public class ConsumptionFragment extends Fragment implements SearchView.OnQueryTextListener {
   private TextView tvEmpty;
   private ConsumptionListAdapter consumptionListAdapter;
+  private ConsumptionListCategoryAdapter consumptionListCategoryAdapter;
+  private ListView bookingList;
   Spinner spnMember;
 
   // for searching
@@ -44,9 +47,9 @@ public class ConsumptionFragment extends Fragment implements SearchView.OnQueryT
     // Inflate the layout for this fragment
 
     final View fragmentView = inflater.inflate(R.layout.fragment_booking, container, false);
-    ListView bookingList = (ListView) fragmentView.findViewById(R.id.lv_booking_list);
+
+    bookingList = (ListView) fragmentView.findViewById(R.id.lv_booking_list);
     consumptionListAdapter = new ConsumptionListAdapter(getActivity());
-    bookingList.setAdapter(consumptionListAdapter);
 
     spnMember = (Spinner) fragmentView.findViewById(R.id.filter);
     List<String> spnMemList = new ArrayList<>();
@@ -62,15 +65,18 @@ public class ConsumptionFragment extends Fragment implements SearchView.OnQueryT
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
           Log.d("mark", i + " voke");
           //TODO filter
-          if (i > 0){
-            ListView bookingList = (ListView) fragmentView.findViewById(R.id.lv_booking_list);
-            consumptionListAdapter = new ConsumptionListAdapter(getActivity());
+          if (i == 1){ // 1 = category
+            //ListView bookingList = (ListView) fragmentView.findViewById(R.id.lv_booking_list);
+
+            bookingList.setAdapter(consumptionListAdapter);
+            consumptionListAdapter.refreshBookings();
+          }
+          else if (i == 2){ //i = medicine
+
             bookingList.setAdapter(consumptionListAdapter);
             consumptionListAdapter.refreshBookings();
           }
           else{
-            ListView bookingList = (ListView) fragmentView.findViewById(R.id.lv_booking_list);
-            consumptionListAdapter = new ConsumptionListAdapter(getActivity());
             bookingList.setAdapter(consumptionListAdapter);
             consumptionListAdapter.refreshBookings();
           }

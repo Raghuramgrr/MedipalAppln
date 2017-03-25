@@ -6,6 +6,7 @@ package iss.nus.edu.medipalappln.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -35,6 +36,12 @@ public class ConsumptionDAO extends DBDAO {
         values.put(DataBaseHelper.CONSUMPTION.Quantity.toString(), consumption.getQuantity());
         values.put(DataBaseHelper.CONSUMPTION.ConsumedOn.toString(), formatter.format(consumption.getConDate()));
         return database.insert(DataBaseHelper.TABLE_CONSUMPTION, null, values);
+    }
+
+    public int delete(int medId){
+        String sqlstr =  DataBaseHelper.TABLE_CONSUMPTION + "WHERE ID = " + medId;
+        int result = database.delete(DataBaseHelper.TABLE_CONSUMPTION, DataBaseHelper.CONSUMPTION.MedicineID.toString() + " = ?", new String[]{Integer.toString(medId)});
+        return result;
     }
 
     //USING query() method
@@ -75,6 +82,27 @@ public class ConsumptionDAO extends DBDAO {
         return  bookings;
     }
 
+    public ArrayList<Consumption> getConsumptionsByMedicine(int medId){
+        ArrayList<Consumption> consumptions = new ArrayList<>();
+        String[] querystr = new String[]{DataBaseHelper.CONSUMPTION.ID.toString(), DataBaseHelper.CONSUMPTION.MedicineID.toString(), DataBaseHelper.CONSUMPTION.Quantity.toString(), DataBaseHelper.CONSUMPTION.ConsumedOn.toString()};
+        String select = DataBaseHelper.CONSUMPTION.ID.toString() + " = ?";
+        Cursor cursor = database.query(DataBaseHelper.TABLE_CONSUMPTION,querystr, select,new String[]{Integer.toString(medId)},null,null,null);
+        while (cursor.moveToNext()){
+            int cid = cursor.getInt(0);
+            int mid = cursor.getInt(1);
+            int quan = cursor.getInt(2);
+            Date cdate = null;
+            try {
+                cdate = formatter.parse(cursor.getString(3));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Consumption consumption = new Consumption(cid, mid, quan, cdate);
+            consumptions.add(consumption);
+        }
+        return consumptions;
+    }
 
     //Retrieves a single booking record with the given id
     public Consumption getConsumption(long id) {
@@ -97,7 +125,6 @@ public class ConsumptionDAO extends DBDAO {
             }
 
             consumption = new Consumption(bid, mid, quan, cdate );
-
         }
         return consumption;
     }
@@ -126,7 +153,6 @@ public class ConsumptionDAO extends DBDAO {
         else{
             Log.d("BookingDao","Retrive MED from BOOKING failed");
         }
-
         return medicine;
     }
 }

@@ -51,34 +51,20 @@ public class AddConsumptionActivity extends AppCompatActivity {
     setContentView(R.layout.activity_add_booking);
 
     spnMember = (Spinner) findViewById(R.id.spn_member);
-   // spnFacility = (Spinner) findViewById(R.id.spn_facility);
     etDate = (EditText) findViewById(R.id.et_select_date);
     etStrtTime = (EditText) findViewById(R.id.et_select_strt_time);
-    //etEndTime = (EditText) findViewById(R.id.et_select_end_time);
     etQuantity = (EditText) findViewById(R.id.txt_quantity) ;
     btnSave = (Button) findViewById(R.id.btn_save);
-
-
 
     medicineList = App.user.getMedicines(this);
     List<String> spnMemList = new ArrayList<>();
     spnMemList.add("<Select Medicine>");
     for (Medicine medicine : medicineList) {
-      spnMemList.add(medicine.getMedId(), medicine.getMedName().toString());
+      spnMemList.add(medicine.getMedName().toString());
     }
     ArrayAdapter<String> spnMemAdapter =
             new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spnMemList);
     spnMember.setAdapter(spnMemAdapter);
-
-//    facilityList = App.club.getFacilities(this);
-//    List<String> spnFacList = new ArrayList<>();
-//    spnFacList.add("<Select Category>");
-//    for (Facility facility : facilityList) {
-//      spnFacList.add(facility.getFacilityNumber(), facility.toString());
-//    }
-//    ArrayAdapter<String> spnFacAdapter =
-//        new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spnFacList);
-//    spnFacility.setAdapter(spnFacAdapter);
 
     etDate.setText(dateFormatter.format(selectedDate.getTime()));
     etDate.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +95,7 @@ public class AddConsumptionActivity extends AppCompatActivity {
     timeCalendar.set(Calendar.MINUTE, currentCal.get(Calendar.MINUTE));
     timeCalendar.set(Calendar.AM_PM, currentCal.get(Calendar.AM_PM));
     timeCalendar.add(Calendar.HOUR, 1);
-    //etEndTime.setText(timeFormatter.format(timeCalendar.getTime()));
+
 
     View.OnClickListener timeClickListener = new View.OnClickListener() {
       @Override
@@ -140,25 +126,20 @@ public class AddConsumptionActivity extends AppCompatActivity {
     };
 
     etStrtTime.setOnClickListener(timeClickListener);
-    //etEndTime.setOnClickListener(timeClickListener);
+
 
     btnSave.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         if (isValid()) {
-
-
           Medicine selectedMedicine = null;
-          //Facility selectedFacility = null;
 
           for (Medicine m : medicineList) {
-            Long id = spnMember.getSelectedItemId();
-            if (id.intValue() == m.getMedId()) {
-
+            String item = spnMember.getSelectedItem().toString();
+            if (item.equals(m.getMedName())) {
               selectedMedicine = m;
             }
           }
-//
 
 
           Calendar selectedStTime = Calendar.getInstance();
@@ -167,21 +148,8 @@ public class AddConsumptionActivity extends AppCompatActivity {
           } catch (ParseException e) {
             e.printStackTrace();
           }
-/*          Calendar convertedStTime = Calendar.getInstance();
-          convertedStTime.set(Calendar.HOUR, selectedStTime.get(Calendar.HOUR));
-          convertedStTime.set(Calendar.MINUTE, selectedStTime.get(Calendar.MINUTE));
-          convertedStTime.set(Calendar.AM_PM, selectedStTime.get(Calendar.AM_PM));*/
 
-//          Calendar selectedEtTime = Calendar.getInstance();
-//          try {
-//            selectedEtTime.setTime(timeFormatter.parse(etEndTime.getText().toString()));
-//          } catch (ParseException e) {
-//            e.printStackTrace();
-//          }
-/*          Calendar convertedEtTime = Calendar.getInstance();
-          convertedEtTime.set(Calendar.HOUR, selectedEtTime.get(Calendar.HOUR));
-          convertedEtTime.set(Calendar.MINUTE, selectedEtTime.get(Calendar.MINUTE));
-          convertedEtTime.set(Calendar.AM_PM, selectedEtTime.get(Calendar.AM_PM));*/
+
 
           Calendar selStartDate = Calendar.getInstance();
           selStartDate.set(Calendar.YEAR, selectedDate.get(Calendar.YEAR));
@@ -190,14 +158,6 @@ public class AddConsumptionActivity extends AppCompatActivity {
           selStartDate.set(Calendar.HOUR, selectedStTime.get(Calendar.HOUR));
           selStartDate.set(Calendar.MINUTE, selectedStTime.get(Calendar.MINUTE));
           selStartDate.set(Calendar.AM_PM, selectedStTime.get(Calendar.AM_PM));
-
-//          Calendar selEndDate = Calendar.getInstance();
-//          selEndDate.set(Calendar.YEAR, selectedDate.get(Calendar.YEAR));
-//          selEndDate.set(Calendar.MONTH, selectedDate.get(Calendar.MONTH));
-//          selEndDate.set(Calendar.DATE, selectedDate.get(Calendar.DATE));
-//          selEndDate.set(Calendar.HOUR, selectedEtTime.get(Calendar.HOUR));
-//          selEndDate.set(Calendar.MINUTE, selectedEtTime.get(Calendar.MINUTE));
-//          selEndDate.set(Calendar.AM_PM, selectedEtTime.get(Calendar.AM_PM));
 
           quantity = Integer.parseInt(etQuantity.getText().toString());
 

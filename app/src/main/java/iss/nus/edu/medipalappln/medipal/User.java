@@ -35,6 +35,8 @@ import iss.nus.edu.medipalappln.asynTask.ViewBloodPressureTask;
 import iss.nus.edu.medipalappln.asynTask.ViewPulseTask;
 import iss.nus.edu.medipalappln.asynTask.ViewTemperatureTask;
 import iss.nus.edu.medipalappln.asynTask.ViewWeightTask;
+import iss.nus.edu.medipalappln.dao.ConsumptionDAO;
+import iss.nus.edu.medipalappln.dao.DataBaseHelper;
 
 public class User {
 
@@ -45,6 +47,7 @@ public class User {
     private ArrayList<Category> facilities;
     private Category category;
     private Reminder reminder;
+    private Consumption consumption;
     private HashMap<String, Category> facilities1;
     //private ArrayList<Measurement> measurements;
     private ArrayList<BloodPressure> bloodPressures;
@@ -528,6 +531,20 @@ public class User {
         return (new ArrayList<Consumption>(consumptions));
     }
 
+    public ArrayList<Consumption> getConsumptionsByCategory( Context context){
+
+        ConsumptionDAO cDAO = new ConsumptionDAO(context);
+        consumptions.add(cDAO.getConsumption(3));
+        consumptions.add(cDAO.getConsumption(4));
+        return consumptions;
+    }
+
+    public ArrayList<Consumption> getConsumptionsByMedicine( Context context){
+        ConsumptionDAO cDAO = new ConsumptionDAO(context);
+        consumptions.add(cDAO.getConsumption(1));
+        consumptions.add(cDAO.getConsumption(2));
+        return consumptions;
+    }
     /*
     public void showBookings (String facName, Date startDate, Date endDate) {
         ArrayList<Booking> b = getBookings (facName, startDate, endDate);

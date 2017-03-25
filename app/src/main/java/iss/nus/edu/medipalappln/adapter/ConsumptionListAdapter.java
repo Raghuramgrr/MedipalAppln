@@ -52,8 +52,7 @@ public class ConsumptionListAdapter extends ArrayAdapter<Consumption> {
     }
 
     final Consumption consumption = consumptions.get(position);
-      ConsumptionDAO consumptionDAO = new ConsumptionDAO(context);
-    //TODO
+    ConsumptionDAO consumptionDAO = new ConsumptionDAO(context);
     Medicine med = consumptionDAO.getConsumptionMedicine(consumption);
     String medName = med.getMedName();
 
@@ -67,48 +66,31 @@ public class ConsumptionListAdapter extends ArrayAdapter<Consumption> {
     viewHolder.tvName.setText(medName);
     viewHolder.tvQuantity.setText(Integer.toString(quan));
     viewHolder.tvTime.setText(str);
-//    viewHolder.btnRemove.setOnClickListener(new View.OnClickListener() {
-//      @Override public void onClick(View v) {
-//        App.club.removeBooking(consumption);
-//        refreshBookings();
-//      }
-//    });
+
     return convertView;
   }
 
   public void refreshBookings() {
     consumptions.clear();
     consumptions.addAll(App.user.getConsumptions(this.context));
-
-//    List<Member> lMembers = App.club.getMembers(this.context);
-//    List<Facility> lFacilities = App.club.getFacilities(this.context);
-//
-//    for (Booking b : bookings) {
-//      for (Member m : lMembers) {
-//        if (b.getMemberNumber() == m.getMedId()) {
-//          b.setMember(m);
-//        }
-//      }
-//
-//      for (Facility f : lFacilities) {
-//        if (b.getFacilityNumber() == f.getFacilityNumber()) {
-//          b.setFacility(f);
-//        }
-//      }
-//    }
-
     notifyDataSetChanged();
-
     // for searching
     this.arraylist.addAll(consumptions);
   }
 
-//  public void refreshBookingsInCategory(){
-//    consumptions.clear();
-//    consumptions.addAll(App.club.getConsumptionsByCategory(this.context));
-//    notifyDataSetChanged();
-//    this.arraylist.addAll(consumptions);
-//  }
+  public void refreshBookingsByCategory(){
+    consumptions.clear();
+    consumptions.addAll(App.user.getConsumptionsByCategory(this.context));
+    notifyDataSetChanged();
+    this.arraylist.addAll(consumptions);
+  }
+
+  public void refreshBookingsByMedicine(){
+    consumptions.clear();
+    consumptions.addAll(App.user.getConsumptionsByMedicine(this.context));
+    notifyDataSetChanged();
+    this.arraylist.addAll(consumptions);
+  }
 
   @Override
   public int getCount() {
