@@ -100,4 +100,9 @@
     <string name="error_invalid_data">Invalid data</string>
     <string name="save_success">Saved successfully</string>
     <string name="delete_success">Deleted successfully</string>
+
+    <string name="threshold_bps">120</string>
+    <string name="threshold_bpd">90</string>
+
+
 </resources>

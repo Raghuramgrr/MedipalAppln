@@ -61,7 +61,8 @@ public class BloodPressureDataBaseAdapter extends DBDAO {
                         DataBaseHelper.MEASUREMENT.Diastolic.toString(),
                         DataBaseHelper.MEASUREMENT.MeasuredOn.toString() };
         String where = DataBaseHelper.MEASUREMENT.Systolic + " > 0 or " +
-                        DataBaseHelper.MEASUREMENT.Diastolic + " > 0 ";
+                        DataBaseHelper.MEASUREMENT.Diastolic + " > 0 " +
+                        " order by " + DataBaseHelper.MEASUREMENT.MeasuredOn;
         int id;
 
         Log.i(TAG, "where " + where);

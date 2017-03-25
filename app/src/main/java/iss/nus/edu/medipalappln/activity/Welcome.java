@@ -19,6 +19,7 @@ import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.AddMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.AppointmentFragment;
+import iss.nus.edu.medipalappln.fragment.Dashboard;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.MainFragment;
 import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
@@ -32,6 +33,7 @@ import iss.nus.edu.medipalappln.fragment.ViewWeightFragment;
 public class Welcome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
                     MainFragment.OnFragmentInteractionListener,
+                    Dashboard.OnFragmentInteractionListener,
                     PersonalBioForm.OnFragmentInteractionListener,
                     IceDetails.OnFragmentInteractionListener,
                     MainMeasurementFragment.OnFragmentInteractionListener,
@@ -58,13 +60,14 @@ public class Welcome extends AppCompatActivity
         sContext = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
             Fragment fragment = null;
             Class fragmentClass = null;
             session=new Session(this);
-            fragmentClass = MainFragment.class;
+            //fragmentClass = MainFragment.class;
+            fragmentClass = Dashboard.class;
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
             } catch (Exception e) {
