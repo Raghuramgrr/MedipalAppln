@@ -15,10 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import iss.nus.edu.medipalappln.R;
@@ -31,6 +35,8 @@ import iss.nus.edu.medipalappln.medipal.Weight;
 public class MainMeasurementFragment extends Fragment {
 
     private static final String TAG = "MainMeasurementFragment";
+
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");;
     private LineGraphSeries<DataPoint> series1, series2;
     private Button btnShowAll;
 
@@ -61,10 +67,15 @@ public class MainMeasurementFragment extends Fragment {
         btnShowAll = (Button) view.findViewById(R.id.btn_show_all);
         //final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 
-        buildGraphBP(view);
-        buildGraphPulse(view);
-        buildGraphTemperature(view);
-        buildGraphWeight(view);
+        try {
+            buildGraphBP(view);
+            buildGraphPulse(view);
+            buildGraphTemperature(view);
+            buildGraphWeight(view);
+        } catch (ParseException e) {
+            Log.e(TAG, "Unable to parse date for Graph");
+            e.printStackTrace();
+        }
 
         btnShowAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,8 +123,9 @@ public class MainMeasurementFragment extends Fragment {
         mListener = null;
     }
 
-    public void buildGraphBP(View view) {
-        double y1, y2, x;
+    public void buildGraphBP(View view) throws ParseException {
+        double y1, y2;
+        Date x;
         int size = 0;
 
         GraphView graphView = (GraphView) view.findViewById(R.id.graph_bp);
@@ -125,74 +137,104 @@ public class MainMeasurementFragment extends Fragment {
         bloodPressures.clear();
         bloodPressures.addAll(App.user.getBloodPressure(getContext()));
         size = bloodPressures.size();
+        graphView.setTitle("Systolic/Diastolic (mmHg)");
+        graphView.setBackgroundColor(Color.LTGRAY);
 
         if(size > 0) {
             for (int i = 0; i < size; i++) {
-                x = i;
+                //x = i;
+                x = df.parse(bloodPressures.get(i).getMeasuredOn());
                 y1 = bloodPressures.get(i).getSystolic();
                 y2 = bloodPressures.get(i).getDiastolic();
                 series1.appendData(new DataPoint(x, y1), true, size);
                 series2.appendData(new DataPoint(x, y2), true, size);
             }
 
-            graphView.setTitle("Systolic/Diastolic (mmHg)");
-            graphView.setBackgroundColor(Color.LTGRAY);
             graphView.addSeries(series1);
             graphView.addSeries(series2);
+
+            graphView.getGridLabelRenderer().setLabelFormatter(
+                        new DateAsXAxisLabelFormatter(getContext()));
+
+            graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+            graphView.getViewport().setMinX(0);
+            graphView.getViewport().setMaxX(
+                    df.parse(bloodPressures.get(size-1).getMeasuredOn()).getTime());
         }
+
     }
 
-    public void buildGraphPulse(View view) {
-        double y=0, x=0;
+    public void buildGraphPulse(View view) throws ParseException {
+        double y=0;
+        Date x;
         int size = 0;
 
         GraphView graphView = (GraphView) view.findViewById(R.id.graph_pulse);
         series1 = new LineGraphSeries<DataPoint>();
-        series1.setColor(Color.GREEN);
+        series1.setColor(Color.MAGENTA);
 
         pulses.clear();
         pulses.addAll(App.user.getPulse(getContext()));
         size = pulses.size();
+        graphView.setTitle("Pulse (bpm)");
+        graphView.setBackgroundColor(Color.LTGRAY);
 
         if(size > 0) {
             for (int i = 0; i < size; i++) {
-                x = i;
+                //x = i;
+                x = df.parse(pulses.get(i).getMeasuredOn());
                 y = pulses.get(i).getPulse();
                 series1.appendData(new DataPoint(x, y), true, size);
             }
-            graphView.setTitle("Pulse (bpm)");
-            graphView.setBackgroundColor(Color.LTGRAY);
             graphView.addSeries(series1);
-            series1.appendData(new DataPoint(x, y), true, size);
+
+            graphView.getGridLabelRenderer().setLabelFormatter(
+                    new DateAsXAxisLabelFormatter(getContext()));
+
+            graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+            graphView.getViewport().setMinX(0);
+            graphView.getViewport().setMaxX(
+                    df.parse(pulses.get(size-1).getMeasuredOn()).getTime());
         }
     }
 
-    public void buildGraphTemperature(View view) {
-        double y, x;
+    public void buildGraphTemperature(View view) throws ParseException {
+        double y=0;
+        Date x;
         int size = 0;
 
         GraphView graphView = (GraphView) view.findViewById(R.id.graph_temperature);
         series1 = new LineGraphSeries<DataPoint>();
-        series1.setColor(Color.GREEN);
+        series1.setColor(Color.BLUE);
 
         temperatures.clear();
         temperatures.addAll(App.user.getTemperature(getContext()));
         size = temperatures.size();
+        graphView.setTitle("Temperature (Celcius)");
+        graphView.setBackgroundColor(Color.LTGRAY);
 
         if(size > 0) {
             for (int i = 0; i < size; i++) {
-                x = i;
+                //x = i;
+                x = df.parse(temperatures.get(i).getMeasuredOn());
                 y = temperatures.get(i).getTemperature();
                 series1.appendData(new DataPoint(x, y), true, size);
             }
-            graphView.setTitle("Temperature (Celcius)");
-            graphView.setBackgroundColor(Color.LTGRAY);
             graphView.addSeries(series1);
+
+            graphView.getGridLabelRenderer().setLabelFormatter(
+                    new DateAsXAxisLabelFormatter(getContext()));
+
+            graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+            graphView.getViewport().setMinX(0);
+            graphView.getViewport().setMaxX(
+                    df.parse(temperatures.get(size-1).getMeasuredOn()).getTime());
         }
     }
 
-    public void buildGraphWeight(View view) {
-        double y=0, x=0;
+    public void buildGraphWeight(View view) throws ParseException {
+        double y=0;
+        Date x;
         int size = 0;
 
         GraphView graphView = (GraphView) view.findViewById(R.id.graph_weight);
@@ -202,35 +244,25 @@ public class MainMeasurementFragment extends Fragment {
         weights.clear();
         weights.addAll(App.user.getWeight(getContext()));
         size = weights.size();
+        graphView.setTitle("Weight (kg)");
+        graphView.setBackgroundColor(Color.LTGRAY);
 
         if(size > 0) {
             for (int i = 0; i < size; i++) {
-                x = i;
+                //x = i;
+                x = df.parse(weights.get(i).getMeasuredOn());
                 y = weights.get(i).getWeight();
-            /*
-            String j = "113029";
-            Date date = null;
-
-            Log.i(TAG, "Grego date: " + weights.get(i).getMeasuredOn());
-            try {
-                //date = new SimpleDateFormat("Myydd").parse(j);
-                date = new SimpleDateFormat("yyyy-MM-dd").parse(weights.get(i).getWeight().toString());
-            } catch (ParseException e) {
-                Log.i(TAG, "Unable to convert date");
-                e.printStackTrace();
-            }
-            //String g = new SimpleDateFormat("dd-MM-yyyy").format(date);
-            String g = new SimpleDateFormat("Myydd").format(date);
-            System.out.println(g);
-            Log.i(TAG, "Julian date: " + weights.get(i).getWeight().toString() + "/" + g);
-            */
                 series1.appendData(new DataPoint(x, y), true, size);
-
             }
-            graphView.setTitle("Weight (kg)");
-            graphView.setBackgroundColor(Color.LTGRAY);
             graphView.addSeries(series1);
-            series1.appendData(new DataPoint(x, y), true, size);
+
+            graphView.getGridLabelRenderer().setLabelFormatter(
+                    new DateAsXAxisLabelFormatter(getContext()));
+
+            graphView.getGridLabelRenderer().setNumHorizontalLabels(3);
+            graphView.getViewport().setMinX(0);
+            graphView.getViewport().setMaxX(
+                    df.parse(weights.get(size-1).getMeasuredOn()).getTime());
         }
     }
 
