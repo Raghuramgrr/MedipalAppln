@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_main">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -20,10 +21,10 @@
             android:id="@+id/fab_addapp"
             android:layout_margin="20dp"
             android:layout_gravity="bottom|end"
-            android:backgroundTint="#FF1493"
-            android:src="@drawable/ic_appointmentadd"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:tint="@android:color/white"
+            android:src="@drawable/ic_add_circle_black"/>
 
     </android.support.design.widget.CoordinatorLayout>
 

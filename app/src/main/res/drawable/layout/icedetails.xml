@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="iss.nus.edu.medipalappln.fragment.IceDetails"
-
+    android:background="@color/bg_main"
     >
 
     <LinearLayout
@@ -137,7 +137,8 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn"
+            android:textColor="@android:color/white"
+            android:background="@drawable/side_nav_bar"
             android:elevation="0dp"
             android:text="SUBMIT"
             android:textAlignment="center" />

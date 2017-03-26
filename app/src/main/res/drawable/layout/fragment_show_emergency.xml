@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="iss.nus.edu.medipalappln.fragment.MeasureBloodPressureFragment"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    android:background="@color/bg_main">
 
     <ListView
         android:id="@+id/list_view_emergency"

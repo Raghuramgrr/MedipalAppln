@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="iss.nus.edu.medipalappln.fragment.PersonalBioForm"
-
+    android:background="@color/bg_mainn"
     >
     <LinearLayout
 
@@ -124,7 +124,7 @@
             android:textAlignment="center"
             android:text="SUBMIT"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn"
+            android:background="@drawable/side_nav_bar"
             />
 
         <LinearLayout

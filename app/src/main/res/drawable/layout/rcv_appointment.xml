@@ -3,7 +3,8 @@
     android:id="@+id/rcv_ll_appointment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg_mainn">
 
         <TextView
             android:id="@+id/tv_location"

@@ -182,5 +182,39 @@
         <item>medicine</item>
     </string-array>
 
+    <string name="medipal">MediPal</string>
+
+    <!-- Health Bio -->
+    <string name="empty_view_title_text">Please provide your Health Bio!</string>
+    <string name="empty_view_subtitle_text">To Serve you better :)</string>
+    <string name="editor_activity_title_add">Add Health Bio</string>
+    <string name="editor_activity_title_edit">Edit Health Bio</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="editor_insert_health_bio_successful">Health Bio saved</string>
+    <string name="editor_insert_health_bio_failed">Error while saving Health Bio</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="delete_dialog_msg">Delete this Health Bio?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="medical_condition_text">Medical Condition</string>
+    <string name="editor_updt_hlth_bio_success">Health Bio updated</string>
+    <string name="editor_update_health_bio_failed">Error while updating Health Bio</string>
+    <string name="hint_Condition">Condition/Allergy</string>
+    <string name="spinner_select">Select Value</string>
+    <string name="spinner_condition">Condition(C)</string>
+    <string name="spinner_allergy">Allergy(A)</string>
+    <string name="start_date">Start Date</string>
+    <string name="condition_type">Condition Type</string>
+    <string name="editor_delete_health_bio_successful">Health Bio deleted</string>
+    <string name="editor_delete_health_bio_failed">Error while deleting Health Bio</string>
+    <string name="action_delete_all_entries">Delete all Health Bio</string>
+
+    <string name="action_health_bio">Health Bio</string>
+    <string name="text_measured_on_date">Measured On Date</string>
+    <string name="text_measured_on_time">Measured On Time</string>
+
 
 </resources>
