@@ -24,10 +24,13 @@ public class Emergency {
     }
 
     public Emergency getEmergency() {
-        Emergency emergency = new Emergency(ID,name,phone,priority,desc);
+        Emergency emergency = new Emergency(ID,priority,phone,name,desc);
         return emergency;
     }
-    public void setPhoneNumber(String phone, String priority) {
+    public void setPhoneNumber(int ID,String name ,String phone, String priority,String desc) {
+        this.ID=ID;
+        this.name=name;
+        this.desc=desc;
         this.phone=phone;
         this.priority = priority;
         }

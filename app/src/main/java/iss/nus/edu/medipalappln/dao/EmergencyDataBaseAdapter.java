@@ -74,13 +74,14 @@ try {
     while (cursor.moveToNext()) {
         id = cursor.getInt(0);
         //cursor.getInt(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Systolic.toString())),
-        Emergency emergency = new Emergency(cursor.getInt(cursor.getColumnIndex(DataBaseHelper.ICE.ContactType.toString())),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ID.toString())),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ContactNo.toString())),
+        Emergency emergency = new Emergency(cursor.getInt(cursor.getColumnIndex(DataBaseHelper.ICE.ID.toString())),
                 cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Name.toString())),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Sequence.toString())));
+                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ContactNo.toString())),
+                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Sequence.toString())),
+                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ContactType.toString())));
         emergencies.add(emergency);
     }
+    //int ID,String name ,String phone, String priority,String desc
 }
 catch (SQLException e){
     e.printStackTrace();

@@ -13,12 +13,13 @@
         android:layout_height="fill_parent"
 
         android:orientation="vertical"
-        android:weightSum="1">
+        android:weightSum="1"
+        tools:ignore="ScrollViewSize">
 
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="443dp"
+            android:layout_height="450dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -43,32 +44,45 @@
                 android:text="Add Personal Bio....Add Personal Bio....Add Personal Bio.....Add Personal Bio" />
 
 
-
             <EditText
-                android:id="@+id/BloodType"
+                android:id="@+id/name"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="30dp"
                 android:background="#f3f3f3"
-                android:hint="BloodType"
+                android:freezesText="true"
+                android:hint="Name"
                 android:paddingLeft="5dp" />
 
             <TextView
                 android:id="@+id/dob"
-                android:focusable="false"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="#f3f3f3"
+                android:focusable="false"
+                android:freezesText="true"
                 android:hint="Dob"
+                android:paddingLeft="5dp"
+                 />
+
+            <EditText
+                android:id="@+id/Bloodtype"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="30dp"
+                android:background="#f3f3f3"
+                android:freezesText="true"
+                android:hint="BloodType"
                 android:paddingLeft="5dp" />
 
             <EditText
                 android:id="@+id/weight"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:background="#f3f3f3"
+                android:freezesText="true"
                 android:hint="Weight"
                 android:inputType="number"
                 android:paddingLeft="5dp" />
@@ -76,9 +90,10 @@
             <EditText
                 android:id="@+id/Height"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:background="#f3f3f3"
+                android:freezesText="true"
                 android:hint="Height"
                 android:inputType="number"
                 android:paddingLeft="5dp" />
@@ -86,29 +101,43 @@
             <EditText
                 android:id="@+id/Address"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="15dp"
                 android:background="#f3f3f3"
+                android:freezesText="true"
                 android:hint="Address"
                 android:inputType="textPostalAddress"
-                android:paddingLeft="5dp" />
+                android:paddingLeft="5dp"
+                android:singleLine="false" />
 
             <EditText
                 android:id="@+id/pincode"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:background="#f3f3f3"
+                android:freezesText="true"
                 android:hint="Pincode"
                 android:inputType="numberSigned"
                 android:paddingLeft="5dp" />
 
             <EditText
-                android:id="@+id/mobilenumber"
+                android:id="@+id/nric"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="15dp"
                 android:background="#f3f3f3"
+                android:hint="NRIC or PASSPORT Number"
+                android:inputType="text"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/mobilenumber"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:background="#f3f3f3"
+                android:freezesText="true"
                 android:hint="MobNumber"
                 android:inputType="phone"
                 android:paddingLeft="5dp" />
@@ -120,12 +149,24 @@
 
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:elevation="0dp"
-            android:textAlignment="center"
-            android:text="SUBMIT"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/side_nav_bar"
-            />
+            android:background="@drawable/side_nav_bar
+            android:background="@drawable/btn"
+            android:elevation="0dp"
+            android:text="SUBMIT"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/Edit"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/ic_album_overflow_height"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/mobilenumber"
+            android:layout_marginTop="@dimen/ic_album_overflow_margin_top"
+            android:adjustViewBounds="false"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_edit"
+            tools:ignore="ObsoleteLayoutParam" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -133,7 +174,8 @@
 
             android:backgroundTint="@android:color/holo_blue_light"
             android:orientation="horizontal"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            tools:ignore="ObsoleteLayoutParam">
 
 
             <LinearLayout
@@ -155,6 +197,9 @@
             android:orientation="vertical"
 
             >
+
+
+
 
 
         </LinearLayout>
