@@ -96,18 +96,16 @@
 
       </LinearLayout>
 
-
-   <LinearLayout
-        android:id="@+id/relative_layout3"
+     <LinearLayout
+        android:id="@+id/reminder_content_layout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_below="@+id/switch_layout2"
         android:orientation="vertical"
-       android:visibility="gone"
         >
 
-       <!--<RelativeLayout
+       <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            >
@@ -143,19 +141,21 @@
                android:layout_centerHorizontal="true"
                android:layout_alignBaseline="@id/tv_remindFreq"
                />
-           <EditText
-               android:id="@+id/et_select_start_time"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:hint="@string/strt_time_select"
-               android:layout_toRightOf="@id/et_remind_freq"
-               android:layout_toEndOf="@id/et_remind_freq"
-               android:layout_alignStart="@id/tv_stTime"
-               android:layout_alignLeft="@id/tv_stTime"
-               android:focusable="true"
-               android:inputType="datetime"
-               android:layout_alignBaseline="@id/et_remind_freq"
-               />
+
+            <EditText
+                android:id="@+id/select_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/strt_time_select"
+                android:layout_toRightOf="@id/et_remind_freq"
+                android:layout_toEndOf="@id/et_remind_freq"
+                android:layout_alignStart="@id/tv_stTime"
+                android:layout_alignLeft="@id/tv_stTime"
+                android:focusable="true"
+                android:inputType="datetime"
+                android:layout_alignBaseline="@id/et_remind_freq"
+                />
+
            <EditText
                android:id="@+id/et_remindInterval"
                android:layout_width="wrap_content"
@@ -180,18 +180,8 @@
                android:layout_alignLeft="@id/et_remindInterval"
                android:layout_alignStart="@id/et_remindInterval"
                />
-       </RelativeLayout>-->
+    </RelativeLayout>
 
-       <Button
-           android:id="@+id/btn_set_remind"
-           android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:background="@color/colorPrimary"
-           android:text="Set Reminder"
-           android:textColor="@android:color/white"
-           android:layout_marginLeft="8dp"
-           android:layout_marginRight="8dp"
-           android:layout_alignParentBottom="true"/>
 
       </LinearLayout>
             <LinearLayout
@@ -199,7 +189,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="20dp"
-        android:layout_below="@+id/relative_layout3"
+        android:layout_below="@+id/reminder_content_layout3"
         android:orientation="vertical"
         >
 

@@ -138,9 +138,6 @@
     <string name="title_activity_update_facility">Update Category</string>
     <string name="title_activity_update_member">Update Medicine</string>
 
-
-
-
     <!--<string name="app_name">Medicine Management</string>-->
     <!--<string name="action_settings">Settings</string>-->
     <!--<string name="section_format">Hello World from section: %1$d</string>-->
@@ -180,6 +177,5 @@
         <item>category</item>
         <item>medicine</item>
     </string-array>
-
 
 </resources>
