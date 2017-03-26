@@ -108,7 +108,7 @@ catch (Exception e){
         if((session.loggedin())){
             try {
                 //Intent i = new Intent(HomeActivity.this, Welcome.class);
-                Intent i=new Intent(HomeActivity.this, Welcome.class);
+                Intent i=new Intent(HomeActivity.this, FingerprintActivity.class);
                 startActivity(i);
             }
             catch (Exception e){
