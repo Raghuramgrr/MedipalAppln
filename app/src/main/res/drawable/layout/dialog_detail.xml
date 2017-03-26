@@ -10,39 +10,39 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:background="@color/pink">
+        android:background="@color/bg_mainn">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Appointment Info"
-            android:textColor="#000"
-            android:textSize="35dp"/>
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25dp"/>
 
     </LinearLayout>
 
-   <LinearLayout
-       android:layout_marginTop="15dp"
-       android:layout_marginBottom="15dp"
-       android:layout_marginLeft="5dp"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal">
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-       <TextView
-           android:textSize="18dp"
-           android:textColor="#000"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Location : "/>
+        <TextView
+            android:textSize="18dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location : "/>
 
-       <TextView
-           android:textSize="18dp"
-           android:id="@+id/tv_view_location"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="18dp"
+            android:id="@+id/tv_view_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-   </LinearLayout>
+    </LinearLayout>
 
     <View
         android:background="#000"
@@ -59,7 +59,7 @@
 
         <TextView
             android:textSize="18dp"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Appointment Time : "/>
@@ -87,7 +87,7 @@
 
         <TextView
             android:textSize="18dp"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description : "/>

@@ -14,15 +14,15 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:background="@color/pink">
+            android:background="@color/bg_mainn">
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add Appointment"
-                android:textColor="#000"
-                android:textSize="35dp"/>
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="25dp"/>
 
         </LinearLayout>
 
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Location and Description"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15dp"/>
 
         <View
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15dp"/>
 
         <View
@@ -101,7 +101,7 @@
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/pink"
+            android:background="@color/bg_mainn"
             android:datePickerMode="spinner"
             android:calendarViewShown="false"/>
 
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15dp"/>
 
         <View
@@ -129,7 +129,7 @@
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/pink"
+            android:background="@color/bg_mainn"
             android:timePickerMode="spinner" />
 
         <TextView
@@ -139,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Remind"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15dp"/>
 
         <View
@@ -165,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Remind Date"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15dp"/>
 
         <View
@@ -183,7 +183,7 @@
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/pink"
+            android:background="@color/bg_mainn"
             android:datePickerMode="spinner"
             android:calendarViewShown="false"/>
 
@@ -194,7 +194,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Remind Time"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15dp"/>
 
         <View
@@ -213,7 +213,7 @@
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/pink"
+            android:background="@color/bg_mainn"
             android:timePickerMode="spinner" />
 
     </LinearLayout>
