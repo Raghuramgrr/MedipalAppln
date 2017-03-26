@@ -28,8 +28,10 @@ public class AddReminderActivity extends AppCompatActivity {
       etReminderStTime = (EditText) findViewById(R.id.et_select_start_time);
       etReminderInterval = (EditText) findViewById(R.id.et_remindInterval);
 
+/*
     reminder = new Reminder(etReminderFreq.getText().toString(), etReminderStTime.getText().toString(),
             etReminderInterval.getText().toString());
+*/
 
     final int remId = App.user.getMaxReminderId(this);
 
@@ -39,8 +41,10 @@ public class AddReminderActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         if (isValid()) {
+/*
           App.user.addReminder(etReminderFreq.getText().toString(), etReminderStTime.getText().toString(),
                   etReminderInterval.getText().toString(), getApplicationContext());
+*/
 
           /*Intent intent = new Intent(getApplicationContext(), AddMedicineActivity.class);
           intent.putExtra("remId",remId);
