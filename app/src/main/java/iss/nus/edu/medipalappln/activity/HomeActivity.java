@@ -71,8 +71,8 @@ public class HomeActivity extends Activity
             if (password.equals(decodedPasswd)) {
                 session.setLoggedin(Boolean.TRUE, userName);
                 Toast.makeText(HomeActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-                //Intent in = new Intent(getApplicationContext(), HelpScreen.class);
-Intent in =new Intent(getApplicationContext(), FingerprintActivity.class);
+                Intent in = new Intent(getApplicationContext(), HelpScreen.class);
+//Intent in =new Intent(getApplicationContext(), .class);
                 startActivity(in);
                 //dialog.dismiss();
 
@@ -111,7 +111,7 @@ catch (Exception e){
         if((session.loggedin())){
             try {
                 //Intent i = new Intent(HomeActivity.this, Welcome.class);
-                Intent i=new Intent(HomeActivity.this, Welcome.class);
+                Intent i=new Intent(HomeActivity.this, FingerprintActivity.class);
                 startActivity(i);
             }
             catch (Exception e){
