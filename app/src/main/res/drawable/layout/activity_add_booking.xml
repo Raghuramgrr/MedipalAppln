@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sg.edu.nus.clubmanagement.activity.AddConsumptionActivity"
+    tools:context="iss.nus.edu.medipalappln.activity.AddConsumptionActivity"
     >
 
   <ScrollView
@@ -57,18 +57,6 @@
           android:digits="1234567890."
           android:layout_below="@id/tv_facility"
           android:singleLine="true" />
-      <!--<Spinner-->
-          <!--android:id="@+id/spn_facility"-->
-          <!--android:layout_width="match_parent"-->
-          <!--android:layout_height="wrap_content"-->
-          <!--android:layout_marginStart="20dp"-->
-          <!--android:layout_marginLeft="20dp"-->
-          <!--android:layout_marginRight="20dp"-->
-          <!--android:layout_marginEnd="20dp"-->
-          <!--android:layout_marginTop="10dp"-->
-          <!--android:layout_below="@id/tv_facility"-->
-          <!--&gt;-->
-      <!--</Spinner>-->
 
       <RelativeLayout
           android:layout_width="match_parent"

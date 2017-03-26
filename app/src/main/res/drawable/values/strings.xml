@@ -23,11 +23,11 @@
     <string name="generic_error">Sorry something went wrong! We\'re looking into it!</string>
     <string name="empty_value">Add new ones to appear here!!</string>
     <string name="date_select">Date</string>
-    <string name="strt_time_select">Start Time</string>
+    <string name="strt_time_select">Time</string>
     <string name="end_time_select">End Time</string>
     <string name="title_activity_add_booking">Add Booking</string>
-    <string name="txt_member">Member</string>
-    <string name="txt_facility">Facility</string>
+    <string name="txt_member">Medicine List</string>
+    <string name="txt_facility">Quantity</string>
     <string name="st_time_et_time_validation_msg">Start time should be greater than End time</string>
     <string name="date_validation_msg">Please select a valid date for booking</string>
     <string name="time_validation_msg">Please select a valid time for booking</string>
