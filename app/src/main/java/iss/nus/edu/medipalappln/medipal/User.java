@@ -604,12 +604,20 @@ public class User {
     }
     */
 
-    public Reminder addReminder(String rfreq, String rStTime, String rInterval, Context context){
+    public int addReminder(String rfreq, Date rStTime, String rInterval, Context context){
         Reminder r = new Reminder(rfreq, rStTime, rInterval);
+        int remId = 0;
         taskAddReminder = new AddReminder(context);
         taskAddReminder.execute(r);
-        Log.d("Niv_1", taskAddReminder.toString());
-        return r;
+        try {
+            remId = taskAddReminder.get().intValue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("Niv_1", String.valueOf(remId));
+        return remId;
     }
 
     public Reminder getReminder(int remId, Context context){

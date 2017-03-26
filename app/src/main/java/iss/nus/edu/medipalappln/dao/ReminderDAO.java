@@ -1,7 +1,7 @@
 package iss.nus.edu.medipalappln.dao;
 
 /**
- * Created by darryl on 26/12/2016.
+ * Created by niv on 26/12/2016.
  */
 
 import android.content.ContentValues;
@@ -9,15 +9,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import iss.nus.edu.medipalappln.medipal.Reminder;
 
 public class ReminderDAO extends DBDAO {
     private static final String WHERE_ID_EQUALS = DataBaseHelper.REMINDER.ID.toString() + " =?";
-    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("d-MMM-yyyy H:mm", Locale.ENGLISH);
 
     public ReminderDAO(Context context) {
         super(context);
@@ -27,7 +28,7 @@ public class ReminderDAO extends DBDAO {
         ContentValues values = new ContentValues();
         //values.put(DataBaseHelper.MID_COLUMN, member.getMemberNumber());
         values.put(DataBaseHelper.REMINDER.Frequency.toString(), reminder.getFrequency());
-        values.put(DataBaseHelper.REMINDER.StartTime.toString(), reminder.getStartTime());
+        values.put(DataBaseHelper.REMINDER.StartTime.toString(), formatter.format(reminder.getStartTime()));
         values.put(DataBaseHelper.REMINDER.Interval.toString(), reminder.getInterval());
 
         return database.insert(DataBaseHelper.TABLE_REMINDER, null, values);
@@ -36,7 +37,7 @@ public class ReminderDAO extends DBDAO {
     public long update(Reminder reminder) {
         ContentValues values = new ContentValues();
         values.put(DataBaseHelper.REMINDER.Frequency.toString(), reminder.getFrequency());
-        values.put(DataBaseHelper.REMINDER.StartTime.toString(), reminder.getStartTime());
+        values.put(DataBaseHelper.REMINDER.StartTime.toString(), formatter.format(reminder.getStartTime()));
         values.put(DataBaseHelper.REMINDER.Interval.toString(), reminder.getInterval());
 
         long result = database.update(DataBaseHelper.TABLE_REMINDER, values,
@@ -52,7 +53,7 @@ public class ReminderDAO extends DBDAO {
                 new String[] { reminder.getRemindId() + "" });
     }
 
-    public Reminder getReminder() {
+   /* public Reminder getReminder() {
         Reminder reminder = null;
 
         ArrayList<Integer> list = new ArrayList<Integer>();
@@ -78,7 +79,13 @@ public class ReminderDAO extends DBDAO {
         if (cursor2.moveToNext()) {
             int rid = cursor2.getInt(0);
             String rfreq = cursor2.getString(1);
-            String rStTime = cursor2.getString(2);
+
+            Date rStTime = null;
+            try {
+                rStTime = formatter.parse(cursor.getString(2));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             String rInterval = cursor2.getString(3);
 
             reminder = new Reminder(rid, rfreq, rStTime, rInterval);
@@ -87,7 +94,7 @@ public class ReminderDAO extends DBDAO {
 
 
         return reminder;
-    }
+    }*/
 
 
     //Retrieves a single member record with the given id
@@ -102,7 +109,13 @@ public class ReminderDAO extends DBDAO {
         if (cursor.moveToNext()) {
             int rid = cursor.getInt(0);
             String rfreq = cursor.getString(1);
-            String rStTime = cursor.getString(2);
+
+            Date rStTime = null;
+            try {
+                rStTime = formatter.parse(cursor.getString(2));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             String rInterval = cursor.getString(3);
 
             reminder = new Reminder(rid, rfreq, rStTime, rInterval);
