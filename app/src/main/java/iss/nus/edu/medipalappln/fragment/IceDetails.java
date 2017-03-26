@@ -51,9 +51,10 @@ public class IceDetails extends Fragment implements View.OnClickListener,OnItemS
     private String mParam2;
     private EmergencyListAdapter emergencyListAdapter;
     private Spinner priority;
+    public String spinnerItem;
     //private EmergencyDataBaseAdapter emergencyDataBaseAdapter;
     private OnFragmentInteractionListener mListener;
-
+    List<String> Priorties = new ArrayList<String>();
     public IceDetails() {
         // Required empty public constructor
     }
@@ -145,10 +146,12 @@ public class IceDetails extends Fragment implements View.OnClickListener,OnItemS
         // attaching data adapter to spinner
         priority.setAdapter(dataAdapter);
 
+
+
     }
     @Override
     public void onClick(final View v) {
-        App.user.addEmergency(1,name.getText().toString().trim(),phonenumber.getText().toString().trim(),"1",relation.getText().toString().trim(),getActivity());
+        App.user.addEmergency(1,name.getText().toString().trim(),phonenumber.getText().toString().trim(),spinnerItem,relation.getText().toString().trim(),getActivity());
         Toast.makeText(getActivity().getApplicationContext(),"Insert successfull",Toast.LENGTH_LONG).show();
 
 
@@ -172,6 +175,8 @@ public class IceDetails extends Fragment implements View.OnClickListener,OnItemS
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
+
+
         }
     }
 
@@ -182,11 +187,11 @@ public class IceDetails extends Fragment implements View.OnClickListener,OnItemS
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String item = parent.getItemAtPosition(position).toString();
+    public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
+        spinnerItem = parent.getItemAtPosition(position).toString();
+        priority.setSelection(position);
 
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+
     }
 
     @Override

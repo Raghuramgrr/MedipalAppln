@@ -101,7 +101,6 @@
     <string name="save_success">Saved successfully</string>
     <string name="delete_success">Deleted successfully</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_remove">Remove</string>
     <string name="placeholder">Placeholder</string>
     <string name="title_activity_add_member">Add Member</string>
@@ -138,9 +137,6 @@
     <string name="btn_update">Update</string>
     <string name="title_activity_update_facility">Update Category</string>
     <string name="title_activity_update_member">Update Medicine</string>
-
-
-
 
     <!--<string name="app_name">Medicine Management</string>-->
     <!--<string name="action_settings">Settings</string>-->
@@ -182,8 +178,6 @@
         <item>medicine</item>
     </string-array>
 
-    <string name="medipal">MediPal</string>
-
     <!-- Health Bio -->
     <string name="empty_view_title_text">Please provide your Health Bio!</string>
     <string name="empty_view_subtitle_text">To Serve you better :)</string>
@@ -215,6 +209,4 @@
     <string name="action_health_bio">Health Bio</string>
     <string name="text_measured_on_date">Measured On Date</string>
     <string name="text_measured_on_time">Measured On Time</string>
-
-
 </resources>

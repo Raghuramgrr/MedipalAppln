@@ -95,10 +95,6 @@ public class ShowAllMeasurementFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             Log.i(TAG, args.getString(DATA_RECV_FILT_DATE));
-            //filterDate = args.getString(DATA_RECV_FILT_DATE);
-
-            //textViewFilterDate.setText(filterDate);
-            //Log.i(TAG, "Filter Date: " + textViewFilterDate.getText());
         }
     }
 

@@ -157,6 +157,75 @@ public class User {
         return null;
     }
 
+    //Measurement: latest reading for dashboard
+    public String[] getLatestBloodPressure() {
+        String bp[] = null;
+        Integer lastest = 0, sys = 0, dias = 0;
+
+        if (bloodPressures.isEmpty()) {
+            bp[0] = "No systolic record";
+            bp[1] = "No diastolic record";
+        }
+        else {
+            lastest = bloodPressures.size() - 1;
+            sys = bloodPressures.get(lastest).getSystolic();
+            dias = bloodPressures.get(lastest).getDiastolic();
+
+            bp[0] = sys.toString();
+            bp[1] = dias.toString();
+        }
+        return bp;
+    }
+
+    public String getLatestPulse() {
+        String p = null;
+        Integer lastest = 0, pulse = 0;
+
+        if (pulses.isEmpty()) {
+            p = "No pulse record";
+        }
+        else {
+            lastest = pulses.size() - 1;
+            pulse = pulses.get(lastest).getPulse();
+
+            p = pulse.toString();
+        }
+        return p;
+    }
+
+    public String getLatestTemperature() {
+        String t = null;
+        Integer lastest = 0;
+        Double temp = 0.0;
+
+        if (temperatures.isEmpty()) {
+            t = "No temperature record";
+        }
+        else {
+            lastest = temperatures.size() - 1;
+            temp = temperatures.get(lastest).getTemperature();
+
+            t = temp.toString();
+        }
+        return t;
+    }
+
+    public String getLatestWeight() {
+        String w = null;
+        Integer lastest = 0, weight = 0;
+
+        if (weights.isEmpty()) {
+            w = "No weight record";
+        }
+        else {
+            lastest = weights.size() - 1;
+            weight = weights.get(lastest).getWeight();
+
+            w = weight.toString();
+        }
+        return w;
+    }
+
     public List<BloodPressure> getBloodPressure (Context context) {
         viewBloodPressureTask = new ViewBloodPressureTask(context);
         viewBloodPressureTask.execute((Void) null);
@@ -365,7 +434,7 @@ public class User {
         addEmergency.execute(em);
         return em;
     }
-    public Personal addPersonal (int ID, String Name,
+    public Personal addPersonal (String ID, String Name,
                                  String Dob,String Idno,String Address,String Postcode,String Height,String Bloodtype,String phone,Context context) {
         //numMembers++;
         Personal em = new Personal (ID,Name,Dob,Idno,Address,Postcode,Height,Bloodtype,phone);
@@ -628,5 +697,5 @@ public class User {
         }
         return maxRemindId;
     }
-
+  
 }

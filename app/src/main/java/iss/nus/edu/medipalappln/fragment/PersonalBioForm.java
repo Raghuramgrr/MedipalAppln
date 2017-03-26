@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -20,6 +21,7 @@ import java.util.TimeZone;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.Session;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
+import iss.nus.edu.medipalappln.medipal.App;
 
 
 /**
@@ -30,7 +32,7 @@ import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
  * Use the {@link PersonalBioForm#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PersonalBioForm extends Fragment implements View.OnClickListener
+public class PersonalBioForm extends Fragment implements View.OnClickListener,DatePickerDialog.OnDateSetListener
 {
 
     Button btnAddPersonal;
@@ -75,15 +77,13 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
 
 
     View view;
-
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.personalbioform, container, false);
         return view;
     }
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -93,16 +93,22 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
         session=new Session(getContext());
 
     }
-    private void insertEntry() {
 
-        final EditText editTextBlood = (EditText)getView().findViewById(R.id.BloodType);
+
+    private void insertEntry() {
+        final EditText editTextname=(EditText)getView().findViewById(R.id.name);
+
+        final EditText editTextBlood = (EditText)getView().findViewById(R.id.Bloodtype);
         TextView editTextDob = (TextView) getView().findViewById(R.id.dob);
         final EditText editTextPincode = (EditText) getView().findViewById(R.id.pincode);
         final EditText editTextHeight = (EditText) getView().findViewById(R.id.Height);
         final EditText editTextWeight = (EditText) getView().findViewById(R.id.weight);
         final EditText editTextAddress = (EditText)getView().findViewById(R.id.Address);
         final EditText editTextPhone=(EditText)getView().findViewById(R.id.mobilenumber);
+        final EditText editTextNRIC=(EditText)getView().findViewById(R.id.nric);
+        final String name= editTextname.getText().toString();
         final String Blood = editTextBlood.getText().toString();
+        final String nric=editTextNRIC.getText().toString();
         final String Pincode = editTextPincode.getText().toString();
         final String Dob = editTextDob.getText().toString();
         final String Height = editTextHeight.getText().toString();
@@ -110,9 +116,9 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
         final String Address = editTextAddress.getText().toString();
         final String Phone=editTextPhone.getText().toString();
 
-
-        //App.user.addPersonal(1,"Raghu",Dob,"K1663126",Address,Pincode,Height,Blood,_context);
+        App.user.addPersonal(session.username(),name,Dob,nric,Address,Pincode,Height,Blood,Phone, _context);
         //bioDataBaseAdapter.insertEntry(session.username(),Blood, Dob, Height, Weight, Address, Pincode,Phone);
+        Toast.makeText(getContext(),"INSERTEDsuccesfully",Toast.LENGTH_LONG).show();
     }
 
 
@@ -173,21 +179,36 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
 
     //final  Calendar myCalendar = Calendar.getInstance();
     public void calenderEntry(View v) {
+        LayoutInflater inflater = LayoutInflater.from( getContext() );
+        //DatePicker datePicker = (DatePicker)inflater.inflate( R.layout.DatePicker, null );
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        DatePickerDialog datePicker;
-        datePicker = new DatePickerDialog(v.getContext(),
-                R.style.AppTheme, datePickerListener,
-                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-        datePicker.setCancelable(false);
-        datePicker.setTitle("Select the date");
-        datePicker.show();
+        int year=cal.get(Calendar.YEAR);
+        int month=cal.get(Calendar.MONTH);
+        int day=cal.get(Calendar.DATE);
+        //DatePickerDialog datePicker;
+        DatePickerDialog dialogDatePicker = new DatePickerDialog(v.getContext(),this,year, month,day);
+        dialogDatePicker.getDatePicker();
+
+        dialogDatePicker.getDatePicker().setCalendarViewShown(false);
+        /* datePicker = new DatePickerDialog(v.getContext(),
+                R.style.Theme_AppCompat_DayNight, datePickerListener,
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));*/
+        dialogDatePicker.setCancelable(true);
+        dialogDatePicker.getWindow().setLayout(500,500);
+        dialogDatePicker.setTitle("Select your DOB");
+        dialogDatePicker.show();
 
 
     }
-    DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+   DatePickerDialog.OnDateSetListener datePickerListener;
+
+
+           /*= new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            String year1 = String.valueOf(year);
+
+
+            /*String year1 = String.valueOf(year);
             String month1 = String.valueOf(month + 1);
             String day1 = String.valueOf(dayOfMonth);
             setText(year1,month1,day1);
@@ -196,14 +217,22 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener
         }
 
 
-    } ;
+    } ;*/
+
 
     public void setText(String year1, String month1, String day1) {
         final TextView tvDt = (TextView) view.findViewById(R.id.dob);
         tvDt.setText(day1 + "/" + month1 + "/" + year1);
     }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
+        String year1 = String.valueOf(year);
+        String month1 = String.valueOf(month + 1);
+        String day1 = String.valueOf(dayOfMonth);
+        setText(year1,month1,day1);
+    }
 
 
     public interface OnFragmentInteractionListener {

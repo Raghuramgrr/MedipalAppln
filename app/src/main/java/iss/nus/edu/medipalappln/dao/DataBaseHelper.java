@@ -37,9 +37,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
     //begin SQL statement
     public static final String CREATE_TABLE_PERSONALBIO = "CREATE TABLE " + TABLE_PERSONALBIO +
             "(" +
-            PERSONALBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            PERSONALBIO.ID + " VARCHAR(20), " +
             PERSONALBIO.Name + " VARCHAR(100), " +
-            PERSONALBIO.DOB + " DATE, " +
+            PERSONALBIO.DOB + " VARCHAR(20), " +
             PERSONALBIO.IDNo + " VARCHAR(20), " +
             PERSONALBIO.Address + " VARCHAR(100), " +
             PERSONALBIO.PostalCode + " VARCHAR(10), " +
@@ -160,8 +160,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase _db)
     {
-        _db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
-        Log.d(TAG,"1 Build LOGININ Database SUCCESSFUL!!!!!!!!");
 
         try {
             _db.execSQL(CREATE_TABLE_PERSONALBIO);
@@ -195,25 +193,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void onUpgrade(SQLiteDatabase _db, int _oldVersion, int _newVersion)
     {
         // Log the version upgrade.
-/*<<<<<<< HEAD*/
-        Log.w("TaskDBAdapter", "Upgrading from version " +_oldVersion + " to " +_newVersion + ", which will destroy all old data");
-       /* if(_newVersion>_oldVersion) {
-            try {
-                _db.execSQL(EmergencyDataBaseAdapter.DATABASE_CREATE_Emergency);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-        // Upgrade the existing database to conform to the new version. Multiple
-        // previous versions can be handled by comparing _oldVersion and _newVersion
-        // values.
-        // The simplest case is to drop the old table and create a new one.
-
-        //_db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
-        // Create a new one.
-
-
         Log.w(TAG, "Upgrading from version " +_oldVersion + " to " +_newVersion + ", " +
                 "which will destroy all old data");
 
@@ -228,7 +207,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
         _db.execSQL(DROP_TABLE + TABLE_ICE);
 
         onCreate(_db);
-/*>>>>>>> eeec0a993cde1bf28bebd61b6f08e90393645978*/
     }
 
     @Override
