@@ -1,15 +1,18 @@
 package iss.nus.edu.medipalappln.fragment;
+/**
+ * Created by Raghu on 7/3/17.
+ */
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,12 +20,11 @@ import java.util.List;
 
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.adapter.EmergencyListAdapter;
-import iss.nus.edu.medipalappln.medipal.App;
 import iss.nus.edu.medipalappln.medipal.Emergency;
 
-public class ShowEmergency extends Fragment implements View.OnClickListener{
+public class ShowEmergency extends Fragment implements View.OnClickListener {
     private List<Emergency> emergencies = new ArrayList<>();
-    private static final String TAG = "MeasureBloodPressureFragment";
+    private static final String TAG = "View Emergency";
     private String mParam1;
     private String mParam2;
     private static final String ARG_PARAM1 = "param1";
@@ -30,11 +32,16 @@ public class ShowEmergency extends Fragment implements View.OnClickListener{
     private TextView textViewEmpty;
     private EmergencyListAdapter emergenyListAdapter;
     private OnFragmentInteractionListener mListener;
-    private TextView tvPhone;
-    private TextView tvPhone2;private TextView tvPhone3;
+    private TextView tvPhone,tvName,tvRelation;
+    private TextView tvPhone2,tvName2,tvRelation2;
+    private TextView tvPhone3,tvName3,getTvRelation2;
+    private String name="";private String phone="";private String relation="";
+    private String name1="";private String phone1="";private String relation1="";
+    private String name2="";private String phone2="";private String relation2="";
     public ShowEmergency() {
         // Required empty public constructor
     }
+
     public static ShowEmergency newInstance(String param1, String param2) {
         ShowEmergency fragment = new ShowEmergency();
         Bundle args = new Bundle();
@@ -59,15 +66,11 @@ public class ShowEmergency extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
 
 
-      View view = inflater.inflate(R.layout.emergencylist, container, false);
-      /*  ListView listView= (ListView) view.findViewById(R.id.list_view_measurement);
-        textViewEmpty = (TextView) view.findViewById(R.id.text_view_empty);
-        emergenyListAdapter = new EmergencyListAdapter(getActivity(), R.layout.measurement_row_layout, R.id.text_view_empty);
+        View view = inflater.inflate(R.layout.emergencylistice, container, false);
+        final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        ListView listView= (ListView) view.findViewById(R.id.list_view_ICE);
+        emergenyListAdapter=new EmergencyListAdapter(getActivity().getApplicationContext());
         listView.setAdapter(emergenyListAdapter);
-*/
-
-        // listView.setAdapter(emergenyListAdapter);
-
         return view;
     }
 
@@ -81,17 +84,22 @@ public class ShowEmergency extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Emergency e1 =App.user.getEmergency("1",getContext());
-        Emergency e2 =App.user.getEmergency("2",getContext());
+
+    }
+        /*Emergency e1 =App.user.getEmergency("1",getContext());
+        //Emergency e2 =App.user.getEmergency("2",getContext());
         Emergency e3 =App.user.getEmergency("3",getContext());
-        TextView tvName = (TextView) getView().findViewById(R.id.text_view_name);
+        tvName = (TextView) getView().findViewById(R.id.text_view_name);
         tvPhone=(TextView)getView().findViewById(R.id.phonenum);
-        TextView tvRelation=(TextView)getView().findViewById(R.id.relation);
+        tvRelation=(TextView)getView().findViewById(R.id.relation);
         Button call=(Button)getView().findViewById(R.id.callButton);
-         call.setOnClickListener(this);
-        TextView tvName2 = (TextView) getView().findViewById(R.id.text_view_name2);
+        // call.setOnClickListener(this);
+        tvName2 = (TextView) getView().findViewById(R.id.text_view_name2);
         tvPhone2=(TextView)getView().findViewById(R.id.phonenum2);
-        TextView tvRelation2=(TextView)getView().findViewById(R.id.relation2);
+        tvRelation2=(TextView)getView().findViewById(R.id.relation2);
+        tvName2.setText("");
+        tvPhone2.setText("");
+        tvPhone3.setText("");
         Button call2=(Button)getView().findViewById(R.id.callButton2);
         call.setOnClickListener(this);
         TextView tvName3 = (TextView) getView().findViewById(R.id.text_view_name3);
@@ -100,18 +108,22 @@ public class ShowEmergency extends Fragment implements View.OnClickListener{
         Button call3=(Button)getView().findViewById(R.id.callButton3);
         call.setOnClickListener(this);
         //viewHolder.btnRemove = (Button) convertView.findViewById(R.id.btn_remove);
-        tvName.setText(e1.getName());
-        tvPhone.setText(e1.getPhone());
-        tvRelation.setText(e1.getDesc());
-        tvName2.setText(e2.getName());
-        tvPhone2.setText(e2.getPhone());
-        tvRelation2.setText(e2.getDesc());
-        tvName3.setText(e3.getName());
-        tvPhone3.setText(e3.getPhone());
-        tvRelation3.setText(e3.getDesc());
+        name=e1.getName();phone=e1.getPhone();relation=e1.getDesc();
+       // name1=e2.getName();phone1=e2.getPhone();relation1=e2.getDesc();
+        name2=e3.getName();phone2=e3.getPhone();relation2=e3.getDesc();
+
+        tvName.setText(""+name);
+        tvPhone.setText(""+phone);
+        tvRelation.setText(""+relation);
+        tvName2.setText(""+name1);
+        tvPhone2.setText(""+phone1);
+        tvRelation2.setText(""+relation1);
+        tvName3.setText(""+name2);
+        tvPhone3.setText(""+phone2);
+        tvRelation3.setText(""+relation2);
+*/
 
 
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -134,22 +146,43 @@ public class ShowEmergency extends Fragment implements View.OnClickListener{
     public void onClick(final View v) {
         switch (v.getId()){
             case R.id.callButton:
-                call();
+                //call();
         }
 
 
     }
 
-    private void call() {
+
+
+  /*  private void call() {
+
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callIntent.setData(Uri.parse("tel: " + "+65 " + tvPhone.getText().toString().trim()));
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        getActivity().startActivity(callIntent);
+*/
+/*
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:"+tvPhone.getText().toString().trim()));
         startActivity(callIntent);
-    }
+*/
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 
 
 

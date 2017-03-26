@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import iss.nus.edu.medipalappln.activity.Session;
 import iss.nus.edu.medipalappln.asynTask.AddBloodPressureTask;
 import iss.nus.edu.medipalappln.asynTask.AddCategory;
 import iss.nus.edu.medipalappln.asynTask.AddConsumption;
@@ -20,6 +21,7 @@ import iss.nus.edu.medipalappln.asynTask.AddReminder;
 import iss.nus.edu.medipalappln.asynTask.AddTemperatureTask;
 import iss.nus.edu.medipalappln.asynTask.AddWeightTask;
 import iss.nus.edu.medipalappln.asynTask.DeleteBloodPressureTask;
+import iss.nus.edu.medipalappln.asynTask.DeleteEmergencyTask;
 import iss.nus.edu.medipalappln.asynTask.DeleteMedicine;
 import iss.nus.edu.medipalappln.asynTask.DeletePulseTask;
 import iss.nus.edu.medipalappln.asynTask.DeleteTemperatureTask;
@@ -39,6 +41,7 @@ import iss.nus.edu.medipalappln.asynTask.ViewBloodPressureTask;
 import iss.nus.edu.medipalappln.asynTask.ViewPulseTask;
 import iss.nus.edu.medipalappln.asynTask.ViewTemperatureTask;
 import iss.nus.edu.medipalappln.asynTask.ViewWeightTask;
+import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.dao.EmergencyDataBaseAdapter;
 
 public class User {
@@ -57,7 +60,7 @@ public class User {
     private ArrayList<Emergency> emergency;
 
     private ArrayList<Medicine> medicines;
-    private Medicine                  medicine;
+    private Medicine medicine;
 
     private ViewBloodPressureTask viewBloodPressureTask;
     private AddBloodPressureTask addBloodPressureTask;
@@ -82,6 +85,7 @@ public class User {
     private ListPersonal listPersonal;
 
     private EmergencyDataBaseAdapter emergencyDataBaseAdapter;
+    private BioDataBaseAdapter bioDataBaseAdapter;
 
 
     //MEDICINE VALUES
@@ -106,6 +110,7 @@ public class User {
 
     private AddReminder taskAddReminder;
     private GetReminder taskGetReminder;
+    private DeleteEmergencyTask deleteEmergencyTask;
 
     private GetMaxReminderId taskGetMaxReminderId;
 
@@ -120,7 +125,7 @@ public class User {
         temperatures = new ArrayList<Temperature>();
         //consumption = new ArrayList<Consumption> ();
         //appointment = new ArrayList<Appointment> ();
-        emergency = new ArrayList<Emergency> ();
+        emergency = new ArrayList<Emergency>();
     }
 
     public User(String IDNo) {
@@ -137,7 +142,7 @@ public class User {
         //consumption = new ArrayList<Consumption> ();
         //appointment = new ArrayList<Appointment> ();
         //ice = new ArrayList<ICE> ();
-        emergency=new ArrayList<Emergency>();
+        emergency = new ArrayList<Emergency>();
     }
 
     public String getUserIDNo() {
@@ -157,7 +162,20 @@ public class User {
         return null;
     }
 
-    public List<BloodPressure> getBloodPressure (Context context) {
+    public ArrayList<Emergency> getEmergency(Context context) {
+        EmergencyDataBaseAdapter emergencyDataBaseAdapter = new EmergencyDataBaseAdapter(context);
+        ArrayList<Emergency> emergencies = emergencyDataBaseAdapter.get();
+        if (emergencies == null) {
+            emergencies = new ArrayList<Emergency>();
+        }
+
+        return emergencies;
+
+        //  return new ArrayList<Emergency>(emergencies);
+
+    }
+
+    public List<BloodPressure> getBloodPressure(Context context) {
         viewBloodPressureTask = new ViewBloodPressureTask(context);
         viewBloodPressureTask.execute((Void) null);
 
@@ -170,19 +188,19 @@ public class User {
         }
 
         if (bloodPressures == null) {
-            bloodPressures = new ArrayList<BloodPressure> ();
+            bloodPressures = new ArrayList<BloodPressure>();
         }
 
         return new ArrayList<BloodPressure>(bloodPressures);
     }
 
-    public void addBloodPressure (Context context, Integer systolic, Integer diastolic, String measuredOn) {
+    public void addBloodPressure(Context context, Integer systolic, Integer diastolic, String measuredOn) {
         BloodPressure bp = new BloodPressure(systolic, diastolic, measuredOn);
         addBloodPressureTask = new AddBloodPressureTask(context);
         addBloodPressureTask.execute(bp);
     }
 
-    public void deleteBloodPressure (Context context, Integer id) {
+    public void deleteBloodPressure(Context context, Integer id) {
         BloodPressure bp = getBloodPressure(id);
         if (bp != null) {
             bloodPressures.remove(bp);
@@ -204,7 +222,7 @@ public class User {
         return null;
     }
 
-    public List<Pulse> getPulse (Context context) {
+    public List<Pulse> getPulse(Context context) {
         viewPulseTask = new ViewPulseTask(context);
         viewPulseTask.execute((Void) null);
 
@@ -217,19 +235,19 @@ public class User {
         }
 
         if (pulses == null) {
-            pulses = new ArrayList<Pulse> ();
+            pulses = new ArrayList<Pulse>();
         }
 
         return new ArrayList<Pulse>(pulses);
     }
 
-    public void addPulse (Context context, Integer pulse, String measuredOn) {
+    public void addPulse(Context context, Integer pulse, String measuredOn) {
         Pulse p = new Pulse(pulse, measuredOn);
         addPulseTask = new AddPulseTask(context);
         addPulseTask.execute(p);
     }
 
-    public void deletePulse (Context context, Integer id) {
+    public void deletePulse(Context context, Integer id) {
         Pulse p = getPulse(id);
         if (p != null) {
             pulses.remove(p);
@@ -251,7 +269,7 @@ public class User {
         return null;
     }
 
-    public List<Temperature> getTemperature (Context context) {
+    public List<Temperature> getTemperature(Context context) {
         viewTemperatureTask = new ViewTemperatureTask(context);
         viewTemperatureTask.execute((Void) null);
 
@@ -264,19 +282,19 @@ public class User {
         }
 
         if (temperatures == null) {
-            temperatures = new ArrayList<Temperature> ();
+            temperatures = new ArrayList<Temperature>();
         }
 
         return new ArrayList<Temperature>(temperatures);
     }
 
-    public void addTemperature (Context context, Double temperature, String measuredOn) {
+    public void addTemperature(Context context, Double temperature, String measuredOn) {
         Temperature bp = new Temperature(temperature, measuredOn);
         addTemperatureTask = new AddTemperatureTask(context);
         addTemperatureTask.execute(bp);
     }
 
-    public void deleteTemperature (Context context, Integer id) {
+    public void deleteTemperature(Context context, Integer id) {
         Temperature t = getTemperature(id);
         if (t != null) {
             pulses.remove(t);
@@ -299,7 +317,7 @@ public class User {
         return null;
     }
 
-    public List<Weight> getWeight (Context context) {
+    public List<Weight> getWeight(Context context) {
         viewWeightTask = new ViewWeightTask(context);
         viewWeightTask.execute((Void) null);
 
@@ -312,19 +330,19 @@ public class User {
         }
 
         if (weights == null) {
-            weights = new ArrayList<Weight> ();
+            weights = new ArrayList<Weight>();
         }
 
         return new ArrayList<Weight>(weights);
     }
 
-    public void addWeight (Context context, Integer weight, String measuredOn) {
+    public void addWeight(Context context, Integer weight, String measuredOn) {
         Weight w = new Weight(weight, measuredOn);
         addWeightTask = new AddWeightTask(context);
         addWeightTask.execute(w);
     }
 
-    public void deleteWeight (Context context, Integer id) {
+    public void deleteWeight(Context context, Integer id) {
         Weight w = getWeight(id);
         if (w != null) {
             weights.remove(w);
@@ -332,62 +350,82 @@ public class User {
         deleteWeightTask = new DeleteWeightTask(context);
         deleteWeightTask.execute(w);
     }
-    public Emergency getEmergency (String priority,Context context) {
+
+    public Personal getPersonal(Context context) {
+        bioDataBaseAdapter = new BioDataBaseAdapter(context);
+
+        Session session = new Session(context);
+        Personal personals = bioDataBaseAdapter.getformData(session.username());
+         /*   Iterator<Personal> i = personals.iterator();
+            Personal p = i.next();
+*/
+        return personals;
+
+
+//return null;
+    }
+
+
+    public Emergency getEmergency(String priority, Context context) {
         // Emergency e=new Emergency(context);
-        emergencyDataBaseAdapter=new EmergencyDataBaseAdapter(context);
+        emergencyDataBaseAdapter = new EmergencyDataBaseAdapter(context);
 
-        ArrayList<Emergency>em=emergencyDataBaseAdapter.get();
-        Iterator<Emergency> i=em.iterator();
+        ArrayList<Emergency> em = emergencyDataBaseAdapter.get();
+        Iterator<Emergency> i = em.iterator();
 
-        while(i.hasNext()){
-            Emergency e= i.next();
-            if(e.getPriority().equals(priority)){
+        while (i.hasNext()) {
+            Emergency e = i.next();
+            if (e.getPriority().equals(priority)) {
                 return e;
             }
         }
 
 
-        return  null;
+        return null;
         //return new ArrayList<Emergency>(emergency);
     }
-    public Emergency addEmergency (int ID, String Name,
-                                   String Phone,String Priority,String Desc) {
+
+    public Emergency addEmergency(String Name,
+                                  String Phone, String Priority, String Desc) {
         //numMembers++;
-        Emergency m = new Emergency (ID,Name,Phone,Priority,Desc);
-        emergency.add (m);
+        Emergency m = new Emergency(Name, Phone, Priority, Desc);
+        emergency.add(m);
         return m;
     }
-    public Emergency addEmergency (int ID, String Name,
-                                   String Phone,String Priority,String Desc,Context context) {
+
+    public Emergency addEmergency(String Name,
+                                  String Phone, String Priority, String Desc, Context context) {
         //numMembers++;
-        Emergency em = new Emergency (ID,Name,Phone,Priority,Desc);
-        addEmergency=new AddEmergency(context);
+        Emergency em = new Emergency(Name, Phone, Priority, Desc);
+        addEmergency = new AddEmergency(context);
         addEmergency.execute(em);
         return em;
     }
-    public Personal addPersonal (String ID, String Name,
-                                 String Dob,String Idno,String Address,String Postcode,String Height,String Bloodtype,String phone,Context context) {
+
+    public Personal addPersonal(String ID, String Name,
+                                String Dob, String Idno, String Address, String Postcode, String Height, String Weight, String Bloodtype, String phone, Context context) {
         //numMembers++;
-        Personal em = new Personal (ID,Name,Dob,Idno,Address,Postcode,Height,Bloodtype,phone);
-        addPersonal=new AddPersonal(context);
+        Personal em = new Personal(ID, Name, Dob, Idno, Address, Postcode, Height, Weight, Bloodtype, phone);
+        addPersonal = new AddPersonal(context);
         addPersonal.execute(em);
         return em;
     }
 
-    public void updateFacility(int id, String name, String code, String description, String reminder, Context context){
+
+    public void updateFacility(int id, String name, String code, String description, String reminder, Context context) {
         Category f = new Category(id, name, code, description, reminder);
         taskFacilityUpdate = new UpdateCategory(context);
         taskFacilityUpdate.execute(f);
 
     }
 
-    public void updateMember(Medicine medicine, Context context){
+    public void updateMember(Medicine medicine, Context context) {
         taskUpdateMedicine = new UpdateMedicine(context);
         taskUpdateMedicine.execute(medicine);
 
     }
 
-    public Category getFacility (int facilityNum, Context context) {
+    public Category getFacility(int facilityNum, Context context) {
         taskGetCategory = new GetCategory(context);
         taskGetCategory.execute(facilityNum);
         try {
@@ -398,13 +436,15 @@ public class User {
             e.printStackTrace();
         }
 
-        if (category == null) { category = new Category(); }
+        if (category == null) {
+            category = new Category();
+        }
         // SQLite - End
 
         return category;
     }
 
-    public Medicine getMember (int memberNum, Context context) {
+    public Medicine getMember(int memberNum, Context context) {
         taskGetMedicine = new GetMedicine(context);
         taskGetMedicine.execute(memberNum);
         try {
@@ -415,13 +455,15 @@ public class User {
             e.printStackTrace();
         }
 
-        if (medicine == null) { medicine = new Medicine(); }
+        if (medicine == null) {
+            medicine = new Medicine();
+        }
         // SQLite - End
 
         return medicine;
     }
 
-    public List<Medicine> getMedicines (Context context) {
+    public List<Medicine> getMedicines(Context context) {
         // SQLite - Start
         taskMemberList = new ListMedicine(context);
         taskMemberList.execute((Void) null);
@@ -433,7 +475,9 @@ public class User {
             e.printStackTrace();
         }
 
-        if (medicines == null) { medicines = new ArrayList<Medicine>(); }
+        if (medicines == null) {
+            medicines = new ArrayList<Medicine>();
+        }
         // SQLite - End
 
         return new ArrayList<Medicine>(medicines);
@@ -444,21 +488,21 @@ public class User {
         //numMembers++;
         Log.d("Niv", "inserting medicine");
         Medicine m = new Medicine(medName, medDesc, catId, remindID, reminderFlag, quantity, dosage, threshold, dateIssued, expiryFactor);
-        medicines.add (m);
+        medicines.add(m);
         return m;
     }
 
     // SQLite
-    public Medicine addMember (String medName, String medDesc, int catId, int remindID, String reminderFlag,
-                               int quantity, int dosage, int threshold, Date dateIssued, int expiryFactor, Context context) {
-        Medicine m = new Medicine(medName, medDesc, catId, remindID,reminderFlag, quantity, dosage, threshold, dateIssued, expiryFactor);
+    public Medicine addMember(String medName, String medDesc, int catId, int remindID, String reminderFlag,
+                              int quantity, int dosage, int threshold, Date dateIssued, int expiryFactor, Context context) {
+        Medicine m = new Medicine(medName, medDesc, catId, remindID, reminderFlag, quantity, dosage, threshold, dateIssued, expiryFactor);
 
         taskMemberAdd = new AddMedicine(context);
         taskMemberAdd.execute(m);
         return m;
     }
 
-    public void removeMember (Medicine m, Context context) {
+    public void removeMember(Medicine m, Context context) {
 /*        Medicine m = getMedicine (memberNum);
         if (m != null) {
             medicines.remove (m);
@@ -468,9 +512,9 @@ public class User {
 
     }
 
-    public void showMembers () {
-        Iterator<Medicine> i = medicines.iterator ();
-        while (i.hasNext ()) {
+    public void showMembers() {
+        Iterator<Medicine> i = medicines.iterator();
+        while (i.hasNext()) {
             i.next();
         }
     }
@@ -482,8 +526,7 @@ public class User {
     }*/
 
 
-
-    public List<Category> getFacilities (Context context) {
+    public List<Category> getFacilities(Context context) {
         // SQLite - Start
         taskFacilityList = new ListCategory(context);
         taskFacilityList.execute((Void) null);
@@ -495,7 +538,9 @@ public class User {
             e.printStackTrace();
         }
 
-        if (facilities == null) { facilities = new ArrayList<Category>(); }
+        if (facilities == null) {
+            facilities = new ArrayList<Category>();
+        }
         // SQLite - End
         return (new ArrayList<Category>(facilities));
     }
@@ -509,7 +554,7 @@ public class User {
     }*/
 
     // SQLite
-    public Category addFacility (String name, String description, String code, String reminder, Context context) {
+    public Category addFacility(String name, String description, String code, String reminder, Context context) {
         if (name == null) {
             return null;
         }
@@ -521,9 +566,9 @@ public class User {
         return f;
     }
 
-    public void removeFacility (String name) {
+    public void removeFacility(String name) {
 
-        facilities.remove (name);
+        facilities.remove(name);
     }
 
     /*
@@ -535,7 +580,7 @@ public class User {
     }
     */
 
-    public Reminder addReminder(String rfreq, String rStTime, String rInterval, Context context){
+    public Reminder addReminder(String rfreq, String rStTime, String rInterval, Context context) {
         Reminder r = new Reminder(rfreq, rStTime, rInterval);
         taskAddReminder = new AddReminder(context);
         taskAddReminder.execute(r);
@@ -543,7 +588,7 @@ public class User {
         return r;
     }
 
-    public Reminder getReminder(int remId, Context context){
+    public Reminder getReminder(int remId, Context context) {
         taskGetReminder = new GetReminder(context);
         taskGetReminder.execute(remId);
 
@@ -555,14 +600,15 @@ public class User {
             e.printStackTrace();
         }
 
-        if (reminder == null) { reminder = new Reminder(); }
+        if (reminder == null) {
+            reminder = new Reminder();
+        }
         // SQLite - End
 
         return (reminder);
     }
 
-    public Consumption addConsumption (int memberNumber, int facilityNumber, Date startDate, Context context)
-    {
+    public Consumption addConsumption(int memberNumber, int facilityNumber, Date startDate, Context context) {
         //bookings1.addBooking (getMedicine (memberNumber), getCategory (facName), startDate, endDate);
 
         Consumption b = new Consumption(memberNumber, facilityNumber, startDate);
@@ -572,12 +618,12 @@ public class User {
     }
 
 
-    public void removeConsumption (Consumption consumption) {
+    public void removeConsumption(Consumption consumption) {
 
         consumptions.remove(consumption);
     }
 
-    public ArrayList<Consumption> getConsumptions (Context context) {
+    public ArrayList<Consumption> getConsumptions(Context context) {
         //return bookings.getBookings (getCategory (facName), startDate, endDate);
 
         // SQLite - Start
@@ -591,7 +637,9 @@ public class User {
             e.printStackTrace();
         }
 
-        if (consumptions == null) { consumptions = new ArrayList<Consumption>(); }
+        if (consumptions == null) {
+            consumptions = new ArrayList<Consumption>();
+        }
         // SQLite - End
         return (new ArrayList<Consumption>(consumptions));
     }
@@ -607,11 +655,11 @@ public class User {
     */
 
 
-    public void show () {
-        System.out.println ("Current Members:");
-        showMembers ();
-        System.out.println ();
-        System.out.println ("Facilities:");
+    public void show() {
+        System.out.println("Current Members:");
+        showMembers();
+        System.out.println();
+        System.out.println("Facilities:");
         //showFacilities ();
     }
 
@@ -629,4 +677,25 @@ public class User {
         return maxRemindId;
     }
 
+    public void deleteEmergency(Context context, String id) {
+        Emergency bp = getEmergency(id, context);
+        if (bp != null) {
+            emergency.remove(bp);
+        }
+        deleteEmergencyTask = new DeleteEmergencyTask(context);
+        deleteEmergencyTask.execute(bp);
+    }
+
+    public Personal UpdatePersonal(int ID, String Name,
+                                    String blood, String weight, String height, String phone,String nric,String pincode,String address,Context context) {
+
+        Personal em = new Personal(ID, Name, blood,weight,height,phone,nric,pincode,address );
+        bioDataBaseAdapter.updateValues(em, "Raghu");
+        return  em;
+    }
+
+
+
 }
+
+

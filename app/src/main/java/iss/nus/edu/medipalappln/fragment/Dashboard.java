@@ -1,5 +1,9 @@
 package iss.nus.edu.medipalappln.fragment;
 
+/**
+ * Created by Raghu on 7/3/17.
+ */
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -8,7 +12,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -88,7 +91,7 @@ ViewGroup fragmentview=(ViewGroup)getView();
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        callICE(view);
+      //  callICE();
     }
 
     @Override
@@ -113,17 +116,17 @@ ViewGroup fragmentview=(ViewGroup)getView();
 
     }
 
-    public void callICE(View view) {
+    /*public void callICE() {
          Fragment fragment=null;
         Class classone=null;
         IceDetails fragment2 = new IceDetails();
         classone=IceDetails.class;
-        IceDetails ice=new IceDetails();
+        //IceDetails ice=new IceDetails();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction =        fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.flContent,ice );
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
       //  FragmentManager fragmentManager = getFragmentManager();
         //FragmentTransaction fragmentTransaction =
         //        fragmentManager.beginTransaction().replace(R.id.recycler_view,fragment2).commit();
@@ -163,7 +166,14 @@ ViewGroup fragmentview=(ViewGroup)getView();
         //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         //drawer.closeDrawer(GravityCompat.START);
 
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
+       // callICE();
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
@@ -183,6 +193,8 @@ ViewGroup fragmentview=(ViewGroup)getView();
                 R.drawable.album8
 
         };
+
+
 
         dashboardcontent a = new dashboardcontent("Add PersonalBio", covers[0]);
         dashboardcontentList.add(a);

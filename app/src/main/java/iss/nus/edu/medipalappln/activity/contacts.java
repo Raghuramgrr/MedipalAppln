@@ -14,7 +14,7 @@ import android.widget.TextView;
 import iss.nus.edu.medipalappln.R;
 
 /**
- * Created by root on 24/3/17.
+ * Created by Raghu on 7/3/17.
  */
 
 public class contacts extends Activity {

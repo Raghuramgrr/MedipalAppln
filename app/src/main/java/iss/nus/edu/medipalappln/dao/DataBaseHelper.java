@@ -11,7 +11,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MediPal.db";
-
     public static final String TABLE_PERSONALBIO = "PersonalBio";
     public static final String TABLE_HEALTHBIO = "HealthBio";
     public static final String TABLE_CATEGORY = "Categories";
@@ -21,13 +20,11 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String TABLE_REMINDER = "Reminders";
     public static final String TABLE_APPOINTMENT = "Appointment";
     public static final String TABLE_ICE = "ICE";
-
     //table columns
-    public enum PERSONALBIO {ID, Name, DOB, IDNo, Address, PostalCode, Height, BloodType, Phone};
+    public enum PERSONALBIO {ID, Name, DOB, IDNo, Address, PostalCode, Height,Weight, BloodType, Phone};
     public enum HEALTHBIO {ID, Condition, StartDate, ConditionType};
     public enum CATEGORY {ID, Name, Code, Description, Remind};
-    public enum MEDICINE {ID, Name, Description, CatID, ReminderID, Remind, Quantity, Dosage,
-        Threshold, DateIssued, ExpiryFactor};
+    public enum MEDICINE {ID, Name, Description, CatID, ReminderID, Remind, Quantity, Dosage, Threshold, DateIssued, ExpiryFactor};
     public enum MEASUREMENT {ID, Systolic, Diastolic, Pulse, Temperature, Weight , MeasuredOn};
     public enum CONSUMPTION {ID, MedicineID, Quantity, ConsumedOn};
     public enum REMINDER {ID, Frequency, StartTime, Interval};
@@ -43,8 +40,10 @@ public class DataBaseHelper extends SQLiteOpenHelper
             PERSONALBIO.IDNo + " VARCHAR(20), " +
             PERSONALBIO.Address + " VARCHAR(100), " +
             PERSONALBIO.PostalCode + " VARCHAR(10), " +
-            PERSONALBIO.Height + " INTEGER, " +
-            PERSONALBIO.BloodType + " VARCHAR(10) " +
+            PERSONALBIO.Height + " VARCHAR(10), " +
+            PERSONALBIO.Weight + " VARCHAR(10), " +
+            PERSONALBIO.BloodType + " VARCHAR(10), " +
+            PERSONALBIO.Phone + " VARCHAR(10) "+
             ");";
 
     public static final String CREATE_TABLE_HEALTHBIO = "CREATE TABLE " + TABLE_HEALTHBIO +
@@ -119,7 +118,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             ICE.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             ICE.Name + " VARCHAR(100), " +
             ICE.ContactNo + " VARCHAR(20) ," +
-            ICE.ContactType + " INTEGER, " +
+            ICE.ContactType + " VARCHAR(20) " +
             ICE.Sequence + " VARCHAR(255) " +
             // ICE.Sequence + " INTEGER " +
             ");";

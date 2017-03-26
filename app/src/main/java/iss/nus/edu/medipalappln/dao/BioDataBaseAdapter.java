@@ -1,19 +1,22 @@
 
 package iss.nus.edu.medipalappln.dao;
-
+/**
+ * Created by Raghu on 7/3/17.
+ */
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.util.Log;
 
 import java.util.ArrayList;
 
+import iss.nus.edu.medipalappln.activity.Session;
 import iss.nus.edu.medipalappln.medipal.Personal;
 
 public class BioDataBaseAdapter extends DBDAO {
-
+    Session session;
     private static final String TAG = "DBDAO";
+
 
     //begin SQL statements
     public static final String SELECT_ALL = "SELECT * FROM " + DataBaseHelper.TABLE_PERSONALBIO +
@@ -22,20 +25,23 @@ public class BioDataBaseAdapter extends DBDAO {
 
     public BioDataBaseAdapter(Context context) {
         super(context);
+        //session=new Session(context);
     }
 
 
 
         public long addValues (Personal formData){
         ContentValues values = new ContentValues();
-        values.put(DataBaseHelper.PERSONALBIO.ID.toString(), formData.getID());
+        //values.put(DataBaseHelper.PERSONALBIO.ID.toString(), formData.getID());
         values.put(DataBaseHelper.PERSONALBIO.Name.toString(), formData.getName());
         values.put(DataBaseHelper.PERSONALBIO.DOB.toString(), formData.getDob());
         values.put(DataBaseHelper.PERSONALBIO.IDNo.toString(), formData.getIdno());
         values.put(DataBaseHelper.PERSONALBIO.Address.toString(), formData.getAddress());
         values.put(DataBaseHelper.PERSONALBIO.PostalCode.toString(), formData.getPostcode());
         values.put(DataBaseHelper.PERSONALBIO.Height.toString(), formData.getHeight());
+            values.put(DataBaseHelper.PERSONALBIO.Weight.toString(),formData.getWeight());
         values.put(DataBaseHelper.PERSONALBIO.BloodType.toString(), formData.getBloodtype());
+            values.put(DataBaseHelper.PERSONALBIO.Phone.toString(),formData.getPhone());
 
         return database.insert(DataBaseHelper.TABLE_PERSONALBIO, null, values);
 
@@ -53,7 +59,9 @@ public class BioDataBaseAdapter extends DBDAO {
         values.put(DataBaseHelper.PERSONALBIO.Address.toString(), formData.getAddress());
         values.put(DataBaseHelper.PERSONALBIO.PostalCode.toString(), formData.getPostcode());
         values.put(DataBaseHelper.PERSONALBIO.Height.toString(), formData.getHeight());
+        values.put(DataBaseHelper.PERSONALBIO.Weight.toString(),formData.getWeight());
         values.put(DataBaseHelper.PERSONALBIO.BloodType.toString(), formData.getBloodtype());
+        values.put(DataBaseHelper.PERSONALBIO.Phone.toString(),formData.getPhone());
 
         return database.update(DataBaseHelper.TABLE_PERSONALBIO, values, "ID = ?", args);
     }
@@ -63,40 +71,48 @@ public class BioDataBaseAdapter extends DBDAO {
 
         return database.delete(DataBaseHelper.TABLE_PERSONALBIO, "ID = ?", args);
     }
+//String id=session.username();
+
 
     public ArrayList<Personal> getFormDatas() {
         ArrayList<Personal> formDatas = new ArrayList<Personal>();
-        String query[] = { DataBaseHelper.ICE.ID.toString(),
+        String query[] = { DataBaseHelper.PERSONALBIO.ID.toString(),
                 DataBaseHelper.PERSONALBIO.Name.toString(),
                 DataBaseHelper.PERSONALBIO.DOB.toString(),
                 DataBaseHelper.PERSONALBIO.IDNo.toString(),
                 DataBaseHelper.PERSONALBIO.Address.toString(),
                 DataBaseHelper.PERSONALBIO.PostalCode.toString(),
                 DataBaseHelper.PERSONALBIO.Height.toString(),
+                DataBaseHelper.PERSONALBIO.Weight.toString(),
                 DataBaseHelper.PERSONALBIO.BloodType.toString()
         };
-        int id;
-        try {
-            Cursor cursor = database.query(DataBaseHelper.TABLE_PERSONALBIO, query, null, null, null,
+        String where = DataBaseHelper.PERSONALBIO.Weight + " >1 ";
+        //int id;
+
+            Cursor cursor = database.query(DataBaseHelper.TABLE_PERSONALBIO, query, where, null, null,
                     null, null);
 
             while (cursor.moveToNext()) {
-                id = cursor.getInt(0);
-                Personal formData = new Personal(cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.ID.toString())),
-                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.BloodType.toString())),
-                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.DOB.toString())),
-                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Height.toString())),
-                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.IDNo.toString())),
-                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Address.toString())),
-                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.PostalCode.toString())),
-                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Name.toString())),
-                        cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Phone.toString())));
-                formDatas.add(formData);
+                //id = cursor.getInt(0);
+                try {
+
+
+                    Personal formData = new Personal(cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.ID.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Name.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.DOB.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.IDNo.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Address.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.PostalCode.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Height.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Weight.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.BloodType.toString())),
+                            cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONALBIO.Phone.toString())));
+                    formDatas.add(formData);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
         return formDatas;
 
 
@@ -104,13 +120,13 @@ public class BioDataBaseAdapter extends DBDAO {
 
 
 
-    public Personal getformData(int id) {
+    public Personal getformData(String id) {
         Personal formData = null;
+Cursor cursor=null;
+        String sql = "SELECT * FROM " + DataBaseHelper.TABLE_PERSONALBIO;
+                //+ " WHERE " + id + " = ?";
 
-        String sql = "SELECT * FROM " + DataBaseHelper.TABLE_PERSONALBIO
-                + " WHERE " + id + " = ?";
-
-        Cursor cursor = database.rawQuery(sql, new String[] { id + "" });
+        cursor = database.rawQuery(sql,null);
 
         if (cursor.moveToNext()) {
             String eid = cursor.getString(0);
@@ -118,16 +134,19 @@ public class BioDataBaseAdapter extends DBDAO {
             String dob = cursor.getString(2);
             String idno = cursor.getString(3);
             String address=cursor.getString(4);
-
             String postalcode=cursor.getString(5);
             String height=cursor.getString(6);
-            String bloodtype=cursor.getString(7);
-            String phone=cursor.getString(8);
+            String weight=cursor.getString(7);
+            String bloodtype=cursor.getString(8);
 
-            formData = new Personal(eid, name, dob,idno,address,postalcode,height,bloodtype,phone);
+           String phone=cursor.getString(9);
+
+             formData = new Personal(eid, name, dob,idno,address,postalcode,height,weight,bloodtype,bloodtype);
+            //return formData;
         }
         return formData;
     }
+
 
 
 
@@ -165,6 +184,17 @@ public class BioDataBaseAdapter extends DBDAO {
 
         return dbString;
     }
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

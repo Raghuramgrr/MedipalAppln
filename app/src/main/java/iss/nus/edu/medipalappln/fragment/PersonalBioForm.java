@@ -1,11 +1,15 @@
 package iss.nus.edu.medipalappln.fragment;
-
+/**
+ * Created by Raghu on 7/3/17.
+ */
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,7 @@ import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.Session;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.medipal.App;
+import iss.nus.edu.medipalappln.validation.FormValidation;
 
 
 /**
@@ -33,6 +38,8 @@ import iss.nus.edu.medipalappln.medipal.App;
  * create an instance of this fragment.
  */
 public class PersonalBioForm extends Fragment implements View.OnClickListener,DatePickerDialog.OnDateSetListener
+
+
 {
 
     Button btnAddPersonal;
@@ -95,6 +102,184 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener,Da
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        final EditText editTextBlood = (EditText)getView().findViewById(R.id.Bloodtype);
+        final TextView editTextDob = (TextView) getView().findViewById(R.id.dob);
+        final EditText editTextPincode = (EditText) getView().findViewById(R.id.pincode);
+        final EditText editTextHeight = (EditText) getView().findViewById(R.id.Height);
+        final EditText editTextWeight = (EditText) getView().findViewById(R.id.weight);
+        final EditText editTextAddress = (EditText)getView().findViewById(R.id.Address);
+        final EditText editTextPhone=(EditText)getView().findViewById(R.id.mobilenumber);
+        final EditText editTextNRIC=(EditText)getView().findViewById(R.id.nric);
+
+
+        editTextNRIC.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()>0) {
+                    if (FormValidation.nricValidator(s)) {
+                        editTextNRIC.setError("Enter valid FIN/NRIC ex G1664702R");
+                    }
+                }
+            }
+        });
+        editTextPincode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()>0) {
+                    if (FormValidation.pincodeValidator(s)) {
+                        editTextPincode.setError("Enter valid pincode ex:118998");
+                    }
+
+                }
+            }
+        });
+
+        editTextWeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    if (FormValidation.weightValidator(s)) {
+                        editTextWeight.setError("Pls Enter valid weight range ex: 80");
+                    }
+                }
+            }
+
+
+        });
+        editTextPhone.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()>0) {
+                    if (FormValidation.phoneValidator(s))
+                    {
+                        editTextHeight.setError("Enter valid phone number ex +65 83419486");
+                    }
+                }
+
+            }
+        });
+        editTextHeight.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length()>0) {
+                    if (FormValidation.heightValidator(s))
+                    {
+                        editTextHeight.setError("Pls Enter valid height 50>height< 220");
+                    }
+                }
+
+            }
+        });
+
+
+
+editTextDob.addTextChangedListener(new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        if(s.length()>0) {
+            if (!FormValidation.isDOBInRange(s.toString())) {
+                editTextDob.setError("min age 10 or please enter valid DOB");
+            }
+        }
+    }
+});
+        editTextBlood.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                //FormValidation.isBloodGroupValid(s);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() > 0) {
+                    if (!FormValidation.isBloodGroupValid(s)) {
+                        editTextBlood.setError("Please enter valid blood gp ex : 0+ , B+ ... ");
+                    }
+
+                }
+            }
+        });
+    }
+
     private void insertEntry() {
         final EditText editTextname=(EditText)getView().findViewById(R.id.name);
 
@@ -106,6 +291,10 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener,Da
         final EditText editTextAddress = (EditText)getView().findViewById(R.id.Address);
         final EditText editTextPhone=(EditText)getView().findViewById(R.id.mobilenumber);
         final EditText editTextNRIC=(EditText)getView().findViewById(R.id.nric);
+
+
+
+
         final String name= editTextname.getText().toString();
         final String Blood = editTextBlood.getText().toString();
         final String nric=editTextNRIC.getText().toString();
@@ -115,8 +304,7 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener,Da
         final String Weight = editTextWeight.getText().toString();
         final String Address = editTextAddress.getText().toString();
         final String Phone=editTextPhone.getText().toString();
-
-        App.user.addPersonal(session.username(),name,Dob,nric,Address,Pincode,Height,Blood,Phone, _context);
+        App.user.addPersonal(session.username(),name,Dob,nric,Address,Pincode, Height,Weight,Blood,Phone, _context);
         //bioDataBaseAdapter.insertEntry(session.username(),Blood, Dob, Height, Weight, Address, Pincode,Phone);
         Toast.makeText(getContext(),"INSERTEDsuccesfully",Toast.LENGTH_LONG).show();
     }
@@ -248,8 +436,7 @@ public class PersonalBioForm extends Fragment implements View.OnClickListener,Da
         super.onDestroy();
         bioDataBaseAdapter.close();
     }
+
 }
-
-
 
 

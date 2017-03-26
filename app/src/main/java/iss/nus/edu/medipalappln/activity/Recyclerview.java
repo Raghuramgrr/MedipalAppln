@@ -1,5 +1,7 @@
 package iss.nus.edu.medipalappln.activity;
-
+/**
+ * Created by Raghu on 7/3/17.
+ */
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;

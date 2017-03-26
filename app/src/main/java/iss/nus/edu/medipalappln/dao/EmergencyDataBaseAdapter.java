@@ -1,11 +1,12 @@
 
 
 package iss.nus.edu.medipalappln.dao;
-
+/**
+ * Created by Raghu on 7/3/17.
+ */
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -13,30 +14,24 @@ import java.util.ArrayList;
 import iss.nus.edu.medipalappln.medipal.Emergency;
 
 public class EmergencyDataBaseAdapter extends DBDAO {
-
     private static final String TAG = "DBDAO";
-
     //begin SQL statements
     public static final String SELECT_ALL = "SELECT * FROM " + DataBaseHelper.TABLE_ICE +
             " WHERE 1";
-    //end SQL statements
-
     public EmergencyDataBaseAdapter(Context context) {
         super(context);
     }
-
     public long addValues(Emergency phone) {
         ContentValues values = new ContentValues();
-        values.put(DataBaseHelper.ICE.ID.toString(),phone.getID());
+        //values.put(DataBaseHelper.ICE.ID.toString(),phone.getID());
         values.put(DataBaseHelper.ICE.Name.toString(),phone.getName());
-        values.put(DataBaseHelper.ICE.Sequence.toString(),phone.getPriority());
         values.put(DataBaseHelper.ICE.ContactNo.toString(),phone.getPhone());
         values.put(DataBaseHelper.ICE.ContactType.toString(), phone.getDesc());
+        values.put(DataBaseHelper.ICE.Sequence.toString(),phone.getPriority());
+
 
         return database.insert(DataBaseHelper.TABLE_ICE, null, values);
     }
-
-
 
 public long updateValues(Emergency phone,String key) {
         ContentValues values = new ContentValues();
@@ -56,43 +51,6 @@ public long updateValues(Emergency phone,String key) {
 
         return database.delete(DataBaseHelper.TABLE_ICE, "ID = ?", args);
     }
-
-public ArrayList<Emergency> get() {
-    ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
-    String query[] = { DataBaseHelper.ICE.ID.toString(),
-            DataBaseHelper.ICE.Name.toString(),
-            DataBaseHelper.ICE.ContactNo.toString(),
-            DataBaseHelper.ICE.ContactType.toString(),
-            DataBaseHelper.ICE.Sequence.toString()
-             };
-    int id;
-    String where = DataBaseHelper.ICE.ContactNo + " >0 ";
-try {
-    Cursor cursor = database.query(DataBaseHelper.TABLE_ICE, query, where, null, null,
-            null, null);
-
-    while (cursor.moveToNext()) {
-        id = cursor.getInt(0);
-        //cursor.getInt(cursor.getColumnIndex(DataBaseHelper.MEASUREMENT.Systolic.toString())),
-        Emergency emergency = new Emergency(cursor.getInt(cursor.getColumnIndex(DataBaseHelper.ICE.ID.toString())),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Name.toString())),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ContactNo.toString())),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.Sequence.toString())),
-                cursor.getString(cursor.getColumnIndex(DataBaseHelper.ICE.ContactType.toString())));
-        emergencies.add(emergency);
-    }
-    //int ID,String name ,String phone, String priority,String desc
-}
-catch (SQLException e){
-    e.printStackTrace();
-}
-    return emergencies;
-
-
-}
-
-
-
     public Emergency getEmergency(int id) {
         Emergency emergency = null;
 
@@ -108,12 +66,39 @@ catch (SQLException e){
             String phone = cursor.getString(2);
             String desc=cursor.getString(4);
 
-            emergency = new Emergency(eid, name, phone, priority,desc);
+            emergency = new Emergency(name, phone, priority,desc);
         }
         return emergency;
     }
 
 
+    public long delete(Emergency emergency) {
+        String[] args = new String[] {emergency.getID() + " "};
+
+        Log.i(TAG, "key >> " + args + " >> " + emergency.getID());
+        return database.delete(DataBaseHelper.TABLE_ICE, DataBaseHelper.ICE.ID + "= ?", args);
+    }
+
+    public ArrayList<Emergency> get() {
+        ArrayList<Emergency> emergencies = new ArrayList<Emergency>();
+        Cursor cursor1=null;
+        int id;
+       // cursor1.moveToFirst();
+        String sql = "SELECT * FROM " + DataBaseHelper.TABLE_ICE;
+        cursor1 = database.rawQuery(sql,null);
+        while(cursor1.moveToNext()) {
+            id = cursor1.getInt(0);
+            String name = cursor1.getString(1);
+            String phone = cursor1.getString(2);
+            String relation = cursor1.getString(3);
+            //String priority=cursor1.getString(4);
+            Emergency bp = new Emergency(name,phone,relation,"First to be called");
+            emergencies.add(bp);
+
+        }
+cursor1.close();
+        return emergencies;
+    }
 
 
 
@@ -144,6 +129,7 @@ catch (SQLException e){
 
         return dbString;
     }
+
 }
 
 

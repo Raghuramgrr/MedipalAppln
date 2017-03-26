@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import iss.nus.edu.medipalappln.Encryption.CeaserCipher;
+import iss.nus.edu.medipalappln.FingerPrint.FingerprintActivity;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.dao.LoginDataBaseAdapter;
 
@@ -49,27 +50,29 @@ public class HomeActivity extends Activity
         //TextView tv = (TextView)findViewById(R.id.tv);
         //tv.setText(styledString);
         session=new Session(this);
+
         final EditText editTextUserName=(EditText)findViewById(R.id.input_email);
         final EditText editTextPassword=(EditText)findViewById(R.id.input_password);
-try {
-    btnSignIn.setOnClickListener(new View.OnClickListener() {
+
+       // editTextUserName
+     try {
+     btnSignIn.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
                 /*Intent intentSignIn = new Intent(getApplicationContext(), SignInActivity.class);
                 startActivity(intentSignIn);*/
             // get The User name and Password
             String userName = editTextUserName.getText().toString();
             String password = editTextPassword.getText().toString();
-
             // fetch the Password form database for respective user name
             String storedPassword = loginDataBaseAdapter.getSingleEntry(userName);
-            String decodedPasswd = cipher.decode(storedPassword, 5);
+            String decodedPasswd = cipher.decode(storedPassword, 2);
 
             // check if the Stored password matches with  Password entered by user
             if (password.equals(decodedPasswd)) {
                 session.setLoggedin(Boolean.TRUE, userName);
                 Toast.makeText(HomeActivity.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-                Intent in = new Intent(getApplicationContext(), HelpScreen.class);
-//Intent in =new Intent(getApplicationContext(), FingerprintActivity.class);
+                //Intent in = new Intent(getApplicationContext(), HelpScreen.class);
+Intent in =new Intent(getApplicationContext(), FingerprintActivity.class);
                 startActivity(in);
                 //dialog.dismiss();
 

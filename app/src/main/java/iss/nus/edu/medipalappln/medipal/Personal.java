@@ -14,17 +14,26 @@ public class Personal {
     private String Height;
     private String Bloodtype;
     public String Phone;
+    private String Weight;
 
-    public Personal(String ID, String name, String dob, String idno, String address, String postcode, String height, String bloodtype,String phone) {
-        this.ID = ID;
-        Name = name;
-        Dob = dob;
-        Idno = idno;
-        Address = address;
-        Postcode = postcode;
-        Height = height;
-        Bloodtype = bloodtype;
-        Phone=phone;
+
+ //   eid, name, dob,idno,address,postalcode,height,weight,bloodtype,phone)
+
+    public Personal(String id, String name, String dob, String idno, String address, String postalcode, String height, String weight, String bloodtype, String phone) {
+        this.ID = id;
+        this.Name = name;
+        this.Dob = dob;
+        this.Idno = idno;
+        this.Address = address;
+        this.Postcode = postalcode;
+        this.Height = height;
+        this.Weight=weight;
+        this.Bloodtype = bloodtype;
+        this.Phone=phone;
+       // eid, name, dob,idno,address,postalcode,height,weight,bloodtype,bloodtype);
+    }
+
+    public Personal(int id, String name, String blood, String weight, String height, String phone, String nric, String pincode, String address) {
     }
 
 
@@ -38,7 +47,7 @@ public class Personal {
                 this.Bloodtype;
     }
     public Personal getPersonal(){
-        Personal formData=new Personal(ID,Name,Dob,Idno,Address,Postcode,Height,Bloodtype,Phone);
+        Personal formData=new Personal(ID,Name,Dob,Idno,Address,Postcode,Height,Weight,Bloodtype,Phone);
         return formData;
 
     }
@@ -58,8 +67,16 @@ public class Personal {
     public void setName(String name) {
         Name = name;
     }
+
+    public String getWeight() {
+        return Weight;
+    }
+
+    public void setWeight(String weight) {
+        weight = weight;
+    }
     public void setPhone(String phone) {
-        Name = phone;
+        Phone = phone;
     }
 
     public String getDob() {
@@ -68,6 +85,8 @@ public class Personal {
 
     public String getPhone() {
         return Phone;
+
+        //returning 0-preferably returing blood
     }
 
     public void setDob(String dob) {

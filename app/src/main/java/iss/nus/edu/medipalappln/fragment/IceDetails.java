@@ -1,5 +1,10 @@
 package iss.nus.edu.medipalappln.fragment;
 
+
+/**
+ * Created by Raghu on 7/3/17.
+ */
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -151,7 +156,7 @@ public class IceDetails extends Fragment implements View.OnClickListener,OnItemS
     }
     @Override
     public void onClick(final View v) {
-        App.user.addEmergency(1,name.getText().toString().trim(),phonenumber.getText().toString().trim(),spinnerItem,relation.getText().toString().trim(),getActivity());
+        App.user.addEmergency(name.getText().toString().trim(),phonenumber.getText().toString().trim(),spinnerItem,relation.getText().toString().trim(),getActivity());
         Toast.makeText(getActivity().getApplicationContext(),"Insert successfull",Toast.LENGTH_LONG).show();
 
 

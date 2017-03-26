@@ -1,5 +1,8 @@
 package iss.nus.edu.medipalappln.activity;
 
+/* Created by Raghu on 7/3/17*/
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import iss.nus.edu.medipalappln.R;
+import iss.nus.edu.medipalappln.fragment.showpersonal;
 import iss.nus.edu.medipalappln.dao.BioDataBaseAdapter;
 import iss.nus.edu.medipalappln.fragment.AddMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.AppointmentFragment;
@@ -26,7 +30,6 @@ import iss.nus.edu.medipalappln.fragment.MainMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ShowEmergency;
-import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ViewBloodPressureFragment;
 import iss.nus.edu.medipalappln.fragment.ViewPulseFragment;
 import iss.nus.edu.medipalappln.fragment.ViewTemperatureFragment;
@@ -45,8 +48,10 @@ public class Welcome extends AppCompatActivity
                     ViewPulseFragment.OnFragmentInteractionListener,
                       ShowEmergency.OnFragmentInteractionListener,
                     ViewTemperatureFragment.OnFragmentInteractionListener,
-Dashboard.OnFragmentInteractionListener,
-                    ViewWeightFragment.OnFragmentInteractionListener {
+                      Dashboard.OnFragmentInteractionListener,
+                    ViewWeightFragment.OnFragmentInteractionListener,
+        showpersonal.OnFragmentInteractionListener
+{
     public Session session;
     private static Context sContext = null;
     BioDataBaseAdapter bioDataBaseAdapter;
@@ -69,7 +74,7 @@ Dashboard.OnFragmentInteractionListener,
             Fragment fragment = null;
             Class fragmentClass = null;
             session=new Session(this);
-            fragmentClass = MainFragment.class;
+            fragmentClass = Dashboard.class;
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
             } catch (Exception e) {
@@ -143,11 +148,19 @@ Dashboard.OnFragmentInteractionListener,
             //fragmentClass = FragmentTwo.class;
         }
         else if (id == R.id.nav_home) {
-            fragmentClass = MainFragment.class;
+            fragmentClass = Dashboard.class;
         }
+        else if (id==R.id.nav_show_ice){
+            fragmentClass = ShowEmergency.class;
+        }
+
         else if (id == R.id.Logout) {
             //fragmentClass = FragmentTwo.class;
             logout();
+        }
+
+        else if(id==R.id.nav_show_Bio){
+            fragmentClass=showpersonal.class;
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
