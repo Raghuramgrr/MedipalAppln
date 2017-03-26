@@ -12,6 +12,7 @@
     <application
         android:name=".medipal.App"
         android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
         android:debuggable="true"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
@@ -51,6 +52,28 @@
         <activity android:name=".activity.UpdateCategoryActivity"/>
         <activity android:name=".activity.AddCategoryActivity"/>
         <activity android:name=".activity.UpdateMedicineActivity"/>
+        <activity
+            android:name=".activity.HealthBioCatalogActivity"
+            android:theme="@style/EditorTheme"
+            android:label="@string/action_health_bio"
+            android:parentActivityName=".activity.Welcome" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.Welcome" />
+        </activity>
+        <activity
+            android:name=".activity.HealthBioEditorActivity"
+            android:theme="@style/EditorTheme"
+            android:parentActivityName=".activity.HealthBioCatalogActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.HealthBioCatalogActivity" />
+        </activity>
+        <provider
+            android:name=".dao.HealthBioProvider"
+            android:authorities="iss.nus.edu.medipalappln"
+            android:exported="false" />
+
 
         
     </application>

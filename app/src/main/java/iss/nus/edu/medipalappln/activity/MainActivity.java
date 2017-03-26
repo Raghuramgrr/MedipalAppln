@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
     tabLayout.addTab(tabLayout.newTab().setText("Medicine"));
     tabLayout.addTab(tabLayout.newTab().setText("Medicine Category"));
-    tabLayout.addTab(tabLayout.newTab().setText("Consumption"));
+    //tabLayout.addTab(tabLayout.newTab().setText("Consumption"));
     tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override
       public void onTabSelected(TabLayout.Tab tab) {
