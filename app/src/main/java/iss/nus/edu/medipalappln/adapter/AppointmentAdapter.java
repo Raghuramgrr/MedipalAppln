@@ -32,7 +32,7 @@ import iss.nus.edu.medipalappln.medipal.Appointment;
 import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
- * Created by cherry on 2017/3/21.
+ * Created by Zhuyi Gu on 2017/3/21.
  */
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.ViewHolder>{

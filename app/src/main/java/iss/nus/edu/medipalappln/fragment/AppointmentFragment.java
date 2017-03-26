@@ -35,7 +35,7 @@ import iss.nus.edu.medipalappln.dao.AppointmentDataBaseAdapter;
 import iss.nus.edu.medipalappln.medipal.Appointment;
 
 /**
- * Created by cherry on 2017/3/21.
+ * Created by Zhuyi Gu on 2017/3/21.
  */
 
 public class AppointmentFragment extends Fragment {
