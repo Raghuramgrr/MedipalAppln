@@ -32,11 +32,11 @@ public class HealthBioProvider extends ContentProvider {
         sUriMatcher.addURI(HealthBioContract.CONTENT_AUTHORITY, HealthBioContract.PATH_HEALTH + "/#", HEALTH_ID);
     }
 
-    private HealthBioDbHelper mDbHelper;
+    private DataBaseHelper mDbHelper;
 
     @Override
     public boolean onCreate() {
-        mDbHelper = new HealthBioDbHelper(getContext());
+        mDbHelper = new DataBaseHelper(getContext());
         return true;
     }
 

@@ -47,13 +47,12 @@ public class DataBaseHelper extends SQLiteOpenHelper
             PERSONALBIO.BloodType + " VARCHAR(10) " +
             ");";
 
-    public static final String CREATE_TABLE_HEALTHBIO = "CREATE TABLE " + TABLE_HEALTHBIO +
-            "(" +
-            HEALTHBIO.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            HEALTHBIO.Condition + " VARCHAR(255), " +
-            HEALTHBIO.StartDate + " DATE, " +
-            HEALTHBIO.ConditionType + " VARCHAR(1) " +
-            ");";
+
+    public static final String SQL_CREATE_HEALTH_TABLE =  "CREATE TABLE " + HealthBioContract.HealthBioEntry.TABLE_NAME + " ("
+            + HealthBioContract.HealthBioEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + HealthBioContract.HealthBioEntry.COLUMN_MEDICAL_CONDITION + " VARCHAR(255), "
+            + HealthBioContract.HealthBioEntry.COLUMN_START_DATE + " DATE, "
+            + HealthBioContract.HealthBioEntry.COLUMN_CONDITION_TYPE + " VARCHAR(1)" + ")";
 
     public static final String CREATE_TABLE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY +
             "(" +
@@ -166,7 +165,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         try {
             _db.execSQL(CREATE_TABLE_PERSONALBIO);
             Log.d(TAG,"2 Build PERSONBIO Database SUCCESSFUL!!!!!!!!");
-            _db.execSQL(CREATE_TABLE_HEALTHBIO);
+            _db.execSQL(SQL_CREATE_HEALTH_TABLE);
             Log.d(TAG,"3 Build HEALTHBIO Database SUCCESSFUL!!!!!!!!");
             _db.execSQL(CREATE_TABLE_CATEGORY);
             Log.d(TAG,"4 Build CATEGORY Database SUCCESSFUL!!!!!!!!");
