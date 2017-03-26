@@ -1,7 +1,7 @@
 package iss.nus.edu.medipalappln.medipal;
 
 /**
- * Created by cherry on 2017/3/22.
+ * Created by Zhuyi Gu on 2017/3/22.
  */
 
 public class Appointment {

@@ -11,7 +11,7 @@ import iss.nus.edu.medipalappln.medipal.Appointment;
 
 
 /**
- * Created by cherry on 2017/3/22.
+ * Created by Zhuyi Gu on 2017/3/22.
  */
 
 public class AppointmentDataBaseAdapter extends DBDAO {

@@ -17,7 +17,7 @@ import iss.nus.edu.medipalappln.activity.Welcome;
 import iss.nus.edu.medipalappln.adapter.AppointmentAdapter;
 
 /**
- * Created by cherry on 2017/3/23.
+ * Created by Zhuyi Gu on 2017/3/23.
  */
 public class RemindService extends Service {
 
