@@ -1,10 +1,8 @@
 package iss.nus.edu.medipalappln.activity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -19,12 +17,12 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-    PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), 3);
+    PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), 2);
     viewPager.setAdapter(pagerAdapter);
     final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
     tabLayout.addTab(tabLayout.newTab().setText("Medicine"));
     tabLayout.addTab(tabLayout.newTab().setText("Medicine Category"));
-    tabLayout.addTab(tabLayout.newTab().setText("Consumption"));
+   // tabLayout.addTab(tabLayout.newTab().setText("Consumption"));
     tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override
       public void onTabSelected(TabLayout.Tab tab) {
@@ -49,16 +47,16 @@ public class MainActivity extends AppCompatActivity {
   public void onBackPressed() {
     //super.onBackPressed();
 
-    new AlertDialog.Builder(this)
-            .setMessage("Are you sure you want to exit?")
-            .setCancelable(false)
-            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-              public void onClick(DialogInterface dialog, int id) {
-                finish();
-              }
-            })
-            .setNegativeButton("No", null)
-            .show();
+//    new AlertDialog.Builder(this)
+//            .setMessage("Are you sure you want to exit?")
+//            .setCancelable(false)
+//            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//              public void onClick(DialogInterface dialog, int id) {
+//                finish();
+//              }
+//            })
+//            .setNegativeButton("No", null)
+//            .show();
   }
 
   @Override

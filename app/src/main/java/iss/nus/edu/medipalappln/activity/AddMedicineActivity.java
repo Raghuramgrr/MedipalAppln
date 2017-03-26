@@ -66,6 +66,7 @@ public class AddMedicineActivity extends AppCompatActivity {
 
     remindLayout = (LinearLayout) findViewById(R.id.switch_layout2);
     remindContentLayout = (LinearLayout) findViewById(R.id.reminder_content_layout3) ;
+
     remindLayout.setVisibility(View.GONE);
     remindContentLayout.setVisibility(View.GONE);
 
@@ -94,7 +95,7 @@ public class AddMedicineActivity extends AppCompatActivity {
               remindSwitch.setText("Reminder ON", null);
             }else
               remindLayout.setVisibility(View.GONE);
-              remindSwitch.setText("Reminder OFF", null);
+            remindSwitch.setText("Reminder OFF", null);
           }
         }
       }
@@ -123,6 +124,7 @@ public class AddMedicineActivity extends AppCompatActivity {
 
 
     txtStTime = (EditText)findViewById(R.id.select_start_time);
+    etDateIssued = (EditText) findViewById(R.id.et_date_issued);
 
     Calendar timeCalendar = Calendar.getInstance();
     timeCalendar.setTime(currentCal.getTime());
@@ -161,10 +163,8 @@ public class AddMedicineActivity extends AppCompatActivity {
 
     txtStTime.setOnClickListener(timeClickListener);
 
+    etDateIssued.setText(dateFormatter.format(selectedDate.getTime()).toString());
 
-    etDateIssued = (EditText) findViewById(R.id.et_date_issued);
-
-    etDateIssued.setText(dateFormatter.format(selectedDate.getTime()));
     etDateIssued.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         DatePickerDialog.OnDateSetListener onDateSetListener =
@@ -177,6 +177,11 @@ public class AddMedicineActivity extends AppCompatActivity {
                     etDateIssued.setText(dateFormatter.format(calendar.getTime()));
                   }
                 };
+        DatePickerDialog datePickerDialog =
+                new DatePickerDialog(AddMedicineActivity.this, onDateSetListener,
+                        selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH),
+                        selectedDate.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
       }
     });
 
