@@ -6,14 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import iss.nus.edu.medipalappln.medipal.Category;
 import iss.nus.edu.medipalappln.medipal.Consumption;
 import iss.nus.edu.medipalappln.medipal.Medicine;
 import iss.nus.edu.medipalappln.R;
@@ -23,25 +28,25 @@ import iss.nus.edu.medipalappln.dao.ConsumptionDAO;
 public class ConsumptionListAdapter extends ArrayAdapter<Consumption> {
   private Context context;
   private List<Consumption> consumptions = new ArrayList<>();
-
-  // for searching
   private ArrayList<Consumption> arraylist;
 
-  public ConsumptionListAdapter(Context context) {
-    super(context, R.layout.med_fac_row_layout);
-    this.context = context;
+    ConsumptionDAO cd ;
 
-    // for searching
+  public ConsumptionListAdapter(Context context) {
+    super(context, R.layout.consumption_row);
+    this.context = context;
     this.arraylist = new ArrayList<Consumption>();
   }
 
   @Override
   public View getView(final int position, View convertView, ViewGroup parent) {
     ConsumptionListAdapter.ViewHolder viewHolder;
+
     if (convertView == null) {
-      LayoutInflater inflater =
-              (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      convertView = inflater.inflate(R.layout.booking_row_layout, parent, false);
+      LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+      convertView = inflater.inflate(R.layout.consumption_row, parent, false);
+
       viewHolder = new ConsumptionListAdapter.ViewHolder();
       viewHolder.tvName = (TextView) convertView.findViewById(R.id.tv_conName);
       viewHolder.tvQuantity = (TextView) convertView.findViewById(R.id.tv_conQuantity);
@@ -57,7 +62,6 @@ public class ConsumptionListAdapter extends ArrayAdapter<Consumption> {
     String medName = med.getMedName();
 
     // change type of in and date of consumption to string
-    int id = consumption.getMedId();
     int quan = consumption.getQuantity();
     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:MM");
     Date date=consumption.getConDate();
@@ -70,27 +74,25 @@ public class ConsumptionListAdapter extends ArrayAdapter<Consumption> {
     return convertView;
   }
 
-  public void refreshBookings() {
+  public void refreshConsumptions() {
     consumptions.clear();
     consumptions.addAll(App.user.getConsumptions(this.context));
     notifyDataSetChanged();
-    // for searching
-    this.arraylist.addAll(consumptions);
+    //this.arraylist.addAll(consumptions);
+  }
+  public void refreshConsumptionsByCategory(Category c){
+    consumptions.clear();
+    consumptions.addAll(App.user.getConsumptionsByCategory(c,this.context));
+    notifyDataSetChanged();
   }
 
-  public void refreshBookingsByCategory(){
+  public void refreshConsumptionByMedicine(Medicine m){
     consumptions.clear();
-    consumptions.addAll(App.user.getConsumptionsByCategory(this.context));
-    notifyDataSetChanged();
-    this.arraylist.addAll(consumptions);
+    consumptions.addAll(App.user.getConsumptionsByMedicine(m,this.context));
+    notifyDataSetChanged();;
   }
 
-  public void refreshBookingsByMedicine(){
-    consumptions.clear();
-    consumptions.addAll(App.user.getConsumptionsByMedicine(this.context));
-    notifyDataSetChanged();
-    this.arraylist.addAll(consumptions);
-  }
+
 
   @Override
   public int getCount() {
@@ -99,7 +101,7 @@ public class ConsumptionListAdapter extends ArrayAdapter<Consumption> {
 
   static class ViewHolder {
     TextView tvName, tvQuantity, tvTime;
-    Button btnRemove;
+
   }
 
   // for searching

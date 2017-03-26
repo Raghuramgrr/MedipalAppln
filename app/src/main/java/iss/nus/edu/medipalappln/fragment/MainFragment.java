@@ -15,13 +15,15 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import iss.nus.edu.medipalappln.R;
+import iss.nus.edu.medipalappln.activity.ConsumptionMainActivity;
 import iss.nus.edu.medipalappln.activity.MainActivity;
+import iss.nus.edu.medipalappln.medipal.Consumption;
 
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
 
-    private ImageButton ibtn_Measurement,ibtn_medicine;
+    private ImageButton ibtn_Measurement,ibtn_medicine,ibtn_consumption;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,6 +64,16 @@ public class MainFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),MainActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        ibtn_consumption = (ImageButton) view.findViewById(R.id.ibtn_consumption);
+        ibtn_consumption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Switch to main consumption fragment");
+                Intent intent = new Intent(getActivity(),ConsumptionMainActivity.class);
+                startActivity(intent);
             }
         });
 

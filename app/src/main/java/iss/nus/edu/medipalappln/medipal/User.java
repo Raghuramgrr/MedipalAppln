@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import iss.nus.edu.medipalappln.asynTask.AddBloodPressureTask;
@@ -35,8 +36,6 @@ import iss.nus.edu.medipalappln.asynTask.ViewBloodPressureTask;
 import iss.nus.edu.medipalappln.asynTask.ViewPulseTask;
 import iss.nus.edu.medipalappln.asynTask.ViewTemperatureTask;
 import iss.nus.edu.medipalappln.asynTask.ViewWeightTask;
-import iss.nus.edu.medipalappln.dao.ConsumptionDAO;
-import iss.nus.edu.medipalappln.dao.DataBaseHelper;
 
 public class User {
 
@@ -47,14 +46,16 @@ public class User {
     private ArrayList<Category> facilities;
     private Category category;
     private Reminder reminder;
-    private Consumption consumption;
-    private HashMap<String, Category> facilities1;
+    //private Consumption consumption;
+    private HashMap<Category, ArrayList<Medicine>> hashCategoryMedicine;
+    private HashMap<Medicine, ArrayList<Consumption>> hashMedicineConsumption;
+    private HashMap<Category, ArrayList<Consumption>> hashCategoryConsumption;
     //private ArrayList<Measurement> measurements;
     private ArrayList<BloodPressure> bloodPressures;
     private ArrayList<Pulse> pulses;
     private ArrayList<Temperature> temperatures;
     private ArrayList<Weight> weights;
-    private ArrayList<Consumption> consumptions;
+   // private ArrayList<Consumption> consumptions;
     //private ArrayList<Appointment> appointment;
     //private ArrayList<ICE> ice;
 
@@ -92,7 +93,6 @@ public class User {
 
     private GetMaxReminderId taskGetMaxReminderId;
 
-
     public User() {
         //personalBio = new personalBio();
         //healthBio = new ArrayList<HealthBio> ();
@@ -102,7 +102,10 @@ public class User {
         pulses = new ArrayList<Pulse>();
         weights = new ArrayList<Weight>();
         temperatures = new ArrayList<Temperature>();
-        consumptions = new ArrayList<Consumption> ();
+        //consumptions = new ArrayList<Consumption> ();
+        hashCategoryMedicine = new HashMap<>();
+        hashMedicineConsumption = new HashMap<>();
+        hashCategoryConsumption = new HashMap<>();
         //appointment = new ArrayList<Appointment> ();
         //ice = new ArrayList<ICE> ();
     }
@@ -117,7 +120,10 @@ public class User {
         pulses = new ArrayList<Pulse>();
         weights = new ArrayList<Weight>();
         temperatures = new ArrayList<Temperature>();
-        consumptions = new ArrayList<Consumption> ();
+       // consumptions = new ArrayList<Consumption> ();
+        hashCategoryMedicine = new HashMap<>();
+        hashMedicineConsumption = new HashMap<>();
+        hashCategoryConsumption = new HashMap<>();
         //appointment = new ArrayList<Appointment> ();
         //ice = new ArrayList<ICE> ();
     }
@@ -137,6 +143,77 @@ public class User {
         }
 
         return null;
+    }
+
+    public HashMap<Category,ArrayList<Medicine>> setHashCategoryMedicine(Context context){
+        HashMap<Category, ArrayList<Medicine>> hashCM = new HashMap<>();
+        ArrayList<Category> tCategories = new ArrayList<>();
+        tCategories.addAll(getFacilities(context));
+        ArrayList<Medicine> tmedicines = new ArrayList<>();
+        tmedicines.addAll(getMedicines(context));
+
+        for (Category c:tCategories){
+            ArrayList<Medicine> medHash = new ArrayList<>();
+            medHash.clear();
+            for(Medicine m:tmedicines){
+                if(c.getCatId() == m.getCatId())
+                    medHash.add(m);
+            }
+            hashCM.put(c,medHash);
+        }
+        return hashCM;
+    }
+
+    public HashMap<Medicine,ArrayList<Consumption>> setHashMedicineConsumption(Context context){
+        ArrayList<Medicine> tmedicines = new ArrayList<>();
+        ArrayList<Consumption> tconsumptions = new ArrayList<>();
+        HashMap<Medicine,ArrayList<Consumption>> hashMC = new HashMap<>();
+        tmedicines.addAll(getMedicines(context));
+        tconsumptions.addAll(getConsumptions(context));
+
+        for(Medicine m:tmedicines){
+            ArrayList<Consumption> conHash = new ArrayList<>();
+            conHash.clear();
+            for(Consumption c:tconsumptions){
+                if(m.getMedId() == c.getMedId())
+                    conHash.add(c);
+            }
+            hashMC.put(m,conHash);
+        }
+        return hashMC;
+    }
+
+    public HashMap<Category,ArrayList<Consumption>> setHashCategoryConsumption(Context context){
+        ArrayList<Consumption> valueCon = new ArrayList<>();
+        ArrayList<Medicine> valueMed = new ArrayList<>();
+        HashMap<Category,ArrayList<Consumption>> hashCC = new HashMap<>();
+        HashMap<Category,ArrayList<Medicine>> hashCM = setHashCategoryMedicine(context);
+        HashMap<Medicine,ArrayList<Consumption>> hashMC = setHashMedicineConsumption(context);
+        Iterator iterCM = hashCM.entrySet().iterator();
+
+        while (iterCM.hasNext()){
+            valueMed.clear();
+            ArrayList<Consumption> consumptionsByCategory = new ArrayList<>();
+            Map.Entry entryCM = (Map.Entry)iterCM.next();
+            Category keyCat = (Category)entryCM.getKey();
+            valueMed = (ArrayList<Medicine>)entryCM.getValue();
+
+                for (Medicine m : valueMed) {
+                    valueCon.clear();
+                    Iterator iterMC = hashMC.entrySet().iterator();
+                    while(iterMC.hasNext()){
+                        Map.Entry entryMC = (Map.Entry)iterMC.next();
+                        Medicine keyMed = (Medicine)entryMC.getKey();
+                        if(keyMed.getMedId() == m.getMedId()){
+                            ArrayList<Consumption> valueC = (ArrayList<Consumption>)entryMC.getValue();
+                            //valueCon.addAll(valueC);
+                            consumptionsByCategory.addAll(valueC);
+                        }
+                    }
+                }
+                hashCC.put(keyCat, (ArrayList<Consumption>) consumptionsByCategory.clone());
+        }
+        return hashCC;
     }
 
     public List<BloodPressure> getBloodPressure (Context context) {
@@ -410,15 +487,7 @@ public class User {
         }
     }
 
-    /*
-    public Category getCategory (String name) {
-
-        return facilities.get (name);
-    }*/
-
-
-
-    public List<Category> getFacilities (Context context) {
+    public ArrayList<Category> getFacilities (Context context) {
         // SQLite - Start
         taskFacilityList = new ListCategory(context);
         taskFacilityList.execute((Void) null);
@@ -435,13 +504,7 @@ public class User {
         return (new ArrayList<Category>(facilities));
     }
 
-    public void addFacility (String name, String description, String code, String reminder) {
-        if (name == null) {
-            return;
-        }
-        Category f = new Category(name, description, code, reminder);
-        facilities1.put (name, f);
-    }
+
 
     // SQLite
     public Category addFacility (String name, String description, String code, String reminder, Context context) {
@@ -456,19 +519,6 @@ public class User {
         return f;
     }
 
-    public void removeFacility (String name) {
-
-        facilities.remove (name);
-    }
-
-    /*
-    public void showFacilities () {
-        Iterator<Category> i = getFacilities().iterator ();
-        while (i.hasNext ()) {
-            i.next().show ();
-        }
-    }
-    */
 
     public Reminder addReminder(String rfreq, String rStTime, String rInterval, Context context){
         Reminder r = new Reminder(rfreq, rStTime, rInterval);
@@ -509,13 +559,11 @@ public class User {
 
     public void removeConsumption (Consumption consumption) {
 
-        consumptions.remove(consumption);
+       // consumptions.remove(consumption);
     }
 
     public ArrayList<Consumption> getConsumptions (Context context) {
-        //return bookings.getBookings (getCategory (facName), startDate, endDate);
-
-        // SQLite - Start
+        ArrayList<Consumption> consumptions = new ArrayList<>();
         taskBookingList = new ListConsumption(context);
         taskBookingList.execute((Void) null);
         try {
@@ -531,29 +579,35 @@ public class User {
         return (new ArrayList<Consumption>(consumptions));
     }
 
-    public ArrayList<Consumption> getConsumptionsByCategory( Context context){
 
-        ConsumptionDAO cDAO = new ConsumptionDAO(context);
-        consumptions.add(cDAO.getConsumption(3));
-        consumptions.add(cDAO.getConsumption(4));
-        return consumptions;
-    }
-
-    public ArrayList<Consumption> getConsumptionsByMedicine( Context context){
-        ConsumptionDAO cDAO = new ConsumptionDAO(context);
-        consumptions.add(cDAO.getConsumption(1));
-        consumptions.add(cDAO.getConsumption(2));
-        return consumptions;
-    }
-    /*
-    public void showBookings (String facName, Date startDate, Date endDate) {
-        ArrayList<Booking> b = getBookings (facName, startDate, endDate);
-        Iterator<Booking> i = b.iterator();
-        while (i.hasNext()) {
-            i.next().show();
+    public ArrayList<Consumption> getConsumptionsByCategory(Category c,Context context){
+        ArrayList<Consumption> consumptions;
+        HashMap<Category,ArrayList<Consumption>> hashCC= setHashCategoryConsumption(context);
+        if (hashCC.get(c)== null) {
+            consumptions = new ArrayList<>();
         }
+        else {consumptions = hashCC.get(c);}
+        return  consumptions;
     }
-    */
+
+
+
+    public ArrayList<Consumption> getConsumptionsByMedicine(Medicine m,Context context){
+        ArrayList<Consumption> consumptions = new ArrayList<>();
+        HashMap<Medicine,ArrayList<Consumption>> hashMC= setHashMedicineConsumption(context);
+        Iterator iterMC = hashMC.entrySet().iterator();
+        while(iterMC.hasNext()) {
+            Map.Entry entryMC = (Map.Entry) iterMC.next();
+            Medicine keyMed = (Medicine) entryMC.getKey();
+            ArrayList<Consumption> valueCon = (ArrayList<Consumption>) entryMC.getValue();
+            if (keyMed.getMedId() == m.getMedId()) {
+                consumptions.addAll(valueCon);
+                break;
+            }
+        }
+        return  consumptions;
+    }
+
 
 
     public void show () {

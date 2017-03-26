@@ -22,14 +22,14 @@ import java.util.List;
 import iss.nus.edu.medipalappln.R;
 import iss.nus.edu.medipalappln.activity.AddConsumptionActivity;
 import iss.nus.edu.medipalappln.adapter.ConsumptionListAdapter;
-import iss.nus.edu.medipalappln.adapter.ConsumptionListCategoryAdapter;
+//import iss.nus.edu.medipalappln.adapter.ConsumptionListCategoryAdapter;
 
 
 // for searching - implements SearchView.OnQueryTextListener
 public class ConsumptionFragment extends Fragment implements SearchView.OnQueryTextListener {
   private TextView tvEmpty;
   private ConsumptionListAdapter consumptionListAdapter;
-  private ConsumptionListCategoryAdapter consumptionListCategoryAdapter;
+  //private ConsumptionListCategoryAdapter consumptionListCategoryAdapter;
   private ListView bookingList;
   Spinner spnMember;
 
@@ -50,7 +50,6 @@ public class ConsumptionFragment extends Fragment implements SearchView.OnQueryT
 
     bookingList = (ListView) fragmentView.findViewById(R.id.lv_booking_list);
     consumptionListAdapter = new ConsumptionListAdapter(getActivity());
-
     spnMember = (Spinner) fragmentView.findViewById(R.id.filter);
     List<String> spnMemList = new ArrayList<>();
     ArrayAdapter spnMemAdapter =
@@ -69,16 +68,16 @@ public class ConsumptionFragment extends Fragment implements SearchView.OnQueryT
             //ListView bookingList = (ListView) fragmentView.findViewById(R.id.lv_booking_list);
 
             bookingList.setAdapter(consumptionListAdapter);
-            consumptionListAdapter.refreshBookings();
+            consumptionListAdapter.refreshConsumptions();
           }
           else if (i == 2){ //i = medicine
 
             bookingList.setAdapter(consumptionListAdapter);
-            consumptionListAdapter.refreshBookings();
+            consumptionListAdapter.refreshConsumptions();
           }
           else{
             bookingList.setAdapter(consumptionListAdapter);
-            consumptionListAdapter.refreshBookings();
+            consumptionListAdapter.refreshConsumptions();
           }
         }
         @Override
@@ -101,7 +100,7 @@ public class ConsumptionFragment extends Fragment implements SearchView.OnQueryT
   @Override
   public void onResume() {
     super.onResume();
-    consumptionListAdapter.refreshBookings();
+    consumptionListAdapter.refreshConsumptions();
     tvEmpty.setVisibility(consumptionListAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
   }
 
