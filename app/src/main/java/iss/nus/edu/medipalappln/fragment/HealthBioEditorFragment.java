@@ -1,42 +1,41 @@
-package iss.nus.edu.medipalappln.activity;
+package iss.nus.edu.medipalappln.fragment;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.LoaderManager;
 import android.content.ContentValues;
-import android.content.CursorLoader;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.Calendar;
+import java.util.Locale;
 
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.dao.HealthBioContract.HealthBioEntry;
+import iss.nus.edu.medipalappln.dao.HealthBioContract;
 
-/**
- * Created by kiruba on 3/21/17.
- */
+public class HealthBioEditorFragment extends Fragment implements LoaderManager.LoaderCallbacks<Object> {
 
-public class HealthBioEditorActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+    private static final String TAG = "HealthBioEditorFragment";
 
     private static final int EXISTING_HEALTH_BIO_LOADER = 0;
     private Uri mCurrentHealthUri;
@@ -48,7 +47,7 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
     Calendar selectedDate = Calendar.getInstance();
 
     private Spinner mConTypeSpinner;
-    private int mConType = HealthBioEntry.SELECT_VALUE;
+    private int mConType = HealthBioContract.HealthBioEntry.SELECT_VALUE;
     private boolean mHealthChanged = false;
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -59,14 +58,24 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_health_bio_editor);
+    private OnFragmentInteractionListener mListener;
 
+    public HealthBioEditorFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.activity_health_bio_editor, container, false);
         //
-        etDate = (EditText) findViewById(R.id.et_select_date);
-        mConTypeSpinner = (Spinner) findViewById(R.id.spinner_condition_type);
+        etDate = (EditText) view.findViewById(R.id.et_select_date);
+        mConTypeSpinner = (Spinner) view.findViewById(R.id.spinner_condition_type);
 
         //
         etDate.setText(dateFormatter.format(selectedDate.getTime()));
@@ -84,39 +93,40 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
                             }
                         };
                 DatePickerDialog datePickerDialog =
-                        new DatePickerDialog(HealthBioEditorActivity.this, onDateSetListener,
+                        new DatePickerDialog(getContext(), onDateSetListener,
                                 currentCal.get(Calendar.YEAR), currentCal.get(Calendar.MONTH),
                                 currentCal.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
 
-        Intent intent = getIntent();
+        Intent intent = getActivity().getIntent();
         mCurrentHealthUri = intent.getData();
 
         if (mCurrentHealthUri == null) {
-            setTitle(getString(R.string.editor_activity_title_add));
-            invalidateOptionsMenu();
+            getActivity().setTitle(getString(R.string.editor_activity_title_add));
+            getActivity().invalidateOptionsMenu();
         } else {
-            setTitle(getString(R.string.editor_activity_title_edit));
+            getActivity().setTitle(getString(R.string.editor_activity_title_edit));
             getLoaderManager().initLoader(EXISTING_HEALTH_BIO_LOADER, null, this);
         }
 
-        mConEditText = (EditText) findViewById(R.id.edit_health_con);
-        etDate = (EditText) findViewById(R.id.et_select_date);
-        mConTypeSpinner = (Spinner) findViewById(R.id.spinner_condition_type);
+        mConEditText = (EditText) view.findViewById(R.id.edit_health_con);
+        etDate = (EditText) view.findViewById(R.id.et_select_date);
+        mConTypeSpinner = (Spinner) view.findViewById(R.id.spinner_condition_type);
 
         mConEditText.setOnTouchListener(mTouchListener);
         etDate.setOnTouchListener(mTouchListener);
         mConTypeSpinner.setOnTouchListener(mTouchListener);
 
         setupSpinner();
-    }
 
+        return view;
+    }
 
     private void setupSpinner() {
 
-        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.array_gender_options, android.R.layout.simple_spinner_item);
 
         genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -127,22 +137,21 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
                     if (selection.equals(getString(R.string.spinner_condition))) {
-                        mConType = HealthBioEntry.CONDITION;
+                        mConType = HealthBioContract.HealthBioEntry.CONDITION;
                     } else if (selection.equals(getString(R.string.spinner_allergy))) {
-                        mConType = HealthBioEntry.ALLERGY;
+                        mConType = HealthBioContract.HealthBioEntry.ALLERGY;
                     } else {
-                        mConType = HealthBioEntry.SELECT_VALUE;
+                        mConType = HealthBioContract.HealthBioEntry.SELECT_VALUE;
                     }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mConType = HealthBioEntry.SELECT_VALUE;
+                mConType = HealthBioContract.HealthBioEntry.SELECT_VALUE;
             }
         });
     }
-
 
     private void saveHealthBio() {
         String medconString = mConEditText.getText().toString().trim();
@@ -150,50 +159,44 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
 
         if (mCurrentHealthUri == null &&
                 TextUtils.isEmpty(medconString) && TextUtils.isEmpty(stdateString) &&
-                mConType == HealthBioEntry.SELECT_VALUE) {
+                mConType == HealthBioContract.HealthBioEntry.SELECT_VALUE) {
             return;
         }
 
         ContentValues values = new ContentValues();
-        values.put(HealthBioEntry.COLUMN_MEDICAL_CONDITION, medconString);
-        values.put(HealthBioEntry.COLUMN_START_DATE, stdateString);
-        values.put(HealthBioEntry.COLUMN_CONDITION_TYPE, mConType);
+        values.put(HealthBioContract.HealthBioEntry.COLUMN_MEDICAL_CONDITION, medconString);
+        values.put(HealthBioContract.HealthBioEntry.COLUMN_START_DATE, stdateString);
+        values.put(HealthBioContract.HealthBioEntry.COLUMN_CONDITION_TYPE, mConType);
 
         if (mCurrentHealthUri == null) {
-            Uri newUri = getContentResolver().insert(HealthBioEntry.CONTENT_URI, values);
+            Uri newUri = getActivity().getContentResolver().insert(HealthBioContract.HealthBioEntry.CONTENT_URI, values);
             if (newUri == null) {
-                Toast.makeText(this, getString(R.string.editor_insert_health_bio_failed),
+                Toast.makeText(getActivity(), getString(R.string.editor_insert_health_bio_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, getString(R.string.editor_insert_health_bio_successful),
+                Toast.makeText(getActivity(), getString(R.string.editor_insert_health_bio_successful),
                         Toast.LENGTH_SHORT).show();
             }
         } else {
-            int rowsAffected = getContentResolver().update(mCurrentHealthUri, values, null, null);
+            int rowsAffected = getActivity().getContentResolver().update(mCurrentHealthUri, values, null, null);
             if (rowsAffected == 0) {
-                Toast.makeText(this, getString(R.string.editor_update_health_bio_failed),
+                Toast.makeText(getActivity(), getString(R.string.editor_update_health_bio_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, getString(R.string.editor_updt_hlth_bio_success),
+                Toast.makeText(getActivity(), getString(R.string.editor_updt_hlth_bio_success),
                         Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_health_bio_editor, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (mCurrentHealthUri == null) {
             MenuItem menuItem = menu.findItem(R.id.action_delete);
             menuItem.setVisible(false);
         }
-        return true;
+        return;
     }
 
     @Override
@@ -201,14 +204,14 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.action_save:
                 saveHealthBio();
-                finish();
+                //finish();
                 return true;
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
                 return true;
             case android.R.id.home:
                 if (!mHealthChanged) {
-                    NavUtils.navigateUpFromSameTask(HealthBioEditorActivity.this);
+                    NavUtils.navigateUpFromSameTask(getActivity());
                     return true;
                 }
 
@@ -216,15 +219,17 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                NavUtils.navigateUpFromSameTask(HealthBioEditorActivity.this);
+                                NavUtils.navigateUpFromSameTask(getActivity());
                             }
                         };
                 showUnsavedChangesDialog(discardButtonClickListener);
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
+    /*
     @Override
     public void onBackPressed() {
         if (!mHealthChanged) {
@@ -241,7 +246,6 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
                 };
         showUnsavedChangesDialog(discardButtonClickListener);
     }
-
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {
@@ -286,18 +290,17 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
                     break;
             }
         }
-    }
 
-    @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mConEditText.setText("");
         etDate.setText("");
         mConTypeSpinner.setSelection(0);
     }
+    */
 
     private void showUnsavedChangesDialog(
             DialogInterface.OnClickListener discardButtonClickListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(R.string.unsaved_changes_dialog_msg);
         builder.setPositiveButton(R.string.discard, discardButtonClickListener);
          builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
@@ -312,7 +315,7 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
     }
 
     private void showDeleteConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMessage(R.string.delete_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -332,16 +335,53 @@ public class HealthBioEditorActivity extends AppCompatActivity implements
 
     private void deleteHealthBio() {
         if (mCurrentHealthUri != null) {
-            int rowsDeleted = getContentResolver().delete(mCurrentHealthUri, null, null);
+            int rowsDeleted = getActivity().getContentResolver().delete(mCurrentHealthUri, null, null);
             if (rowsDeleted == 0) {
-                Toast.makeText(this, getString(R.string.editor_delete_health_bio_failed),
+                Toast.makeText(getActivity(), getString(R.string.editor_delete_health_bio_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, getString(R.string.editor_delete_health_bio_successful),
+                Toast.makeText(getActivity(), getString(R.string.editor_delete_health_bio_successful),
                         Toast.LENGTH_SHORT).show();
             }
         }
-        finish();
+        //finish();
     }
-}
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public Loader<Object> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Object> loader, Object data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Object> loader) {
+
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+}

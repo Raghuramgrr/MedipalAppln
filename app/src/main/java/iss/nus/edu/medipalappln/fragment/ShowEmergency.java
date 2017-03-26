@@ -21,6 +21,7 @@ import iss.nus.edu.medipalappln.medipal.App;
 import iss.nus.edu.medipalappln.medipal.Emergency;
 
 public class ShowEmergency extends Fragment implements View.OnClickListener{
+
     private List<Emergency> emergencies = new ArrayList<>();
     private static final String TAG = "MeasureBloodPressureFragment";
     private String mParam1;
@@ -64,9 +65,37 @@ public class ShowEmergency extends Fragment implements View.OnClickListener{
         textViewEmpty = (TextView) view.findViewById(R.id.text_view_empty);
         emergenyListAdapter = new EmergencyListAdapter(getActivity(), R.layout.measurement_row_layout, R.id.text_view_empty);
         listView.setAdapter(emergenyListAdapter);
-*/
+        */
 
         // listView.setAdapter(emergenyListAdapter);
+        Emergency e1 = App.user.getEmergency("1",getContext());
+        Emergency e2 = App.user.getEmergency("2",getContext());
+        Emergency e3 = App.user.getEmergency("3",getContext());
+        TextView tvName = (TextView) view.findViewById(R.id.text_view_name);
+        tvPhone = (TextView) view.findViewById(R.id.phonenum);
+        TextView tvRelation = (TextView) view.findViewById(R.id.relation);
+        Button call = (Button) view.findViewById(R.id.callButton);
+        call.setOnClickListener(this);
+        TextView tvName2 = (TextView) view.findViewById(R.id.text_view_name2);
+        tvPhone2 = (TextView) view.findViewById(R.id.phonenum2);
+        TextView tvRelation2 = (TextView) view.findViewById(R.id.relation2);
+        Button call2 = (Button) view.findViewById(R.id.callButton2);
+        call.setOnClickListener(this);
+        TextView tvName3 = (TextView) view.findViewById(R.id.text_view_name3);
+        tvPhone3 = (TextView) view.findViewById(R.id.phonenum3);
+        TextView tvRelation3 = (TextView) view.findViewById(R.id.relation3);
+        Button call3 = (Button) view.findViewById(R.id.callButton3);
+        call.setOnClickListener(this);
+        //viewHolder.btnRemove = (Button) convertView.findViewById(R.id.btn_remove);
+        tvName.setText(e1.getName());
+        tvPhone.setText(e1.getPhone());
+        tvRelation.setText(e1.getDesc());
+        tvName2.setText(e2.getName());
+        tvPhone2.setText(e2.getPhone());
+        tvRelation2.setText(e2.getDesc());
+        tvName3.setText(e3.getName());
+        tvPhone3.setText(e3.getPhone());
+        tvRelation3.setText(e3.getDesc());
 
         return view;
     }
@@ -81,35 +110,6 @@ public class ShowEmergency extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Emergency e1 =App.user.getEmergency("1",getContext());
-        Emergency e2 =App.user.getEmergency("2",getContext());
-        Emergency e3 =App.user.getEmergency("3",getContext());
-        TextView tvName = (TextView) getView().findViewById(R.id.text_view_name);
-        tvPhone=(TextView)getView().findViewById(R.id.phonenum);
-        TextView tvRelation=(TextView)getView().findViewById(R.id.relation);
-        Button call=(Button)getView().findViewById(R.id.callButton);
-         call.setOnClickListener(this);
-        TextView tvName2 = (TextView) getView().findViewById(R.id.text_view_name2);
-        tvPhone2=(TextView)getView().findViewById(R.id.phonenum2);
-        TextView tvRelation2=(TextView)getView().findViewById(R.id.relation2);
-        Button call2=(Button)getView().findViewById(R.id.callButton2);
-        call.setOnClickListener(this);
-        TextView tvName3 = (TextView) getView().findViewById(R.id.text_view_name3);
-        tvPhone3=(TextView)getView().findViewById(R.id.phonenum3);
-        TextView tvRelation3=(TextView)getView().findViewById(R.id.relation3);
-        Button call3=(Button)getView().findViewById(R.id.callButton3);
-        call.setOnClickListener(this);
-        //viewHolder.btnRemove = (Button) convertView.findViewById(R.id.btn_remove);
-        tvName.setText(e1.getName());
-        tvPhone.setText(e1.getPhone());
-        tvRelation.setText(e1.getDesc());
-        tvName2.setText(e2.getName());
-        tvPhone2.setText(e2.getPhone());
-        tvRelation2.setText(e2.getDesc());
-        tvName3.setText(e3.getName());
-        tvPhone3.setText(e3.getPhone());
-        tvRelation3.setText(e3.getDesc());
-
 
     }
 

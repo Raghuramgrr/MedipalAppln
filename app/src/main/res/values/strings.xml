@@ -209,4 +209,5 @@
     <string name="action_health_bio">Health Bio</string>
     <string name="text_measured_on_date">Measured On Date</string>
     <string name="text_measured_on_time">Measured On Time</string>
+
 </resources>

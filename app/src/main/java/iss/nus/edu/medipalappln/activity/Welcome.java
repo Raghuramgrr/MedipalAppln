@@ -21,6 +21,8 @@ import iss.nus.edu.medipalappln.fragment.AddMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.AppointmentFragment;
 import iss.nus.edu.medipalappln.fragment.ConsumptionFragment;
 import iss.nus.edu.medipalappln.fragment.Dashboard;
+import iss.nus.edu.medipalappln.fragment.HealthBioCatalogFragment;
+import iss.nus.edu.medipalappln.fragment.HealthBioEditorFragment;
 import iss.nus.edu.medipalappln.fragment.IceDetails;
 import iss.nus.edu.medipalappln.fragment.MainFragment;
 import iss.nus.edu.medipalappln.fragment.MainMeasurementFragment;
@@ -29,7 +31,6 @@ import iss.nus.edu.medipalappln.fragment.MedicineFragment;
 import iss.nus.edu.medipalappln.fragment.PersonalBioForm;
 import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ShowEmergency;
-import iss.nus.edu.medipalappln.fragment.ShowAllMeasurementFragment;
 import iss.nus.edu.medipalappln.fragment.ViewBloodPressureFragment;
 import iss.nus.edu.medipalappln.fragment.ViewPulseFragment;
 import iss.nus.edu.medipalappln.fragment.ViewTemperatureFragment;
@@ -52,7 +53,9 @@ public class Welcome extends AppCompatActivity
                     ViewWeightFragment.OnFragmentInteractionListener,
                     MainMedicineFragment.OnFragmentInteractionListener,
                     MedicineFragment.OnFragmentInteractionListener,
-                    ConsumptionFragment.OnFragmentInteractionListener {
+                    ConsumptionFragment.OnFragmentInteractionListener,
+                    HealthBioCatalogFragment.OnFragmentInteractionListener,
+                    HealthBioEditorFragment.OnFragmentInteractionListener {
     public Session session;
     private static Context sContext = null;
     BioDataBaseAdapter bioDataBaseAdapter;
@@ -75,8 +78,8 @@ public class Welcome extends AppCompatActivity
             Fragment fragment = null;
             Class fragmentClass = null;
             session=new Session(this);
-            //fragmentClass = MainFragment.class;
-            fragmentClass = Dashboard.class;
+            fragmentClass = MainFragment.class;
+            //fragmentClass = Dashboard.class;
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
             } catch (Exception e) {
@@ -121,7 +124,7 @@ public class Welcome extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_health) {
+        if (id == R.id.nav_health_bio) {
             Intent intent = new Intent(this, HealthBioCatalogActivity.class);
             startActivity(intent);
             return true;
@@ -146,12 +149,12 @@ public class Welcome extends AppCompatActivity
         } else if (id == R.id.nav_appointment) {
             fragmentClass = AppointmentFragment.class;
         } else if (id == R.id.nav_health_bio) {
-            //fragmentClass = FragmentTwo.class;
+            fragmentClass = HealthBioCatalogFragment.class;
         } else if (id == R.id.nav_medicine) {
             fragmentClass = MainMedicineFragment.class;
         }
-        else if (id == R.id.nav_home) {
-            fragmentClass = MainFragment.class;
+        else if (id == R.id.nav_show_ice) {
+            fragmentClass = ShowEmergency.class;
         }
         else if (id == R.id.Logout) {
             //fragmentClass = FragmentTwo.class;

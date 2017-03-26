@@ -33,7 +33,7 @@ public class Dashboard extends Fragment implements IceDetails.OnFragmentInteract
     private DashboardAdapter adapter;
     private List<dashboardcontent> dashboardcontentList;
     private static final String TAG = "Dashboard";
- private Context _context;
+    private Context _context;
     private ImageButton ibtn_Measurement;
 
     private OnFragmentInteractionListener mListener;

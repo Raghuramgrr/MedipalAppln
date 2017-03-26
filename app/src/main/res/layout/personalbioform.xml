@@ -150,8 +150,7 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/side_nav_bar
-            android:background="@drawable/btn"
+            android:background="@drawable/side_nav_bar"
             android:elevation="0dp"
             android:text="SUBMIT"
             android:textAlignment="center" />

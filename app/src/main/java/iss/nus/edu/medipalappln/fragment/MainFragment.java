@@ -15,13 +15,15 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import iss.nus.edu.medipalappln.R;
-import iss.nus.edu.medipalappln.activity.MainActivity;
+import iss.nus.edu.medipalappln.activity.HealthBioCatalogActivity;
+import iss.nus.edu.medipalappln.activity.Session;
 
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
 
-    private ImageButton ibtn_Measurement,ibtn_medicine;
+    private ImageButton ibtnMeasurement, ibtnAppointment,
+            ibtnMedicine, ibtnHealthBio, ibtnPersonalBio;
 
     private OnFragmentInteractionListener mListener;
 
@@ -40,9 +42,29 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        ibtn_Measurement = (ImageButton) view.findViewById(R.id.ibtn_measurement);
 
-        ibtn_Measurement.setOnClickListener(new View.OnClickListener() {
+        //check if user has registered
+        Session session = new Session(getContext());
+        Log.i(TAG, "Session: " + session.username().toString());
+        //App.user.getUserIDNo();
+
+        ibtnPersonalBio = (ImageButton) view.findViewById(R.id.ibtn_personal_bio);
+        ibtnPersonalBio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Switch to personal bio fragment");
+                PersonalBioForm fragment = new PersonalBioForm();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.flContent, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        ibtnMeasurement = (ImageButton) view.findViewById(R.id.ibtn_measurement);
+        ibtnMeasurement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Switch to main measurement fragment");
@@ -56,17 +78,47 @@ public class MainFragment extends Fragment {
             }
         });
 
-        ibtn_medicine = (ImageButton) view.findViewById(R.id.ibtn_medicine);
-        ibtn_medicine.setOnClickListener(new View.OnClickListener() {
+        ibtnMedicine = (ImageButton) view.findViewById(R.id.ibtn_medicine);
+        ibtnMedicine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Switch to main medicine fragment");
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                startActivity(intent);
+                MainMedicineFragment fragment = new MainMedicineFragment();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.flContent, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
             }
         });
 
+        ibtnAppointment = (ImageButton) view.findViewById(R.id.ibtn_appt);
+        ibtnAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Switch to main appointment fragment");
+                AppointmentFragment fragment = new AppointmentFragment();
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.flContent, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
+
+        ibtnHealthBio = (ImageButton) view.findViewById(R.id.ibtn_health_bio);
+        ibtnHealthBio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "Switch to main health bio fragment");
+                Intent intent = new Intent(getActivity(), HealthBioCatalogActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

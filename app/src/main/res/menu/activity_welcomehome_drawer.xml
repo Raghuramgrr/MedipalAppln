@@ -13,6 +13,12 @@
             android:id="@+id/PersonalBio"
             android:icon="@drawable/ic_menu_manage"
             android:title="Personal Bio" />
+
+        <item
+            android:id="@+id/nav_health_bio"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Health Bio" />
+
         <item
             android:id="@+id/nav_ice"
             android:icon="@drawable/ic_call"

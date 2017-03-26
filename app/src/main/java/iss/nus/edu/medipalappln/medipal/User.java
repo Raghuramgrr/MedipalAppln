@@ -110,7 +110,11 @@ public class User {
     private GetMaxReminderId taskGetMaxReminderId;
 
     public User() {
-        personalBio = new ArrayList<Personal>();
+        //personalBio = new ArrayList<Personal>();
+        if (personalBio == null) {
+            //Session session=new Session(this);
+           // personalBio = new Personal();
+        }
         //healthBio = new ArrayList<HealthBio> ();
         //medicine = new ArrayList<Medicine> ();
         //measurements = new ArrayList<Measurement> ();

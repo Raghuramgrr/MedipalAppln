@@ -4,6 +4,16 @@
 
     android:layout_height="match_parent"
     android:background="@color/bg_main">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    tools:context="iss.nus.edu.medipalappln.fragment.ShowEmergency">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <TableRow
             android:id="@+id/tableRow1"
@@ -80,13 +90,13 @@
                 android:id="@+id/text_view_name3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Name"></TextView>
+                android:text="Name" />
 
             <TextView
                 android:id="@+id/relation3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Relation"></TextView>
+                android:text="Relation" />
 
             <TextView
                 android:id="@+id/phonenum3"
